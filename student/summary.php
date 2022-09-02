@@ -129,9 +129,11 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                             <th style="width:10px">No.</th>
                                             <th>Nama Pembayaran</th>
                                             <th>Belum Bayar</th>
-                                            <?php $sql = mysqli_query($conn, "SELECT * FROM months ORDER by month_id");
-
+                                            <?php
+                                            $sql = mysqli_query($conn, "SELECT * FROM months ORDER by month_id");
+                                            $nama_bulan = '';
                                             while ($rowt = mysqli_fetch_assoc($sql)) {
+                                                $nama_bulan = $rowt['month_name'];
                                                 if ($rowt['status'] == 'inactive') {
                                                     echo '<th>' . $rowt['month_name'] . '</th>';
                                                 } else {
@@ -172,7 +174,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                     } else {
                                                         $title_bayar = $qr['nama'] . "-T.A" . $qr['tahunajar'];
                                                         $total       = $qs['bulanan_bill'] + $biaya_admin;
-                                                        echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
+                                                        echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '" data-bulan="' . $nama_bulan . '"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
                                                     }
                                                 }
                                                 ?>
@@ -405,16 +407,17 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
             let bill = $(this).data('bill')
             let admin = $(this).data('admin')
             let total = $(this).data('total')
+            let bulan = $(this).data('bulan')
             let email = $('#email').val('')
-            showModalBayar(no, title, bill, admin, total)
+            showModalBayar(no, title, bill, admin, total, bulan)
         })
     })
 
-    function showModalBayar(no, title, bill, admin, total, email) {
+    function showModalBayar(no, title, bill, admin, total, bulan) {
         noTagihan = no
         namaTagihan = title
-        $('#modal_bayar_title').text(title)
-        $('#nama_tagihan').val(title)
+        $('#modal_bayar_title').text("Pembayaran")
+        $('#nama_tagihan').val(`${title} ${bulan}`)
         $('#tagihan').val(bill)
         $('#biaya_admin').val(admin)
         $('#jumlah_tagihan').val(total)

@@ -5,6 +5,7 @@ session_start();
 
 use Midtrans\Config;
 use Midtrans\Snap;
+use Ramsey\Uuid\Uuid;
 
 Config::$serverKey    = "SB-Mid-server-pIjcTHoz8CGfbFJuZK7d6iZi";
 Config::$isProduction = false;
@@ -23,13 +24,13 @@ $arr_student = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 $nama_siswa  = $arr_student['nama'];
 $waortu      = $arr_student['waortu'];
 
-$sql     = "INSERT INTO pembayaran_midtrans (bulanan_no, token, transaction_time, transaction_status, transaction_id, payment_type) VALUES ('$no', '$token', null, 'pending', null, null)";
+$uuid = Uuid::uuid4();
+$sql     = "INSERT INTO pembayaran_midtrans (id, bulanan_no, token, transaction_time, transaction_status, transaction_id, payment_type) VALUES ('" . $uuid->toString() . "', '$no', '$token', null, 'pending', null, null)";
 $exec    = mysqli_query($conn, $sql);
-$last_id = mysqli_insert_id($conn);
 
 $params = [
     'transaction_details' => [
-        'order_id'     => $last_id,
+        'order_id'     => $uuid,
         'gross_amount' => $jumlah_tagihan,
     ],
     'item_details' => [
