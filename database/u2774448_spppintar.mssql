@@ -1,0 +1,1569 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Nov 29, 2021 at 11:43 AM
+-- Server version: 10.3.30-MariaDB-cll-lve
+-- PHP Version: 7.3.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `u2774448_spppintar`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backset`
+--
+
+CREATE TABLE `backset` (
+  `url` varchar(100) NOT NULL,
+  `sessiontime` varchar(4) DEFAULT NULL,
+  `footer` varchar(50) DEFAULT NULL,
+  `themesback` varchar(2) DEFAULT NULL,
+  `responsive` varchar(2) DEFAULT NULL,
+  `app` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `backset`
+--
+
+INSERT INTO `backset` (`url`, `sessiontime`, `footer`, `themesback`, `responsive`, `app`) VALUES
+('https://spppintar.trijayasolution.co.id/', '1001', 'SPP PINTAR', '1', '0', 'SPP Pintar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bebasan`
+--
+
+CREATE TABLE `bebasan` (
+  `no` int(10) NOT NULL,
+  `period_id` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `jenis_id` int(10) NOT NULL,
+  `bill` int(10) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `sudahbayar` int(10) NOT NULL,
+  `kasir` varchar(100) NOT NULL,
+  `tgl_input` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bebasan`
+--
+
+INSERT INTO `bebasan` (`no`, `period_id`, `student_id`, `jenis_id`, `bill`, `status`, `sudahbayar`, `kasir`, `tgl_input`) VALUES
+(1, 1, 2, 1, 200000, 'belum', 30000, 'admin', '2021-04-16'),
+(2, 1, 7, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(3, 1, 12, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(4, 1, 17, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(5, 1, 22, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(6, 1, 27, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(8, 1, 37, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(9, 1, 42, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(10, 1, 47, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(11, 1, 52, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(12, 1, 57, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(13, 1, 62, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(14, 1, 67, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(15, 1, 72, 1, 200000, 'belum', 0, 'admin', '2021-04-16'),
+(16, 1, 77, 1, 200000, 'belum', 0, 'admin', '2021-04-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bebasan_pay`
+--
+
+CREATE TABLE `bebasan_pay` (
+  `no` int(10) NOT NULL,
+  `bebasan_id` int(10) NOT NULL,
+  `period_id` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kasir` varchar(100) NOT NULL,
+  `jumlah` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bebasan_pay`
+--
+
+INSERT INTO `bebasan_pay` (`no`, `bebasan_id`, `period_id`, `student_id`, `tanggal`, `kasir`, `jumlah`) VALUES
+(1, 1, 1, 2, '2021-04-16', 'admin', 10000),
+(2, 1, 1, 2, '2021-04-16', 'admin', 20000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bulanan`
+--
+
+CREATE TABLE `bulanan` (
+  `no` int(10) NOT NULL,
+  `period_id` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `jenis_id` int(10) NOT NULL,
+  `month_id` int(10) NOT NULL,
+  `bulanan_bill` int(10) NOT NULL,
+  `bulanan_status` varchar(10) NOT NULL,
+  `bulanan_bayar` int(10) NOT NULL,
+  `kasir` varchar(100) NOT NULL,
+  `tgl_input` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bulanan`
+--
+
+INSERT INTO `bulanan` (`no`, `period_id`, `student_id`, `jenis_id`, `month_id`, `bulanan_bill`, `bulanan_status`, `bulanan_bayar`, `kasir`, `tgl_input`) VALUES
+(1, 1, 2, 3, 1, 100000, 'sudah', 100000, 'admin', '2021-04-16'),
+(2, 1, 2, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(3, 1, 2, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(4, 1, 2, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(5, 1, 2, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(6, 1, 2, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(7, 1, 2, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(8, 1, 2, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(9, 1, 2, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(10, 1, 2, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(11, 1, 2, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(12, 1, 2, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(13, 1, 7, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(14, 1, 7, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(15, 1, 7, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(16, 1, 7, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(17, 1, 7, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(18, 1, 7, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(19, 1, 7, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(20, 1, 7, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(21, 1, 7, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(22, 1, 7, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(23, 1, 7, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(24, 1, 7, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(25, 1, 12, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(26, 1, 12, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(27, 1, 12, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(28, 1, 12, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(29, 1, 12, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(30, 1, 12, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(31, 1, 12, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(32, 1, 12, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(33, 1, 12, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(34, 1, 12, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(35, 1, 12, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(36, 1, 12, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(37, 1, 17, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(38, 1, 17, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(39, 1, 17, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(40, 1, 17, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(41, 1, 17, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(42, 1, 17, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(43, 1, 17, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(44, 1, 17, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(45, 1, 17, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(46, 1, 17, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(47, 1, 17, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(48, 1, 17, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(49, 1, 22, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(50, 1, 22, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(51, 1, 22, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(52, 1, 22, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(53, 1, 22, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(54, 1, 22, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(55, 1, 22, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(56, 1, 22, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(57, 1, 22, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(58, 1, 22, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(59, 1, 22, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(60, 1, 22, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(61, 1, 27, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(62, 1, 27, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(63, 1, 27, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(64, 1, 27, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(65, 1, 27, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(66, 1, 27, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(67, 1, 27, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(68, 1, 27, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(69, 1, 27, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(70, 1, 27, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(71, 1, 27, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(72, 1, 27, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(85, 1, 37, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(86, 1, 37, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(87, 1, 37, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(88, 1, 37, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(89, 1, 37, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(90, 1, 37, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(91, 1, 37, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(92, 1, 37, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(93, 1, 37, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(94, 1, 37, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(95, 1, 37, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(96, 1, 37, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(97, 1, 42, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(98, 1, 42, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(99, 1, 42, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(100, 1, 42, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(101, 1, 42, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(102, 1, 42, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(103, 1, 42, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(104, 1, 42, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(105, 1, 42, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(106, 1, 42, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(107, 1, 42, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(108, 1, 42, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(109, 1, 47, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(110, 1, 47, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(111, 1, 47, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(112, 1, 47, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(113, 1, 47, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(114, 1, 47, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(115, 1, 47, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(116, 1, 47, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(117, 1, 47, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(118, 1, 47, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(119, 1, 47, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(120, 1, 47, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(121, 1, 52, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(122, 1, 52, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(123, 1, 52, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(124, 1, 52, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(125, 1, 52, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(126, 1, 52, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(127, 1, 52, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(128, 1, 52, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(129, 1, 52, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(130, 1, 52, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(131, 1, 52, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(132, 1, 52, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(133, 1, 57, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(134, 1, 57, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(135, 1, 57, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(136, 1, 57, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(137, 1, 57, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(138, 1, 57, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(139, 1, 57, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(140, 1, 57, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(141, 1, 57, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(142, 1, 57, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(143, 1, 57, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(144, 1, 57, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(145, 1, 62, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(146, 1, 62, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(147, 1, 62, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(148, 1, 62, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(149, 1, 62, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(150, 1, 62, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(151, 1, 62, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(152, 1, 62, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(153, 1, 62, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(154, 1, 62, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(155, 1, 62, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(156, 1, 62, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(157, 1, 67, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(158, 1, 67, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(159, 1, 67, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(160, 1, 67, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(161, 1, 67, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(162, 1, 67, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(163, 1, 67, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(164, 1, 67, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(165, 1, 67, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(166, 1, 67, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(167, 1, 67, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(168, 1, 67, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(169, 1, 72, 3, 1, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(170, 1, 72, 3, 2, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(171, 1, 72, 3, 3, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(172, 1, 72, 3, 4, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(173, 1, 72, 3, 5, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(174, 1, 72, 3, 6, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(175, 1, 72, 3, 7, 50000, 'belum', 0, 'admin', '2021-04-16'),
+(176, 1, 72, 3, 8, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(177, 1, 72, 3, 9, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(178, 1, 72, 3, 10, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(179, 1, 72, 3, 11, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(180, 1, 72, 3, 12, 100000, 'belum', 0, 'admin', '2021-04-16'),
+(181, 1, 77, 3, 1, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(182, 1, 77, 3, 2, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(183, 1, 77, 3, 3, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(184, 1, 77, 3, 4, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(185, 1, 77, 3, 5, 50000, 'belum', 0, 'admin', '2021-11-26'),
+(186, 1, 77, 3, 6, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(187, 1, 77, 3, 7, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(188, 1, 77, 3, 8, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(189, 1, 77, 3, 9, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(190, 1, 77, 3, 10, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(191, 1, 77, 3, 11, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(192, 1, 77, 3, 12, 100000, 'belum', 0, 'admin', '2021-11-26'),
+(193, 1, 2, 2, 1, 20000, 'sudah', 20000, 'admin', '2021-04-16'),
+(194, 1, 2, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(195, 1, 2, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(196, 1, 2, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(197, 1, 2, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(198, 1, 2, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(199, 1, 2, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(200, 1, 2, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(201, 1, 2, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(202, 1, 2, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(203, 1, 2, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(204, 1, 2, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(205, 1, 7, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(206, 1, 7, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(207, 1, 7, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(208, 1, 7, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(209, 1, 7, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(210, 1, 7, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(211, 1, 7, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(212, 1, 7, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(213, 1, 7, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(214, 1, 7, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(215, 1, 7, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(216, 1, 7, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(217, 1, 12, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(218, 1, 12, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(219, 1, 12, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(220, 1, 12, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(221, 1, 12, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(222, 1, 12, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(223, 1, 12, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(224, 1, 12, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(225, 1, 12, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(226, 1, 12, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(227, 1, 12, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(228, 1, 12, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(229, 1, 17, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(230, 1, 17, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(231, 1, 17, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(232, 1, 17, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(233, 1, 17, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(234, 1, 17, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(235, 1, 17, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(236, 1, 17, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(237, 1, 17, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(238, 1, 17, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(239, 1, 17, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(240, 1, 17, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(241, 1, 22, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(242, 1, 22, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(243, 1, 22, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(244, 1, 22, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(245, 1, 22, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(246, 1, 22, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(247, 1, 22, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(248, 1, 22, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(249, 1, 22, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(250, 1, 22, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(251, 1, 22, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(252, 1, 22, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(253, 1, 27, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(254, 1, 27, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(255, 1, 27, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(256, 1, 27, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(257, 1, 27, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(258, 1, 27, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(259, 1, 27, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(260, 1, 27, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(261, 1, 27, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(262, 1, 27, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(263, 1, 27, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(264, 1, 27, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(277, 1, 37, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(278, 1, 37, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(279, 1, 37, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(280, 1, 37, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(281, 1, 37, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(282, 1, 37, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(283, 1, 37, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(284, 1, 37, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(285, 1, 37, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(286, 1, 37, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(287, 1, 37, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(288, 1, 37, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(289, 1, 42, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(290, 1, 42, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(291, 1, 42, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(292, 1, 42, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(293, 1, 42, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(294, 1, 42, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(295, 1, 42, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(296, 1, 42, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(297, 1, 42, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(298, 1, 42, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(299, 1, 42, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(300, 1, 42, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(301, 1, 47, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(302, 1, 47, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(303, 1, 47, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(304, 1, 47, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(305, 1, 47, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(306, 1, 47, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(307, 1, 47, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(308, 1, 47, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(309, 1, 47, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(310, 1, 47, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(311, 1, 47, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(312, 1, 47, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(313, 1, 52, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(314, 1, 52, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(315, 1, 52, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(316, 1, 52, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(317, 1, 52, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(318, 1, 52, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(319, 1, 52, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(320, 1, 52, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(321, 1, 52, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(322, 1, 52, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(323, 1, 52, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(324, 1, 52, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(325, 1, 57, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(326, 1, 57, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(327, 1, 57, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(328, 1, 57, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(329, 1, 57, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(330, 1, 57, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(331, 1, 57, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(332, 1, 57, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(333, 1, 57, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(334, 1, 57, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(335, 1, 57, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(336, 1, 57, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(337, 1, 62, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(338, 1, 62, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(339, 1, 62, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(340, 1, 62, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(341, 1, 62, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(342, 1, 62, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(343, 1, 62, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(344, 1, 62, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(345, 1, 62, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(346, 1, 62, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(347, 1, 62, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(348, 1, 62, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(349, 1, 67, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(350, 1, 67, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(351, 1, 67, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(352, 1, 67, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(353, 1, 67, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(354, 1, 67, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(355, 1, 67, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(356, 1, 67, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(357, 1, 67, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(358, 1, 67, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(359, 1, 67, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(360, 1, 67, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(361, 1, 72, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(362, 1, 72, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(363, 1, 72, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(364, 1, 72, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(365, 1, 72, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(366, 1, 72, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(367, 1, 72, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(368, 1, 72, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(369, 1, 72, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(370, 1, 72, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(371, 1, 72, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(372, 1, 72, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(373, 1, 77, 2, 1, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(374, 1, 77, 2, 2, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(375, 1, 77, 2, 3, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(376, 1, 77, 2, 4, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(377, 1, 77, 2, 5, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(378, 1, 77, 2, 6, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(379, 1, 77, 2, 7, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(380, 1, 77, 2, 8, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(381, 1, 77, 2, 9, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(382, 1, 77, 2, 10, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(383, 1, 77, 2, 11, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(384, 1, 77, 2, 12, 20000, 'belum', 0, 'admin', '2021-04-16'),
+(385, 1, 331, 3, 1, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(386, 1, 331, 3, 2, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(387, 1, 331, 3, 3, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(388, 1, 331, 3, 4, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(389, 1, 331, 3, 5, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(390, 1, 331, 3, 6, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(391, 1, 331, 3, 7, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(392, 1, 331, 3, 8, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(393, 1, 331, 3, 9, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(394, 1, 331, 3, 10, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(395, 1, 331, 3, 11, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(396, 1, 331, 3, 12, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(397, 1, 103, 3, 1, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(398, 1, 103, 3, 2, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(399, 1, 103, 3, 3, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(400, 1, 103, 3, 4, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(401, 1, 103, 3, 5, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(402, 1, 103, 3, 6, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(403, 1, 103, 3, 7, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(404, 1, 103, 3, 8, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(405, 1, 103, 3, 9, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(406, 1, 103, 3, 10, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(407, 1, 103, 3, 11, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(408, 1, 103, 3, 12, 130000, 'belum', 0, 'admin', '2021-11-27'),
+(409, 1, 351, 3, 1, 100000, 'sudah', 100000, 'Admin Tata Usaha', '2021-11-27'),
+(410, 1, 351, 3, 2, 100000, 'sudah', 150000, 'Admin Tata Usaha', '2021-11-28'),
+(411, 1, 351, 3, 3, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(412, 1, 351, 3, 4, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(413, 1, 351, 3, 5, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(414, 1, 351, 3, 6, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(415, 1, 351, 3, 7, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(416, 1, 351, 3, 8, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(417, 1, 351, 3, 9, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(418, 1, 351, 3, 10, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(419, 1, 351, 3, 11, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(420, 1, 351, 3, 12, 100000, 'belum', 0, 'admin', '2021-11-27'),
+(421, 2, 351, 2, 1, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(422, 2, 351, 2, 2, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(423, 2, 351, 2, 3, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(424, 2, 351, 2, 4, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(425, 2, 351, 2, 5, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(426, 2, 351, 2, 6, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(427, 2, 351, 2, 7, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(428, 2, 351, 2, 8, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(429, 2, 351, 2, 9, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(430, 2, 351, 2, 10, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(431, 2, 351, 2, 11, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28'),
+(432, 2, 351, 2, 12, 75000, 'belum', 0, 'Admin Tata Usaha', '2021-11-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chmenu`
+--
+
+CREATE TABLE `chmenu` (
+  `userjabatan` varchar(20) NOT NULL,
+  `menu1` varchar(1) DEFAULT NULL,
+  `menu2` varchar(1) DEFAULT NULL,
+  `menu3` varchar(1) DEFAULT '0',
+  `menu4` varchar(1) DEFAULT '0',
+  `menu5` varchar(1) DEFAULT '0',
+  `menu6` varchar(1) DEFAULT '0',
+  `menu7` varchar(1) DEFAULT '0',
+  `menu8` varchar(1) DEFAULT '0',
+  `menu9` varchar(1) DEFAULT '0',
+  `menu10` varchar(1) DEFAULT '0',
+  `menu11` varchar(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chmenu`
+--
+
+INSERT INTO `chmenu` (`userjabatan`, `menu1`, `menu2`, `menu3`, `menu4`, `menu5`, `menu6`, `menu7`, `menu8`, `menu9`, `menu10`, `menu11`) VALUES
+('admin', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
+('Karyawan', '4', '5', '4', '3', '3', '2', '3', '5', '1', '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class`
+--
+
+CREATE TABLE `class` (
+  `no` int(10) NOT NULL,
+  `kelas` varchar(20) NOT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`no`, `kelas`, `status`) VALUES
+(1, 'II', 'active'),
+(2, 'I', 'active'),
+(3, 'III', 'active'),
+(4, 'IV', 'active'),
+(5, 'V', 'active'),
+(6, 'VI', 'active'),
+(7, 'VII', 'active'),
+(8, 'VIII', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data`
+--
+
+CREATE TABLE `data` (
+  `nama` varchar(100) DEFAULT NULL,
+  `tagline` varchar(100) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `notelp` varchar(20) DEFAULT NULL,
+  `signature` varchar(255) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `web` varchar(100) NOT NULL,
+  `npwp` varchar(100) NOT NULL,
+  `avatar` varchar(150) NOT NULL,
+  `no` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data`
+--
+
+INSERT INTO `data` (`nama`, `tagline`, `alamat`, `notelp`, `signature`, `email`, `web`, `npwp`, `avatar`, `no`) VALUES
+('Yayasan Pesantren Darel Khaer', 'Profesional Terpercaya', 'Tigaraksa Tangerang, Banten 15720', '082216218301', 'Pesantren Darel Khaer', 'cs@trijayasolution.co.id', 'www.trijayasolution.co.id', '19171171718171', 'upload/image/placeholder200x60.png', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `color` varchar(7) DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `color`, `start`, `end`) VALUES
+(1, 'Ujian', '#5553CE', '2021-04-17 00:00:00', '2021-04-18 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_colors`
+--
+
+CREATE TABLE `event_colors` (
+  `no` int(10) NOT NULL,
+  `warna` varchar(10) NOT NULL,
+  `kodewarna` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event_colors`
+--
+
+INSERT INTO `event_colors` (`no`, `warna`, `kodewarna`) VALUES
+(1, 'Upacara', '#64C5B1'),
+(2, 'Pengumuman', '#34D3EB'),
+(3, 'Kelulusan', '#32C861'),
+(4, 'Pembayaran', '#FFA91C'),
+(5, 'Ujian', '#5553CE'),
+(6, 'Penting', '#F96A74'),
+(7, 'Festival', '#F06292'),
+(10, 'Liburan', '#313A46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `graduation`
+--
+
+CREATE TABLE `graduation` (
+  `grad_id` int(10) NOT NULL,
+  `tanggal` date NOT NULL,
+  `user` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `info`
+--
+
+CREATE TABLE `info` (
+  `nama` varchar(100) DEFAULT NULL,
+  `userid` int(10) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `isi` text DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `info`
+--
+
+INSERT INTO `info` (`nama`, `userid`, `avatar`, `tanggal`, `isi`, `id`) VALUES
+('admin', 24, 'upload/image/placeholder.png', '2021-11-26', '<h1>Pengumuman baru:</h1><p>Selamat Datang di Aplikasi SPP Pintar, Aplikasi ini digunakan untuk keperluan administrasi sekolah&nbsp;</p><p>Info Lebih lanjut :</p><p></p><b>   \r\n\r\nTrijaya Solution </b><br>\r\nMain Office : Griya serpong asri suradita GU4no <br>\r\nPhone: +62 822 1621 8301 <br>\r\nEmail: <a href=\"mailto:cs@trijayasolution.co.id\" target=\"_blank\">cs@trijayasolution.co.id</a> <br>       \r\nWebsite : <a href=\"http://www.trijayasolution.co.id\" target=\"_blank\">www.trijayasolution.co.id</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                           ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jabatan`
+--
+
+CREATE TABLE `jabatan` (
+  `kode` varchar(20) NOT NULL,
+  `nama` varchar(20) DEFAULT NULL,
+  `no` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jabatan`
+--
+
+INSERT INTO `jabatan` (`kode`, `nama`, `no`) VALUES
+('0001', 'admin', 30),
+('0003', 'Karyawan', 31);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_bayar`
+--
+
+CREATE TABLE `jenis_bayar` (
+  `jenis_id` int(10) NOT NULL,
+  `period_id` int(10) NOT NULL,
+  `pos_bayar_id` int(10) NOT NULL,
+  `jenis_pembayaran` varchar(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `tahunajar` varchar(10) NOT NULL,
+  `update_time` date NOT NULL,
+  `create_time` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jenis_bayar`
+--
+
+INSERT INTO `jenis_bayar` (`jenis_id`, `period_id`, `pos_bayar_id`, `jenis_pembayaran`, `nama`, `tahunajar`, `update_time`, `create_time`) VALUES
+(1, 2, 3, 'bebas', 'Study Tour', '2021/2022', '2021-11-27', '2021-04-16'),
+(2, 2, 2, 'bulanan', 'Komputer', '2021/2022', '2021-11-27', '2021-04-16'),
+(3, 2, 1, 'bulanan', 'SPP ', '2021/2022', '2021-11-27', '2021-04-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `months`
+--
+
+CREATE TABLE `months` (
+  `month_id` int(11) NOT NULL,
+  `month_name` varchar(45) DEFAULT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `months`
+--
+
+INSERT INTO `months` (`month_id`, `month_name`, `status`) VALUES
+(1, 'Juli', 'active'),
+(2, 'Agustus', 'inactive'),
+(3, 'September', 'inactive'),
+(4, 'Oktober', 'inactive'),
+(5, 'November', 'inactive'),
+(6, 'Desember', 'inactive'),
+(7, 'Januari', 'inactive'),
+(8, 'Februari', 'inactive'),
+(9, 'Maret', 'inactive'),
+(10, 'April', 'inactive'),
+(11, 'Mei', 'inactive'),
+(12, 'Juni', 'inactive');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `periode`
+--
+
+CREATE TABLE `periode` (
+  `no` int(10) NOT NULL,
+  `period_start` year(4) NOT NULL,
+  `period_end` year(4) NOT NULL,
+  `period_name` varchar(10) NOT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `periode`
+--
+
+INSERT INTO `periode` (`no`, `period_start`, `period_end`, `period_name`, `status`) VALUES
+(1, 2020, 2021, '2020/2021', 'inactive'),
+(2, 2021, 2022, '2021/2022', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pin`
+--
+
+CREATE TABLE `pin` (
+  `pin` varchar(255) NOT NULL,
+  `ubah` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pin`
+--
+
+INSERT INTO `pin` (`pin`, `ubah`) VALUES
+('10470c3b4b1fed12c3baac014be15fac67c6e815', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pos_bayar`
+--
+
+CREATE TABLE `pos_bayar` (
+  `id` int(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `keterangan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pos_bayar`
+--
+
+INSERT INTO `pos_bayar` (`id`, `nama`, `keterangan`) VALUES
+(1, 'SPP ', ''),
+(2, 'Komputer', ''),
+(3, 'Study Tour', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rekening`
+--
+
+CREATE TABLE `rekening` (
+  `no` int(10) NOT NULL,
+  `bank` varchar(30) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `norek` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rekening`
+--
+
+INSERT INTO `rekening` (`no`, `bank`, `nama`, `norek`) VALUES
+(4, 'BCA', 'ANDI M', '120919101');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `nis` varchar(45) DEFAULT NULL,
+  `nisn` varchar(45) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `birth_place` varchar(45) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `nohp` varchar(45) DEFAULT NULL,
+  `hobi` varchar(100) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `ibu` varchar(100) DEFAULT NULL,
+  `ayahwali` varchar(100) DEFAULT NULL,
+  `waortu` varchar(45) DEFAULT NULL,
+  `kelas_id` varchar(11) DEFAULT NULL,
+  `jurusan` int(11) DEFAULT NULL,
+  `catatan` text NOT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `input_date` date DEFAULT NULL,
+  `last_update` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_id`, `nis`, `nisn`, `password`, `nama`, `gender`, `birth_place`, `birth_date`, `avatar`, `nohp`, `hobi`, `alamat`, `ibu`, `ayahwali`, `waortu`, `kelas_id`, `jurusan`, `catatan`, `status`, `input_date`, `last_update`) VALUES
+(81, '2014.2015.1.001', '0088838155', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AZIZAH NURUL MADINA', 'P', 'Serang ', '2021-06-06', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Sholeha', 'Mudrik', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(82, '2014.2015.1.002', '0065977701', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MELASARI', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Empin ', 'Nurji', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(83, '2014.2015.1.003', '0072194712', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RANGGA', 'L', 'Tangerang ', '2021-06-04', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ida', 'Tolib ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(84, '2014.2015.1.004', '0084764378', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI MALIHA', 'P', 'Tangerang ', '2021-07-09', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ika', 'Mursi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(85, '2014.2015.1.005', '0085172052', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALYA AZKIYA SHOFA', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Zubaedah', 'Syofyan Soffa', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(86, '2014.2015.1.006', '0081166037', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RONAL ', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Tini', 'Robi ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(87, '2014.2015.1.007', '0084058697', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MALIKAL MULKI ', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Patimah ', 'Jaih ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(88, '2014.2015.1.008', '0083671571', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MAULIKA ', 'L', 'Tangerang ', '2021-06-04', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Umsah', 'Supri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(89, '2014.2015.1.009', '0087736679', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MALI AULIA NAJUA', 'P', 'Kuningan', '2007-09-02', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Enih sukaenih', 'Erwin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(90, '2015.2016.1.010', '0094419953', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RESKA AURA BILBINA', 'P', 'Tangerang ', '2021-06-25', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ike Suharlika', 'Syahrul idrus', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(91, '2015.2016.1.011', '0097708194', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'LAILATUL HAFIFAH', 'P', 'Tangerang ', '2009-04-25', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Mulyati', 'Badri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(92, '2015.2016.1.012', '0086316244', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD HUSNI MUSTHOFAINAL AKHYAR', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Martiwi', 'Widaryo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(93, '2015.2016.1.013', '0098933338', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DIMAS MAULANA YUSUP', 'L', 'Tangerang ', '2021-07-08', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Nurasiah', 'Dede Mulyana', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(94, '2015.2016.1.014', '0093548632', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD ANGGA SAPUTRA', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Nurleni', 'Hersim', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(95, '2015.2016.1.015', '0088932904', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'HAITA NOFIYA', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ernawati', 'Heri sunaryo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(96, '2015.2016.1.016', '0091225720', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SULHIATUN NUVUS', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Asiah', 'Herdi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(97, '2015.2016.1.017', '0095439389', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SEFTIA INDIRAWATI', 'P', 'Tangerang ', '2009-09-02', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Lili Kustinawati', 'Muhamad Suhendi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(98, '2015.2016.1.018', '0082367121', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FAIZ AL KHITAH', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Maya sari', 'Abidin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(99, '2015.2016.1.019', '0092221896', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FATUROHMAN', 'L', 'Tanagerang', '2009-04-05', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Suryati', 'Jazi Izris', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(100, '2015.2016.1.020', '0084431700', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD FIKRI', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti juhariah', 'Odih', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(101, '2015.2016.1.021', '0094991825', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD REZQY NURFADHILLAH', 'L', 'Jakarta', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Esih sukaesih', 'Nurhayadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(103, '2015.2016.2.023', '0061532821', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD KHOLISH RAJA', 'L', 'Tangarang', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Sholeha', 'Muhammad Mudrik', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(104, '2015.2016.2.024', '0073125790', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RAUSAN FIKRI', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Supiah', 'Supriyadi', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(105, '2015.2016.2.026', '0056035910', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'HERTI', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Yanah', 'Herman', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(106, '2015.2016.2.027', '0083287260', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'REVINA AULIA SYIFA', 'P', 'Lebak', '1970-01-01', 'image/placeholder.png', '123', 'Membaca', 'Jl. Syekh Mubarok Rt.01/01 Kp.Bungureun, Ds.Pematang, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Nunung Nurhaeni', 'Endang Suherdi', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(107, '2016.2017.1.028', '0103004598', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ADEN SAPTA WIJAYA', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ulan', 'Ukut Suhardi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(108, '2016.2017.1.029', '0109208600', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AKBAR FITRAH PRATAMA', 'L', 'Tangerang ', '2010-09-09', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Rita Wahyuni', 'Juanda', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(109, '2016.2017.1.030', '0109779000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AKHMAD FAHMI FADILAH', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ade Kusyenih', 'Akhmad Saepudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(110, '2016.2017.1.031', '0105392302', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALFIN NUR ALAM', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Lilis Sulistiawati', 'Muhamad Nur Afih', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(111, '2016.2017.1.032', '0106189771', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALIF DERMAWAN', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Yayan', 'Muhamad Sura', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(112, '2016.2017.1.033', '0102235830', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'APBRIYANTO', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Mariah', 'Wawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(113, '2016.2017.1.034', '0105329398', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DIKA SAPUTRA', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Irma Erviana', 'Yanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(114, '2016.2017.1.035', '0108175376', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'HAERUL FAHMI', 'L', 'Tangerang ', '2021-07-18', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ening', 'Erik', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(115, '2016.2017.1.036', '0108093020', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ILHAM', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Buruh', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Ati', 'Sarmin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(116, '2016.2017.1.037', '0109786014', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INTAN ROHANI', 'P', 'Tangerang ', '2010-04-01', 'image/placeholder.png', 'Buruh', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Patimah ', 'Jaih ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(117, '2016.2017.1.039', '0103938626', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD ZIKRI AL FARABI', 'L', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Nurhaeni', 'Mukri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(118, '2016.2017.1.040', '0107130812', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NATASYA BILA', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Sri Wahyuni', 'Muhamad Juhdi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(119, '2016.2017.1.041', '0103574869', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'OKTAVIA RAHAYU', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Siti Suhartika', 'Wahyu', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(120, '2016.2017.1.042', '0108074648', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'PUTRI TRI NABILAH', 'P', 'Kota Bekasi', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Iyam', 'Naman ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(121, '2016.2017.1.043', '0105828903', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'REVI APRILIA', 'P', 'Tangerang ', '2010-04-12', 'image/placeholder.png', 'Buruh', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Nurbaeti', 'Nurhad', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(122, '2016.2017.1.045', '0104610841', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AINUN ROHMAH', 'P', 'Tangerang ', '2021-07-22', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Enah', 'Rosid', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(123, '2016.2017.1.046', '0104614961', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RUSMITA', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Anah', 'Yahya', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(124, '2016.2017.1.047', '0101758185', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'WANDA AULANTI', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Sumiyati', 'Warman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(125, '2016.2017.2.048', '0095008156', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INDA ULINUHA', 'P', 'Serang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Nita Rahmawati', 'Badrudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(126, '2016.2017.2.049', '0109786014', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INTAN  AHADIAH', 'P', 'Tangerang ', '1970-01-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Esti Nurdianti', 'Muhamad Ishak', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(127, '2016.2017.3.050', '0082809627', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MONICA SETIAWAN', 'P', 'Tangerang ', '2008-04-24', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Lia', 'Asep Setiawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(128, '2016.2017.2.051', '0099580105', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'GIFA AULIYA PUTRI', 'P', 'Tangerang ', '2009-03-16', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Saniyah', 'Suhendi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(129, '2016.2017.3.052', '0075799775', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'UKTUVIAAZZAHWA', 'P', 'Tangerang ', '2007-11-29', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Jl. Syekh Mubarok Rt.05/04 Kp.Kalapa Dua, Ds.Pete, Kec.Tigaraksa, Kab.Tangerang, Prov.Banten', 'Fitria Maesaroh', 'Muhamad Asep Saepudin ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(130, '2017.2018.1.054', '0118708505', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIHANA PADIA AZAHRA', 'P', 'Tangerang', '2011-04-17', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Siti Aisah', 'Maryadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(131, '2017.2018.1.055', '0119429900', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INTAN WULANDARI', 'P', 'Tangerang', '2011-03-20', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Siti Rukiah', 'Jenal abidin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(132, '2017.2018.4.056', '0088213397', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NASTIYAR JURNIAWAN', 'L', 'Tangerang', '2008-06-30', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Cibalentung Rt. 01/04 Ds. Pete', 'Siti Susanti', 'Surya Dinata', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(133, '2017.2018.4.057', '0084455219', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SYAHID ABDUL PRATAMA', 'L', 'Tangerang', '2008-08-15', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Cibalentung Rt. 01/04 Ds. Pete', 'Rosmiati', 'Beben Subandi', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(134, '2017.2018.1.058', '0119719718', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALDI SAPUTRA', 'L', 'Tangerang', '2011-05-11', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Enih', 'Karyo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(135, '2017.2018.1.059', '0118583008', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NESA', 'P', 'Tangerang', '2011-05-06', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Entin', 'Soleh', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(136, '2017.2018.1.060', '0119630081', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'WAHYU PRIYATNA', 'L', 'Tangerang', '2011-07-11', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Yuningsih', 'Noviar Priyatna', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(137, '2017.2018.1.061', '0109319774', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DIFARIYANTI', 'P', 'Tangerang', '2010-12-13', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Sularsih', 'Rinto Hermanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(138, '2017.2018.1.062', '0114775256', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RIZKI RAFAEL', 'L', 'Tangerang', '2011-04-16', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Eti Sumiati', 'Marsudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(139, '2017.2018.1.063', '0115784685', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'WIDIA SIPA NURJANAH', 'P', 'Tangerang', '2011-01-14', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Saiyah', 'Suhaepi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(140, '2017.2018.1.064', '0113484971', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD ALFIAN FADILAH', 'L', 'Tangerang', '2011-04-13', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Siti Sofiah', 'Lipi Eryana', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(141, '2017.2018.1.065', '0106461153', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD SUPAHMI', 'L', 'Tangerang', '2010-09-25', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Mariam', 'Dulhamid', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(142, '2017.2018.1.066', '0106435249', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MOHAMAD ABDUL FAJRI', 'L', 'Tangerang', '2010-10-23', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Damayanti', 'Suherman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(143, '2017.2018.1.067', '0113300057', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AURA LISTARI', 'P', 'Tangerang', '2011-09-09', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Iis Daryati', 'Sumantri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(144, '2017.2018.1.068', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ARYA GUSTIAWAN', 'L', 'Tangerang', '2010-10-08', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Enilasari', 'Wawan Setiawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(145, '2017.2018.1.069', '0118946401', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI ATIKAH', 'P', 'Tangerang', '2011-03-05', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Jamanah', 'Jaeni', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(146, '2017.2018.1.070', '0115425504', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MARLY MAYESTINO', 'L', 'Tangerang', '2011-07-01', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Aprilia Susanti', 'Maulana Abdullah', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(147, '2017.2018.1.071', '0115686501', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NUR AISYAH MAHARANI', 'P', 'Tangerang', '2011-06-09', 'image/placeholder.png', 'Pegawai Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 04/04 Ds. Pete', 'Suheliah', 'Jamaludin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(148, '2017.2018.1.072', '0114467445', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIZKI NURUL FALAH', 'L', 'Tangerang', '2011-02-05', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Siti Supiah', 'Supriyadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(149, '2017.2018.1.073', '0111164180', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INDRI AULIA', 'P', 'Tangerang', '2011-07-26', 'image/placeholder.png', 'Swasta', 'Membaca', 'Kp. Pabuaran Katomas Rt. 03/02', 'Siti Aisah', 'Ipon Suhandi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(150, '2017.2018.1.074', '0111974830', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'GINA FITRIYA RAHAYU', 'P', 'Tangerang', '2011-07-31', 'image/placeholder.png', 'TES', 'Membaca', 'Kp. Kadongdong Rt. 02/04 Ds. Pasir nangka', 'Nurhayati', 'Herman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(151, '2017.2018.1.075', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI NURIZATUN NUPUS', 'P', 'Tangerang', '2011-12-25', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Guradog Rt. 03/01 Ds. Tegal sari', 'Rini Anggraeni', 'Pajar', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(152, '2017.2018.1.076', '0112000641', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'TASYA AZIZAH', 'P', 'Tangerang', '2011-04-10', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kadongdong Rt. 03/02 Ds. Pasir nangka', 'Eti Suryani', 'Diding Sadudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(153, '2017.2018.1.077', '0115915022', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ZAKIA LAELATU ZAHRA', 'P', 'Tangerang', '2011-05-16', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 03/04', 'Yuyun Yuningsih', 'Muhdi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(154, '2017.2018.1.078', '0114311897', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD HAIDAR NASIF AMRULLAH', 'L', 'Tangerang', '2011-07-28', 'image/placeholder.png', 'Guru', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Siti Umayah', 'Ahmad Bainudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(155, '2017.2018.1.079', '0118817433', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FAHRA SYIFA AFIFA', 'P', 'Tangerang', '2011-07-14', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'muslihat', 'Muhamad Sofian', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(156, '2017.2018.3.080', '0097399650', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ROHIMUL AINI BILQIS', 'P', 'Tangerang', '2009-06-11', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Cisereh Rt.06/02 Ds. Cisereh', 'Irawati', 'Hadi Kurnia', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(157, '2017.2018.1.081', '0114972537', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ROSEDIVA LITUHAYU ARUNDAYA', 'P', 'Surakarta', '2011-03-29', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Babakan Rt.04/03 Kp. Babakan Ds.Pematang Ds.Tigaraksa Kab.Tangerang', 'Widyaningsih', 'Setyo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(158, '2017.2018.2.082', '01093310977', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD ALFIAN FIRRIZQI', 'L', 'Tangerang', '2010-04-24', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Arya Jaya Santika Rt.02/04 No.1 Kp. Kadongdong Ds.Pasir Nangka Kec.Tigaraksa Kab.Tangerang', 'Jubaedah', 'Samsul Bahri', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(159, '2017.2018.1.054', '0118708505', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIHANA PADIA AZAHRA', 'P', 'Tangerang', '2011-04-17', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Siti Aisah', 'Maryadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(160, '2017.2018.1.055', '0119429900', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INTAN WULANDARI', 'P', 'Tangerang', '2011-03-20', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Siti Rukiah', 'Jenal abidin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(161, '2017.2018.4.056', '0088213397', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NASTIYAR JURNIAWAN', 'L', 'Tangerang', '2008-06-30', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Cibalentung Rt. 01/04 Ds. Pete', 'Siti Susanti', 'Surya Dinata', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(162, '2017.2018.4.057', '0084455219', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SYAHID ABDUL PRATAMA', 'L', 'Tangerang', '2008-08-15', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Cibalentung Rt. 01/04 Ds. Pete', 'Rosmiati', 'Beben Subandi', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(163, '2017.2018.1.058', '0119719718', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALDI SAPUTRA', 'L', 'Tangerang', '2011-05-11', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Enih', 'Karyo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(164, '2017.2018.1.059', '0118583008', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NESA', 'P', 'Tangerang', '2011-05-06', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Entin', 'Soleh', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(165, '2017.2018.1.060', '0119630081', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'WAHYU PRIYATNA', 'L', 'Tangerang', '2011-07-11', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Yuningsih', 'Noviar Priyatna', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(166, '2017.2018.1.061', '0109319774', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DIFARIYANTI', 'P', 'Tangerang', '2010-12-13', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Sularsih', 'Rinto Hermanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(167, '2017.2018.1.062', '0114775256', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RIZKI RAFAEL', 'L', 'Tangerang', '2011-04-16', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Eti Sumiati', 'Marsudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(168, '2017.2018.1.063', '0115784685', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'WIDIA SIPA NURJANAH', 'P', 'Tangerang', '2011-01-14', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Saiyah', 'Suhaepi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(169, '2017.2018.1.064', '0113484971', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD ALFIAN FADILAH', 'L', 'Tangerang', '2011-04-13', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Siti Sofiah', 'Lipi Eryana', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(170, '2017.2018.1.065', '0106461153', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD SUPAHMI', 'L', 'Tangerang', '2010-09-25', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Mariam', 'Dulhamid', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(171, '2017.2018.1.066', '0106435249', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MOHAMAD ABDUL FAJRI', 'L', 'Tangerang', '2010-10-23', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Damayanti', 'Suherman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(172, '2017.2018.1.067', '0113300057', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AURA LISTARI', 'P', 'Tangerang', '2011-09-09', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Iis Daryati', 'Sumantri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(173, '2017.2018.1.068', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ARYA GUSTIAWAN', 'L', 'Tangerang', '2010-10-08', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Enilasari', 'Wawan Setiawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(174, '2017.2018.1.069', '0118946401', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI ATIKAH', 'P', 'Tangerang', '2011-03-05', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Jamanah', 'Jaeni', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(175, '2017.2018.1.070', '0115425504', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MARLY MAYESTINO', 'L', 'Tangerang', '2011-07-01', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Aprilia Susanti', 'Maulana Abdullah', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(176, '2017.2018.1.071', '0115686501', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NUR AISYAH MAHARANI', 'P', 'Tangerang', '2011-06-09', 'image/placeholder.png', 'Pegawai Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 04/04 Ds. Pete', 'Suheliah', 'Jamaludin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(177, '2017.2018.1.072', '0114467445', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIZKI NURUL FALAH', 'L', 'Tangerang', '2011-02-05', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Siti Supiah', 'Supriyadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(178, '2017.2018.1.073', '0111164180', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'INDRI AULIA', 'P', 'Tangerang', '2011-07-26', 'image/placeholder.png', 'Swasta', 'Membaca', 'Kp. Pabuaran Katomas Rt. 03/02', 'Siti Aisah', 'Ipon Suhandi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(179, '2017.2018.1.074', '0111974830', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'GINA FITRIYA RAHAYU', 'P', 'Tangerang', '2011-07-31', 'image/placeholder.png', '', 'Membaca', 'Kp. Kadongdong Rt. 02/04 Ds. Pasir nangka', 'Nurhayati', 'Herman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(180, '2017.2018.1.075', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI NURIZATUN NUPUS', 'P', 'Tangerang', '2011-12-25', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Guradog Rt. 03/01 Ds. Tegal sari', 'Rini Anggraeni', 'Pajar', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(181, '2017.2018.1.076', '0112000641', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'TASYA AZIZAH', 'P', 'Tangerang', '2011-04-10', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Kp. Kadongdong Rt. 03/02 Ds. Pasir nangka', 'Eti Suryani', 'Diding Sadudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(182, '2017.2018.1.077', '0115915022', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ZAKIA LAELATU ZAHRA', 'P', 'Tangerang', '2011-05-16', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapa dua Rt. 03/04', 'Yuyun Yuningsih', 'Muhdi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(183, '2017.2018.1.078', '0114311897', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD HAIDAR NASIF AMRULLAH', 'L', 'Tangerang', '2011-07-28', 'image/placeholder.png', 'Guru', 'Membaca', 'Kp. Kalapa dua Rt. 02/04 Ds. Pete', 'Siti Umayah', 'Ahmad Bainudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(184, '2017.2018.1.079', '0118817433', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FAHRA SYIFA AFIFA', 'P', 'Tangerang', '2011-07-14', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'muslihat', 'Muhamad Sofian', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(185, '2017.2018.3.080', '0097399650', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ROHIMUL AINI BILQIS', 'P', 'Tangerang', '2009-06-11', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Cisereh Rt.06/02 Ds. Cisereh', 'Irawati', 'Hadi Kurnia', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(186, '2017.2018.1.081', '0114972537', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ROSEDIVA LITUHAYU ARUNDAYA', 'P', 'Surakarta', '2011-03-29', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Babakan Rt.04/03 Kp. Babakan Ds.Pematang Ds.Tigaraksa Kab.Tangerang', 'Widyaningsih', 'Setyo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(187, '2017.2018.2.082', '01093310977', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD ALFIAN FIRRIZQI', 'L', 'Tangerang', '2010-04-24', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl. Arya Jaya Santika Rt.02/04 No.1 Kp. Kadongdong Ds.Pasir Nangka Kec.Tigaraksa Kab.Tangerang', 'Jubaedah', 'Samsul Bahri', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(188, '2018.2019.1.083', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD FAHRUL ROSADI', 'L', 'Serang', '2012-02-05', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Nuryenih', 'Asril', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(189, '2018.2019.1.084', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SUCI RAMADHANIA PUTRI', 'P', 'Serang', '2012-07-05', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Ipit Pitriani', 'Muhamad Holid', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(190, '2018.2019.1.085', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD FAHRI', 'L', 'Tangerang', '2012-05-30', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Aryati', 'Muhamad Sobari', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(191, '2018.2019.1.086', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MANDA SEPTIANI', 'P', 'Tangerang', '2012-09-19', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Een Hernawati', 'Sobri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(192, '2018.2019.1.087', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI KHULA SHOTUL WAPIYAH', 'P', 'Tangerang', '2011-07-31', 'image/placeholder.png', 'Buruh', 'Membaca', 'Kp. Kalapa dua Rt. 05/04 Ds. Pete', 'Yanti', 'Samhudi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(193, '2018.2019.1.089', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD ARDI KUSNANDAR ', 'L', 'Tangerang', '2012-09-30', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Guradog Rt.003/001 Ds. Tegal sari', 'Sekar Arum', 'Dedi Wahyudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(194, '2018.2019.1.090', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MAHDA AULIA ILHAM', 'P', 'Tangerang', '2012-10-15', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Sikluk Rt. 02/01 Ds. Pematang', 'Lia Kartika', 'Muhammad Ilham', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(195, '2018.2019.1.091', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAZWATUL HUSNA', 'P', 'Tangerang', '2011-12-24', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Pasir Bakung Rt.005/002 Ds.Tegalsari', 'Aan Andriyani', 'Haerudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(196, '2018.2019.3.092', '0106858563', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAYLA AZIZAH', 'P', 'Tangerang', '2010-07-01', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Graha lestari blok J22/9 Rt. 06/08 Ds. Mekarbakti', 'Rika Mardikayati', 'Afwan Puad', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(197, '2018.2019.1.093', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DAVID IBRAHIM LUBIS', 'L', 'Panyabungan', '2011-12-14', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Babakan Ds. Pematang', 'Rosdiana', 'Sukri Martua lubis', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(198, '2018.2019.1.094', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ELDIF TAKBIR KAUTSAR', 'L', 'Tangerang', '2012-08-19', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Nangsi Rt. 04/02 Ds. Tegal sari ', 'Irni Kurniawati', 'Ahmad Jubaedori', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(199, '2018.2019.1.095', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI NURLAELATUL FADILAH', 'P', 'Tangerang', '2012-06-20', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Kalapa dua Rt. 006/004 Ds. Pete', 'Siti Solihat', 'Nuraman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(200, '2018.2019.1.096', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD AZDKARUZ DZIKRI', 'L', 'Tangerang', '2011-09-11', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Katomas Rt.002/01 Ds. Tigaraksa', 'Sri Purniawati Handayani', 'Rudiana', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(201, '2018.2019.1.097', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD AL-KAFI RABBANI', 'L', 'Tangerang', '2012-03-01', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Sikluk Rt. 003/004 Ds. Pete', 'Nurhasanah', 'Aries Munandar', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(202, '2018.2019.1.098', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MOHAMMAD NAEVARAID ROSWAN', 'L', 'Jakarta', '2012-04-02', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Cisereh Rt. 001/01 Ds. Cisereh', 'Atih Purwasih', 'Dede Roswan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(203, '2018.2019.1.099', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DIYA AYU WULANDARI', 'P', 'Tangerang', '2012-10-11', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 04/04 Ds. Pete', 'Eem suhaemah', 'Samio', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(204, '2018.2019.1.100', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'REZA AL HABSYI', 'L', 'Simangambat', '2012-03-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapadua Rt.02/04 Ds. Pete', 'Nurlela Sari', 'Yakub Mashuri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(205, '2018.2019.1.101', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SAKHA AULIA BASYA', 'L', 'Tangerang', '2011-11-27', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Triraksa Village 1 Blok A 11 No.1 Kec.Tigaraksa Kab.Tangerang ', 'Syarifah Alawiah', 'Abas Sutriadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(206, '2018.2019.1.102', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'APRILLIA PUTRI', 'P', 'Tangerang', '2012-04-11', 'image/placeholder.png', 'Polri', 'Membaca', 'Kp. cisereh Rt. 001/05 Ds. Cisereh', 'Sri Hastuti Damayanti', 'Ramudi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(207, '2018.2019.1.103', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAILA SYAKIRA AL HAFSA', 'P', 'Tangerang', '2012-04-10', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Babakan Rt. 03/06 Ds. Pematang', 'Ita Rosita', 'Diyanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(208, '2018.2019.1.104', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NURAZMI SUPIAJI', 'P', 'Tangerang', '2012-06-23', 'image/placeholder.png', 'PNS (pensiun)', 'Membaca', 'Kp. Bungureun Rt. 01/01 Ds. Pematang', 'Siti Umriah', 'Andi Supiaji', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(209, '2018.2019.2.105', '0111976318', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAWA AULIA SYAKIRA NURDIN', 'P', 'Tangerang', '2012-01-19', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Sikluk Rt. 03/01 Ds. Pematang', 'Siti maemunah', 'Nurdin', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(210, '2018.2019.3.106', '0095828698', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SYAFIRA HANATASYA', 'P', 'Tangerang', '2009-11-24', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Perum mustika Blok B4/12A Ds. Pasir nangka', 'Juheni', 'Muhamad Sumantri / Saepul Bahri', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(211, '2018.2019.3.107', '0099444749', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SATRIO KHOBIR HERNANTO', 'L', 'Tangerang', '2009-12-22', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Kp. Nangsi Rt. 04/02 Ds. Tegal sari', 'Wiwi Hernasari', 'Tri Djoko Winarto', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(212, '2018.2019.3.108', '0095773662', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'EAGLE AL MALIKI BUSTAN', 'L', 'Jakarta', '2009-12-05', 'image/placeholder.png', 'Guru', 'Membaca', 'RGTC Mahoni 504 Rt.003/010 Cakung Barat', 'Wanti Arfiani', 'Bustanul Arifin', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(213, '2018.2019.1.109', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MEYLIZAKIATUN NAZLA', 'P', 'Tangerang', '2012-05-27', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Pete Rt.002/003 Ds. Pete Kec.Tigaraksa', 'Hj. Titin Suhartini', 'H. Asep Setiawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(214, '2018.2019.3.110', '0095757282', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ZALFA WAFIIYAH', 'P', 'Tangerang', '2009-11-30', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapa dua Rt. 03/04 Ds. Pete', 'Siti Nuraeni', 'Saefudin ', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(215, '2018.2019.1.111', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD GILANG PRASETYA', 'L', 'Tangerang ', '2012-08-24', 'image/placeholder.png', 'Karyawan', 'Membaca', 'Perum mustika Blok E14/22 Rt.05/10 Ds.Matagara', 'Siti Marliah', 'Pepen Supendi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(216, '2018.2019.4.112', '0097381896', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'VALIANT ARIF HIMAONE', 'L', 'Tangerang ', '2009-01-17', 'image/placeholder.png', 'Driver', 'Membaca', 'Perum Triraksa Village Rt.006/005 No.21 Kp. Tigaraksa Ds.Tigaraksa Kec.Tigaraksa Tangerang', 'Ucci Putri Misnandhani', 'Radiyo', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(217, '2019.2020.1.113', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI IIS', 'P', 'Serang', '2012-11-06', 'image/placeholder.png', 'Buruh Harian Lepas', 'Membaca', 'Kp. Sikluk ', 'Suneti', 'Apud', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(218, '2019.2020.1.114', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SEKAR HIFDIYATUL QIROM', 'P', 'Tangerang ', '2012-12-23', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun', 'Sri Purnama Ningsih', 'Andriansyah', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(219, '2019.2020.1.115', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NABILA KINTA BUANA', 'P', 'Tangerang', '2012-08-15', 'image/placeholder.png', 'Guru', 'Membaca', 'Kp. Kalapa dua', 'Puji Ambarwati S.Sos.I', 'Ahmad Basuni,S.Pd.I ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(220, '2019.2020.1.116', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'HANY NAFISA', 'P', 'Tangerang', '2013-04-25', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun', 'Nurjanah', 'Alan Darmawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(221, '2019.2020.1.117', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIZA DWI DARMAWAN', 'L', 'Tangerang', '2013-03-13', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Tigaraksa', 'Tinah Kartinah', 'Ari DArmawanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(222, '2019.2020.1.118', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD AL- HAFIZI', 'L', 'Tangerang', '2012-11-16', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun', 'Arin Sari', 'Kurnianto Yudo Prasetyo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(223, '2019.2020.1.120', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RIKZA PRATAMA', 'L', 'Tangerang', '2012-08-22', 'image/placeholder.png', 'Buruh Harian Lepas', 'Membaca', 'Kp. Kadongdong', 'Siti Supriyana ', 'Muhamad Said Sahyuti', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(224, '2019.2020.1.121', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MONICA SAFIRA', 'P', 'Tangerang', '2013-01-05', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Gudang', 'Yuliyati', 'Samsuri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(225, '2019.2020.1.122', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RAMA JULIAN ABDILLAH', 'L', 'Tangerang', '2013-07-17', 'image/placeholder.png', 'TNI', 'Membaca', 'Cisereh', 'Roslianah', 'Muhamad Romli', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(226, '2019.2020.1.123', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD NURISAHIN JUNIOR', 'L', 'Cianjur', '2012-11-28', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun', 'Esih Sukaesih', 'Nurhayadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(227, '2019.2020.1.124', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RAFLI FARDA RIZKA', 'L', 'Tangerang', '2012-10-18', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Jambu', 'Sumyati', 'Sabeni', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(228, '2019.2020.1.125', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'REZKA VICKY FABIAN', 'L', 'Tangerang', '2013-02-17', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'kp. Cisereh', 'Rizki Rahayu', 'Madroi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(229, '2019.2020.1.126', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ATHAYA IZZATUNISA', 'P', 'Tangerang', '2012-10-19', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'KP. Pabuaran Asem ', 'Ratih Pramitha Sari', 'Asari', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(230, '2019.2020.1.127', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI KHAROMATUL INAYAH', 'P', 'Tangerang', '2013-03-16', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapadua', 'Ade ', 'Adam', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(231, '2019.2020.1.128', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAURA SAHILA', 'P', 'Tangerang', '2012-12-19', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Pasir', 'Yayah Uliah', 'Muhammad Idris', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(232, '2019.2020.1.129', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AHMAD AFRIZAL', 'L', 'Tangerang', '2012-12-21', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Kalapadua', 'Utih', 'Saeful Anwar', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(233, '2019.2020.1.130', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'KHOIRUNNISA', 'P', 'Tangerang', '2013-01-08', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Babakan', 'Suhaeriah', 'Jaenudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(234, '2019.2020.1.131', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NUR MUHAMMAD IQBAL ADIAWAN', 'L', 'Depokrejo', '2012-12-16', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Perum Bukit Tiara', 'Novita Sari', 'Aris Adiawan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27');
+INSERT INTO `student` (`student_id`, `nis`, `nisn`, `password`, `nama`, `gender`, `birth_place`, `birth_date`, `avatar`, `nohp`, `hobi`, `alamat`, `ibu`, `ayahwali`, `waortu`, `kelas_id`, `jurusan`, `catatan`, `status`, `input_date`, `last_update`) VALUES
+(235, '2019.2020.1.132', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SALSABILA OKSANDA  PUTRI', 'P', 'Tangerang', '2013-01-09', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun', 'Nunung Nurhaeni S.Pd.I', 'Endang Suherdi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(236, '2019.2020.2.133', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SOBIHUL ADIB', 'L', 'Tangerang', '2011-10-15', 'image/placeholder.png', 'PNS', 'Membaca', 'Kp. Pete', 'Dina Fitriah', 'H.Abdul Muti', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(237, '2019.2020.2.134', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD FADIL ARIYADI', 'L', 'Tangerang', '2008-04-12', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Perum Mustika', 'Vivin Sagita Siregar', 'Pedi Ariadi', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(238, '2019.2020.2.135', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FATIH BAYU SAPUTRA', 'L', 'Tangerang', '2012-03-27', 'image/placeholder.png', 'PNS', 'Membaca', 'Kp. Cisereh', 'Imas Nurhasyani', 'Irwansyah S.Kom', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(239, '2019.2020.3.136', '117982278', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'JASMINE ZAHIRA PUTRI', 'P', 'Tangerang', '2011-04-25', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'KP.Pabuaran Asem', 'Munawaroh', 'Nurhad', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(240, '2019.2020.4.137', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD ACHANUL RAFA', 'L', 'Tangerang', '2010-02-11', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Sikluk ', 'Ari Andriyanah', 'Ratno', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(242, '2019.2020.1.139', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NAJWA QUROTI NUPUS', 'P', 'Tangerang', '2013-07-01', 'image/placeholder.png', 'Buruh Harian Lepas', 'Membaca', 'Kp. Pabuaran', 'Siti Napsiah', 'Rohmat', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(243, '2019.2020.2.140', '124401941', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD EZA FADILAH', 'L', 'Bogor', '2012-04-21', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Perum Triraksa', 'Erlinawati', 'Chaerul Anwar', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(244, '2019.2020.1.141', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD  MIKDAM PUTRA SANDY', 'L', 'Tangerang', '2013-04-20', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', ' Kp. Cisereh', 'Mariyamah', 'Deny Rosandy', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(245, '2019.2020.1.142', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NURI RAMADHANI', 'P', 'Tangerang', '2013-07-11', 'image/placeholder.png', 'wirasswasta', 'Membaca', 'Perum Triraksa', 'Kurnia S.Pd', 'Dedi Zubaedi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(246, '2019.2020.2.143', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NISAUL AWALIYAH', 'P', 'Tangerang', '2012-01-12', 'image/placeholder.png', 'wirasswasta', 'Membaca', 'Perum Triraksa', 'Kurnia S.Pd', 'Dedi Zubaedi', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(247, '2010.2020.3.144', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RIZKI ADITYA PERMANA', 'L', 'Jakarta', '2010-12-11', 'image/placeholder.png', 'TNI', 'Membaca', 'Cirende', 'Siti Shopa', 'Yatno', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(248, '2019.2020.4.145', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'LINDAN ADITIAR SAPUTRI', 'P', 'Tangerang', '2010-12-11', 'image/placeholder.png', 'wirasswasta', 'Membaca', 'tes', 'Kurnia S.Pd', 'Yatno', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(249, '2020.2021.1.146', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD IHSAN ', 'L', 'TANGERANG ', '2013-09-18', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'KP. CIBELENTUNG RT 01/04 DS. PETE KEC. TIGARAKSA ', 'Meta Yosi Gumala', 'AHMAD MULYANI ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(250, '2020.2021.1.147', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'M. AIS SYUHADA', 'L', 'TANGERANG ', '2013-09-18', 'image/placeholder.png', 'BURUH', 'Membaca', 'TRIRAKSA VILLAGE', 'ERNI', 'DEKA IRWAN ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(251, '2020.2021.1.148', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD AKBAR NURDAFFA ', 'L', 'TANGERANG ', '2014-06-28', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGEREUN RT 01/01 DS. PEMATANG  KEC. TIGARAKSA ', 'SITI NU/RIMALIA DINI ', 'ABDUL KOHAR', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(252, '2020.2021.1.149', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AQILLA ARDELIA ', 'P', 'TANGERANG ', '2013-06-02', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGEREUN DS. PEMATANG RT 01/01', 'SRI MIDA', 'ABDUL MUKLIS ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(253, '2020.2021.1.150', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'KHUDUUR ADI LUTFI ', 'L', 'TANGERANG ', '2014-01-08', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. CISEREH DS. CISEREH ', 'ASMANAH ', 'OONG HARYONO ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(254, '2020.2021.1.151', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ARKAN DIKA RAMADHAN ', 'L', 'TANGERANG ', '2014-07-17', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGUREUN DS. PEMATANG KEC. TIGARAKSA KAB. TANGERANG ', 'NUR AROHMAH', 'JAKA SURYA AMSARI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(255, '2020.2021.1.152', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AXELLE GIANNES ALVAN ', 'L', 'TANGERANG ', '2014-09-21', 'image/placeholder.png', 'GURU', 'Membaca', 'KP. KALAPA DUA RT 02//04 DS. PETE KEC. TIGARAKSA KAB TANGERANG ', 'PUJI AMBARWATI ', 'AKHMAD BASUNI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(256, '2020.2021.1.153', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DAFA IBNU HAFIZ ', 'L', 'TANGERANG ', '2014-10-06', 'image/placeholder.png', 'KARYAWAN SWASTA', 'Membaca', 'KP. KALAPA DUA RT 05/04 DS. PETE KEC. TIGARAKSA KAB. TANGERANG ', 'HAMIDATUL KAMALIAH ', 'NANA SURYANA ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(257, '2020.2021.1.154', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SITI HUSAENATUN NADYA ', 'P', 'TANGERANG ', '1970-01-01', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGUREUN RT 01/01 DS. PEMATANG KEC. TIGARAKSA KAB TANGERANG ', 'SAANAH ', ' ALM H. SAURI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(258, '2020.2021.1.155', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD HAPI JUDIN ', 'L', 'TANGERANG ', '2013-09-23', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGUREUN RT 01/01 DS. PEMATANG KEC. TIGARAKSA KAB TANGERANG ', 'ROM SITI', 'TONI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(259, '2020.2021.1.156', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'GHAISANI LUTFIR RAHMAN ', 'P', 'PURWOREJO', '2013-10-01', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Perum Triraksa Village Blok B16/12A Rt 07/05 Kel. Tigaraksa Kec. Tigaraksa, Tangerang ', 'Meta Yosi Gumala', 'Basuki Wibowo', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(260, '2020.2021.1.157', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AHMAD KHAIRURRAFA AL FATIH ', 'L', 'TANGERANG ', '1970-01-01', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(261, '2020.2021.1.158', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SHEZA ZHAFIRA ', 'P', 'TANGERANG ', '2014-07-19', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'KP. NANGSI RT 04/02 DS. TEGAL SARI KEC. TIGARAKSA KAB. TANGERANG ', 'WIWI HERNASARI ', 'TRI DJOKO WINARTO ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(262, '2020.2021.1.159', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'BILQIS ADZRA NADHIFA ', 'P', 'BOGOR ', '2013-09-05', 'image/placeholder.png', 'SENIOR DRAFTER', 'Membaca', 'TRIRAKSA 1 VILLAGE RT 07//05 NO. B5/5 DS. TIGARAKSA KEC.TIGARAKSA KAB TANGERANG ', 'MIA RAHMAWATI ', 'SUMARDI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(263, '2020.2021.1.160', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ALFIANA KHOSYIAH ', 'P', 'TANGERANG ', '2013-09-20', 'image/placeholder.png', 'BURUH', 'Membaca', 'TRIRAKSA VILLAGE RT 07/05', 'SALAMAH', 'SUPRIYONO ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(264, '2020.2021.3.161', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'NUR ANISAH ', 'P', 'TANGERANG ', '2012-06-19', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. BUNGUREUN RT 01/01 DS. PEMATANG KEC. TIGARAKSA KAB TANGERANG ', 'UMSINAH ', 'ALM. SANUSI ', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(265, '2020.2021.1.162', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AULIA NURUL HIDAYAT ', 'P', 'TANGERANG ', '2014-03-14', 'image/placeholder.png', 'BURUH', 'Membaca', 'PERUM TAMAN CISOKA INDAH BLOK C14 NO.20 ', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(266, '2020.2021.1.163', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD KHAERUL FIQIH ', 'L', 'TANGERANG ', '2014-03-14', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(267, '2020.2021.1.164', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'DAVI ASYRAF HABIBI', 'L', 'TANGERANG ', '2014-03-14', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(268, '2020.2021.1.165', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD HIYAR AL-WAFIQ', 'L', 'TANGERANG ', '2014-03-07', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KADU RT 02/01 DES.PETE KEC TIGARAKSA ', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(269, '2020.2021.1.166', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD FIRDAN ALKHAFID ', 'L', 'TANGERANG ', '2014-05-04', 'image/placeholder.png', 'KARYAWAN SWASTA', 'Membaca', 'JL. SYEKH MUBROK KP. PETE RT 02/03 KP. PETE DS. PETE KEC. TIGARAKSA KAB. TANGERANG ', 'SITI ALPIAH MELANI ', 'AHMAD DIMYATI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(270, '2020.2021.1.167', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ARYA RIFQI.S', 'L', 'TANGERANG ', '2013-09-10', 'image/placeholder.png', 'BURUH', 'Membaca', 'JL. SYEKH MUBAROK RT. 01/03 NO. 58 KP. PETE DS. PETE KEC TIGARAKSA', 'SITI KHALIMAH', 'SUPRAPTO', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(271, '2020.2021.1.168', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMMAD AKRAM SIDIK ', 'L', 'TANGERANG ', '2013-09-11', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. CISEREH RT 06/02 DS. CISEREH ', 'IRAWATI', 'HADI KURNIA', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(272, '2020.2021.1.169', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'SHAQEEA TASBITHA ARAYA HIKMAH ', 'P', 'TANGERANG ', '2014-07-19', 'image/placeholder.png', 'POLRI', 'Membaca', 'JL. SYEKH MUBAROK RT. 01/03 NO. 92 KP. PETE DS. PETE KEC TIGARAKSA', 'RT. YAFIKA APRILIANI ULFAH ', 'HIKMAH ROHMATULLAH ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(273, '2020.2021.1.170', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'RIFA NURUL ALWI ', 'P', 'TANGERANG ', '2013-11-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KALAPA DUA RT. 03/04', 'SUSI SUSANTI', 'NAWAWI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(274, '2020.2021.1.171', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'ZAHDAN RIZKY JANUART', 'L', 'TANGERANG ', '2014-01-30', 'image/placeholder.png', 'WIRASWASTA', 'Membaca', 'JL. SYEKH MUBAROK RT. 01//04 KP. CIBELENTUNG DS. PETE KEC/. TIGARAKSA ', 'IDA /PARIDA ', 'YOSEP', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(275, '2020.2021.1.172', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'EVAN MUSTOFA ', 'L', 'SIMANGAMBAD ', '2013-01-30', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KALAPA DUA RT 02/04', 'NURLELA SARI', 'YAKUB. M', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(276, '2020.2021.1.173', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUKHTASOR ZIDAN ', 'L', 'TANGERANG ', '2014-01-03', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KALAPA DUA RT. 07/04', 'HERNI JUNENGSIH', 'DIDI H', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(277, '2020.2021.1.174', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'KENZI KAYANA ', 'L', 'PURWOREJO', '2013-08-30', 'image/placeholder.png', 'KARYAWAN', 'Membaca', 'JL TRIRAKSA VILLAGE 1 RT.09//05 NO. C1/16 ', 'FUANNI', 'SUKO RIYADI', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(278, '2020.2021.1.175', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FEBBY ZHAFIRA MAULINDA ', 'P', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. GEMBONG RT. 02/08 DS. SINDANG SONO KEC. SINDANG JAY ', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(279, '2020.2021.1.176', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'M. IDHAM EL- IDRIS', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(280, '2020.2021.3.177', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD NUR WAHID ', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(281, '2020.2021.1.178', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'M. ARKAN ABDUL FATAH ', 'L', 'CIANJUR', '2013-02-04', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KATOMAS RT. 02/08', 'SITI NURJANAH ', 'M. ASEP ABDULOH', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(282, '2020.2021.1.179', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'M. FARHAN KURNIAWAN ', 'L', 'TANGERANG ', '2014-02-09', 'image/placeholder.png', 'BURUH', 'Membaca', 'KP. KALAPADUA RT 03/03 DS. PETE KEC. TIGARAKSA', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(283, '2020.2021.1.180', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD NAJWAN AZIM MUNTAZOR', 'L', 'TANGERANG ', '2014-02-09', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(284, '2020.2021.1.181', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD YUSUF ARDABILI', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(285, '2020.2021.1.182', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'MUHAMAD RIFAL DIANSYAH', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(286, '2020.2021.3.183', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'GHOZALI', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(287, '2020.2021.1.184', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AL-HABSY IDAM PUTRA WIBISONO', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(288, '2020.2021.1.185', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'M. RIZKI', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(289, '2020.2021.4.186', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'LUTFI FAUZAN', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(290, '2020.2021.5.187', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AISYAH MAULIDA RAHMANIA', 'P', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '5', 5, '', 'active', '2021-11-27', '2021-11-27'),
+(291, '2020.2021.1.188', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'AULIA IZZATUN NISSA', 'P', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(292, '2020.2021.1.189', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'FALDI', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(293, '2020.2021.4.190', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'REZA SAPULOH', 'L', 'TANGERANG ', '2014-02-05', 'image/placeholder.png', 'BURUH', 'Membaca', 'TES', 'TES', 'TES', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(294, '2021.2022.1.191', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Hanna Khairunnisa', 'P', 'Tangerang', '2015-04-14', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Bungureun Rt. 001/001 Ds.Pematang Kec Tigaraksa', 'Aliyah ', 'Muhamad Rivai J', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(295, '2021.2022.1.192', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhammad Sultan Asrofi', 'L', 'Tangerang ', '2014-10-21', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun Rt. 001/001 Ds. Pematang Kec. Tigaraksa', 'Pipit Windayanti', 'Ropi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(296, '2021.2022.1.193', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Rio atsala subki', 'L', 'Tangerang ', '2014-10-07', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'KP.Sikluk Rt.002/001 Ds. Pematang Kec,Tigaraksa ', 'otikah', 'Riyadlus solihin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(297, '2021.2022.1.194', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Fatih Jalaludin Rumi', 'L', 'Tangerang ', '2015-05-08', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Kalapadua Rt. 002/003 Ds. Pete Kec. Tigaraksa', 'Nurasiah', 'Asmaul Rizki', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(298, '2021.2022.1.195', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Fakhri Zhafran Al Ihwan', 'L', 'Tangerang ', '2014-10-26', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Widara  Rt. 004/004 Desa. Pematang Kec. Tigaraksa', 'Nani Romayani', 'Yadi Sumarlin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(299, '2021.2022.1.196', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhammad Fikri Al - Wasi', 'L', 'Tangerang ', '2014-08-08', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Bungureun Rt. 001/001 Ds.Pematang Kec Tigaraksa', 'Nurhaeni', 'Mukri', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(300, '2021.2022.1.197', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Dafit ', 'L', 'Tangerang ', '2014-08-08', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(301, '2021.2022.1.198', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Celia Fransisca Suhardi', 'P', 'Tangerang ', '2014-08-08', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(302, '2021.2022.1.199', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Djuna Al Bahri', 'L', 'Tangerang ', '2015-04-06', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Tegal Sari  Rt. 003/001 Ds. Tegal Sari Kec. Tigaraksa', 'Fauziah', 'Dadang Suherman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(303, '2021.2022.4.200', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Zahra Ramadhani Setiawan ', 'P', 'Jakarta', '2011-08-18', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Perumahan Bumi Elok Tigaraksa Rt. 004/007 No. 8', 'Eli Herawati', 'Lega Setiyawan', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(304, '2021.2022.5.201', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Aditiya Alifiandra Syaputra', 'L', 'Tangerang ', '2011-06-18', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Seglog Rt. 002/002 Desa. Pasir Bolang Kec. Tigaraksa', 'Aminah', 'Nurul Alfiansyah', '123', '5', 5, '', 'active', '2021-11-27', '2021-11-27'),
+(305, '2021.2022.1.202', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Agna Aulia Izzatunnisa', 'P', 'Tangerang ', '2014-09-02', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Seglog Rt. 002/002 Desa. Pasir Bolang Kec. Tigaraksa', 'Siti Yuliyah', 'Syahrul Rizal', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(306, '2021.2022.1.203', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Naufal Pradipta', 'L', 'Tangerang ', '2015-02-22', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Pabuaran Asem Rt. 003/002 Desa. Pete Kec. Tigaraksa', 'Ratih Pramitha Sari', 'Asari', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(307, '2021.2022.1.204', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Dea Ayumi Rahmadhani', 'P', 'Jakarta', '2015-07-03', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Cisereh Rt. 01/01 Desa. Cisereh Kec. Tigaraksa', 'Atih Purwasih', 'Dede Roswan', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(308, '2021.2022.1.205', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Keisha Diandri Nissa', 'P', 'Pagar alam', '2014-12-01', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Puri permai 2 blok b.5 Rt 007/006 Ds. Pete', 'Lia apriliani', 'Rinaldi ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(309, '2021.2022.1.206', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Adrian Labibbil Zufar', 'L', 'Tanggamus', '2015-05-17', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Triraksa Village Blok B 2 Rt. 07/04 Kec. Tigaraksa', 'Helda Wati', 'Hendri Efendi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(310, '2021.2022.1.207', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Azka Gavriel Septiansyah', 'L', 'Tangerang ', '2014-09-11', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Guradong Rt. 003/001 Desa. Tegal sari Kec. Tigaraksa', 'Marwati', 'Subrata', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(311, '2021.2022.1.208', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Azzam Alexander Anwar', 'L', 'Tangerang ', '2014-05-12', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kelapa dua Ds. Tigaraksa Kec.Pete Tangerang', 'Sarni', 'Sukandi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(312, '2021.2022.1.209', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Devani Queen', 'P', 'Depok', '2015-07-22', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Triraksa 2 Blok D 5 No. 11', 'Derry Emilia Syarief ', 'Sagiman', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(313, '2021.2022.1.210', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Ardhan Akalil Kholiq', 'L', 'Tangerang ', '2014-12-10', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Munjul Permai Blok C 06/41 Rt. 08/04 Desa. Munjul Kec. Solear', 'Dewi Kartika Wati', 'Rohmat', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(314, '2021.2022.1.211', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Chelsea Aureliya Rambe', 'L', 'Tangerang ', '2014-09-15', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Jieunjing ,perumahan taman cisoka indah,Ds.Jeunjing,Kec.Cisoka', 'Gemni Siregar', 'Hoirul Saleh Rambe', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(315, '2021.2022.1.212', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Azfa  Nugraha ', 'L', 'Tangerang ', '2014-12-11', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Perum Triraksa Village blok B.19 /01', 'Elis Masripah', 'Indra Nugraha ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(316, '2021.2022.4.213', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhammad Yusuf Hermawan', 'L', 'Tangerang ', '2011-11-02', 'image/placeholder.png', 'Pegawai Negri Sipil (PNS)', 'Membaca', 'Kp. Nangsi Rt.004/002 Ds, Tegal Sari Kec.Tigaraksa', 'Nurhasanah', 'Syaripudin', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(317, '2021.2022.6.214', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Rasya April Sadewa', 'L', 'Bogor', '2010-04-17', 'image/placeholder.png', 'TES', 'Membaca', 'Griya parung panjang Rt 002/004 Kp.Kabasiran', 'Upi Munawaroh', 'Untung suyarto', '123', '6', 6, '', 'active', '2021-11-27', '2021-11-27'),
+(318, '2021.2022.3.215', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Azka Azzami', 'L', 'Tangerang ', '2013-05-07', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Tapos Gardu Rt. 002/001 Desa. Tapos Kec. Tigaraksa', 'Apriati', 'Suganda', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(319, '2021.2022.1.216', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Mohamad Hasbi', 'L', 'Tangerang ', '2014-07-13', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Bungureun Rt. 001/001 Ds. Pematang Kec. Tigaraksa', 'Asbiyah', 'Supriyadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(320, '2021.2022.1.217', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Adhyastha Nabil Aden Yuandhitra', 'L', 'Jakarta', '2013-10-20', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Perumahan Triraksa Blok A 8 Rt. 06/05 No. 32 Desa. Tigaraksa ', 'Nenden Nurjanah', 'Amir Sarifudin', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(321, '2021.2022.1.218', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Alya Dewina Maryam', 'P', 'Tangerang ', '2014-10-21', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Pamanggalan Rt 02/03 Pete', 'Ida', 'Purwanto', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(322, '2021.2022.1.219', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Anindya Maulida ', 'P', 'Tangerang ', '2014-12-29', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Perum Triraksa Village blok B.12 /02 Rt 07/05', 'Nurhayati', 'Syaiful Anwar', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(323, '2021.2022.1.221', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Javier Al Baihaqi Ahyani', 'L', 'Tangerang ', '2014-09-13', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Secang Rt. 004/004 Desa. Sukatani Kec. Cisoka', 'Lita', 'Ahyani', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(324, '2021.2022.4.222', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Ihsan Nurfaiz', 'L', 'Tangerang ', '2011-10-07', 'image/placeholder.png', 'Pegawai Negri Sipil (PNS)', 'Membaca', 'Pabuaran Rt.01/01 Ds Jeunjing cisoka', 'Saidah', 'Tibyani', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(325, '2021.2022.3.223', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Alya Hardiyanti', 'P', 'Tangerang ', '2013-06-29', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp. Sodong Rt. 006/001 Desa. Sodong Kec. Tigaraksa', 'Yanti', 'Husen Supardi', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(326, '2021.2022.2.224', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Hikam Al Mahfudzh', 'L', 'Tangerang ', '2013-11-28', 'image/placeholder.png', 'Buruh Supir', 'Membaca', 'Kp.Sikluk Rt 003/004 Ds Pete Kec.Tigaraksa', 'Mery Lestari', 'Mahpud', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(327, '2021.2022.3.225', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Rafiiandra Putrama', 'L', 'TANGERANG ', '2013-05-20', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp. Pasir Bakung Rt. 005/002 Ds. Tegal Sari Kec. Tigaraksa', 'Siti Rumyanah', 'Mulyadi', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(328, '2021.2022.4.226', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Kalingga Akira Putra ', 'L', 'Sukoharjo', '2012-02-27', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Clusteer savira 2 Rt.04 Rw.02 Babakan Ds.Pematang', 'Anita Yuliana Dewi', 'Johan Adi Putra', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(329, '2021.2022.1.227', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Kheyra Adzkiatul Kamila', 'P', 'Tangerang', '2014-12-18', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Pabuaran Rt.02/003 Ds.Pematang', 'Evi Havivah', 'Achmad umbara', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(330, '2021.2022.1.228', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhammad Alfi Adzka Shofa', 'L', 'Tangerang', '2015-05-30', 'image/placeholder.png', 'Guru', 'Membaca', 'Kp. Kalapadua Rt.005/004 Desa. Pete Kec. Tigaraksa', 'Siti Zubaedah, S.Pd.I', 'Syofyan Soffa, S.Pd.I', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(331, '2021.2022.2.229', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Sancia Akelin Asafa', 'P', 'Kebumen ', '2014-02-14', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Karangjati Rt.001/005 Ds.karangjati Kec.Kemrajen', 'Dwi Aprilianti', 'Rahmat Suprianto ', '123', '2', 2, '', 'active', '2021-11-27', '2021-11-27'),
+(332, '2021.2022.1.230', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Kayla Muti Salsabila', 'P', 'Tangerang', '2015-02-28', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Perum Sudirman Indah Blok G. 17 No.14 Rt.005/012 Ds.Pasir nangka ', 'Fitri Handayani', 'Triyadi', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(333, '2021.2022.1.231', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Farid', 'L', 'Tangerang', '2014-01-18', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp.Bojobolang Rt.004/001 Ds.Pasir bolang ', 'Neneng Muhaeti', 'Achmad Mulyani', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(334, '2021.2022.4.232', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Bazzar Muqodar', 'L', 'Tangerang', '2012-04-01', 'image/placeholder.png', 'TES', 'Membaca', 'Kp.Jeungjing Rt.003/003 Kec.cisoka ', 'Yuli yanti', 'Darma ', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(335, '2021.2022.1.233', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Ayla Agya Rahma', 'P', 'Tangerang', '2014-07-05', 'image/placeholder.png', 'Buruh', 'Membaca', 'Perum Triraksa vilage Blok. B6/30 Rt.007/005 Kec.Tigaraksa ', 'Sumiati', 'Ahmad Mahdi ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(336, '2021.2022.1.234', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhammad Fairuz izdihar', 'L', 'Tangerang', '2015-01-31', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.cisereh Rt.004/002 Ds.Cisereh Kec.Tigaraksa', 'Dilalah ', 'Sagap Mulia', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(337, '2021.2022.1.235', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Ahmad Miftahudin ', 'L', 'Tangerang', '2015-01-31', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(338, '2021.2022.1.236', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Aisyah Qiana Muti', 'P', 'Tangerang', '2015-01-31', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(339, '2021.2022.4.237', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Muhamad Ridho Fahlevi', 'L', 'Tangerang ', '2012-01-08', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Kp.Megu RT.001/001 Ds.Karang Harja Kec.cisoka', 'Eneng Eha', 'Suhendra Priatna', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(340, '2021.2022.5.238', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Fawwaz Averous Saluby', 'L', 'Serang ', '2011-05-07', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Perum Tbl. Blok D.2E No.23 Rt.006/021 Ds.Unyur Kec.Serang Kab.Kota serang', 'Nur Khafidhoh', 'Wildan Salim Salubi', '123', '5', 5, '', 'active', '2021-11-27', '2021-11-27'),
+(341, '2021.2022.1.239', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Siti Aisyah Putri ', 'P', 'Tangerang', '2011-05-07', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(342, '2021.2022.1.240', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Rayana Meham Syahendra', 'P', 'Tangerang', '2011-05-07', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(343, '2021.2022.5.241', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Aruni Fakhira Ramadhanti', 'P', 'Tangerang', '2011-08-19', 'image/placeholder.png', 'TNI', 'Membaca', 'Perum sudirman indah Blok.D.05 Rt.004/006 Ds.Tigaraksa Kec.Tigaraksa', 'Rini Riastuti', 'Sulistyo ', '123', '5', 5, '', 'active', '2021-11-27', '2021-11-27'),
+(344, '2021.2022.4.243', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Danish Danial Arsyad', 'L', 'Tegal', '2012-03-25', 'image/placeholder.png', 'Pedagang', 'Membaca', 'Bedug Rt.029/006 Kp.Bedug Kec.Pangkah Kab.Tegal Prov.Jawa tengah', 'Nur Athiya', 'Akhmad Khsani', '123', '4', 4, '', 'active', '2021-11-27', '2021-11-27'),
+(345, '2021.2022.1.244', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Qusnul Fayza Rahmillah', 'P', 'Tangerang', '2014-12-11', 'image/placeholder.png', 'Karyawan swasta', 'Membaca', 'Perum Triraksa Vilage Blok.B.11 No.4 Rt.009/005 Kec.Tigaraksa', 'Mimi Khodijah', 'Fitri Saryadi ', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(346, '2021.2022.3.245', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Putri Miranda Azahra', 'P', 'Tangerang', '2013-06-06', 'image/placeholder.png', 'Wiraswasta', 'Membaca', 'Jl.Arya Jaya santika Kp.Tegal Baju Rt.002/005 Kec.Tigaraksa', 'Siti Matyulani', 'Miftahul janah', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(347, '2021.2022.6.246', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Qween Latifa Abdilah ', 'P', 'Tangerang', '2013-05-20', 'image/placeholder.png', 'TES', 'Membaca', 'TES', 'TES', 'TES', '123', '6', 6, '', 'active', '2021-11-27', '2021-11-27'),
+(348, '2021.2022.5.247', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Sultan Ali Rifqi A', 'L', 'Tangerang', '2013-05-20', 'image/placeholder.png', 'TES', 'Membaca', 'TES', 'TES', 'TES', '123', '5', 5, '', 'active', '2021-11-27', '2021-11-27'),
+(349, '2021.2022.3.248', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Syihab Fauzy ', 'L', 'Tangerang', '2013-05-20', 'image/placeholder.png', 'Karyawan Swasta', 'Membaca', 'Kp.Mampelem Rt.003/005 Ds.Matagara Kec.Tigaraksa', 'Sulpah', 'Suratman ', '123', '3', 3, '', 'active', '2021-11-27', '2021-11-27'),
+(350, '2021.2022.1.249', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Khanza Shafa Aulia', 'P', 'Tangerang', '2013-05-20', 'image/placeholder.png', 'TES', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27'),
+(351, '2021.2022.1.250', '00000000', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Hanifah Ibnati Robby', 'P', 'Tangerang', '2013-05-20', 'image/placeholder.png', 'TES', 'Membaca', 'TES', 'TES', 'TES', '123', '1', 1, '', 'active', '2021-11-27', '2021-11-27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_alumni`
+--
+
+CREATE TABLE `student_alumni` (
+  `student_id` int(11) NOT NULL,
+  `nis` varchar(45) DEFAULT NULL,
+  `nisn` varchar(45) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `birth_place` varchar(45) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `nohp` varchar(45) DEFAULT NULL,
+  `hobi` varchar(100) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `ibu` varchar(100) DEFAULT NULL,
+  `ayahwali` varchar(100) DEFAULT NULL,
+  `waortu` varchar(45) DEFAULT NULL,
+  `kelas_id` varchar(11) DEFAULT NULL,
+  `jurusan` int(11) DEFAULT NULL,
+  `catatan` text NOT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `input_date` date DEFAULT NULL,
+  `last_update` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_alumni`
+--
+
+INSERT INTO `student_alumni` (`student_id`, `nis`, `nisn`, `password`, `nama`, `gender`, `birth_place`, `birth_date`, `avatar`, `nohp`, `hobi`, `alamat`, `ibu`, `ayahwali`, `waortu`, `kelas_id`, `jurusan`, `catatan`, `status`, `input_date`, `last_update`) VALUES
+(2, '1001', '10002001', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'Rana', 'Laki laki', 'Jambi', '2001-01-01', 'image/placeholder.png', '6289630727251', 'Baca', 'jakarta', 'wati', 'parjo', '6289630727251', '1', 1, '', 'lulus', '2021-04-16', '2021-04-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uang_kategori`
+--
+
+CREATE TABLE `uang_kategori` (
+  `kategori_id` int(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `jenis` varchar(100) NOT NULL,
+  `keterangan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uang_kategori`
+--
+
+INSERT INTO `uang_kategori` (`kategori_id`, `nama`, `jenis`, `keterangan`) VALUES
+(1, 'Pembayaran Siswa', 'in', 'Semua pemasukan yang diperoleh dari iuran bulanan/non bulanan siswa'),
+(4, 'Dana BOS', 'in', 'dana bantuan operasional'),
+(5, 'Listrik', 'out', 'Beban Listrik'),
+(6, 'Perlengkapan', 'out', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uang_masuk_keluar`
+--
+
+CREATE TABLE `uang_masuk_keluar` (
+  `no` int(10) NOT NULL,
+  `tipe` varchar(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `keterangan` varchar(200) NOT NULL,
+  `jumlah` int(10) NOT NULL,
+  `kasir` varchar(100) NOT NULL,
+  `kategori_id` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `period_id` int(10) NOT NULL,
+  `bebas_id` int(10) NOT NULL,
+  `bulanan_id` int(10) NOT NULL,
+  `tgl_update` date NOT NULL,
+  `tgl_input` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uang_masuk_keluar`
+--
+
+INSERT INTO `uang_masuk_keluar` (`no`, `tipe`, `nama`, `keterangan`, `jumlah`, `kasir`, `kategori_id`, `student_id`, `period_id`, `bebas_id`, `bulanan_id`, `tgl_update`, `tgl_input`) VALUES
+(1, 'pay', 'SPP  T.A 2020/2021', 'pembayaran bulanan', 100000, 'admin', 1, 2, 1, 0, 1, '2021-04-16', '2021-04-16'),
+(2, 'pay', 'Komputer T.A 2020/2021', 'pembayaran bulanan', 20000, 'admin', 1, 2, 1, 0, 193, '2021-04-16', '2021-04-16'),
+(3, 'pay', 'Study Tour T.A 2020/2021', 'pembayaran cicilan', 10000, 'admin', 1, 2, 1, 1, 0, '2021-04-16', '2021-04-16'),
+(4, 'pay', 'Study Tour T.A 2020/2021', 'pembayaran cicilan', 20000, 'admin', 1, 2, 1, 1, 0, '2021-04-16', '2021-04-16'),
+(5, 'in', 'Dana Bos', 'bantuan pemprov', 1000000, 'admin', 4, 0, 0, 0, 0, '2021-04-16', '2021-04-16'),
+(6, 'out', 'Listrik', 'token listrik', 100000, 'admin', 5, 0, 0, 0, 0, '2021-04-16', '2021-04-16'),
+(7, 'in', 'andika', '', 400000, 'admin', 1, 0, 0, 0, 0, '2021-11-26', '2021-11-26'),
+(8, 'in', 'Eagle', 'Lunas', 700000, 'admin', 4, 0, 0, 0, 0, '2021-11-26', '2021-11-26'),
+(9, 'in', 'Rama', 'Lunas', 700000, 'admin', 4, 0, 0, 0, 0, '2021-11-26', '2021-11-26'),
+(10, 'out', 'Beli pulsa listrik', 'Musholla', 500000, 'admin', 5, 0, 0, 0, 0, '2021-11-26', '2021-11-26'),
+(11, 'out', 'Listrik', 'Musola', 500, 'admin', 5, 0, 0, 0, 0, '2021-11-26', '2021-11-26'),
+(12, 'pay', ' T.A ', 'pembayaran bulanan', 100000, 'Admin Tata Usaha', 1, 0, 0, 0, 0, '2021-11-27', '2021-11-27'),
+(13, 'pay', 'SPP  T.A 2021/2022', 'pembayaran bulanan', 100000, 'Admin Tata Usaha', 1, 351, 1, 0, 409, '2021-11-27', '2021-11-27'),
+(14, 'pay', 'SPP  T.A 2021/2022', 'pembayaran bulanan', 150000, 'Admin Tata Usaha', 1, 351, 1, 0, 410, '2021-11-28', '2021-11-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `userna_me` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `pa_ssword` varchar(70) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `nohp` varchar(20) DEFAULT NULL,
+  `tgllahir` date DEFAULT NULL,
+  `tglaktif` date DEFAULT NULL,
+  `jabatan` varchar(20) DEFAULT NULL,
+  `avatar` varchar(100) DEFAULT NULL,
+  `no` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userna_me`, `email`, `pa_ssword`, `nama`, `alamat`, `nohp`, `tgllahir`, `tglaktif`, `jabatan`, `avatar`, `no`) VALUES
+('admin', 'admin@admin.com', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', 'admin', 'alamat', '111', '2020-02-02', '2020-02-02', 'admin', 'upload/image/placeholder.png', 24),
+('siswa', 'argan@gmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'argan', 'tng', '038028320', '2021-11-26', '2021-11-26', 'Karyawan', 'upload/image/placeholder.png', 25),
+('tatausaha', 'tes@tes.com', 'aa0fda50237708ba4d6429824958704df71f029c', 'Admin Tata Usaha', 'Jakarta', '081212686798', '1979-02-25', '2021-11-27', 'Karyawan', 'upload/image/placeholder.png', 26);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `backset`
+--
+ALTER TABLE `backset`
+  ADD PRIMARY KEY (`url`);
+
+--
+-- Indexes for table `bebasan`
+--
+ALTER TABLE `bebasan`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `bebasan_pay`
+--
+ALTER TABLE `bebasan_pay`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `bulanan`
+--
+ALTER TABLE `bulanan`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `chmenu`
+--
+ALTER TABLE `chmenu`
+  ADD PRIMARY KEY (`userjabatan`);
+
+--
+-- Indexes for table `class`
+--
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `data`
+--
+ALTER TABLE `data`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event_colors`
+--
+ALTER TABLE `event_colors`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `graduation`
+--
+ALTER TABLE `graduation`
+  ADD PRIMARY KEY (`grad_id`);
+
+--
+-- Indexes for table `info`
+--
+ALTER TABLE `info`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `jabatan`
+--
+ALTER TABLE `jabatan`
+  ADD PRIMARY KEY (`kode`),
+  ADD KEY `no` (`no`);
+
+--
+-- Indexes for table `jenis_bayar`
+--
+ALTER TABLE `jenis_bayar`
+  ADD PRIMARY KEY (`jenis_id`);
+
+--
+-- Indexes for table `months`
+--
+ALTER TABLE `months`
+  ADD PRIMARY KEY (`month_id`);
+
+--
+-- Indexes for table `periode`
+--
+ALTER TABLE `periode`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `pin`
+--
+ALTER TABLE `pin`
+  ADD PRIMARY KEY (`ubah`);
+
+--
+-- Indexes for table `pos_bayar`
+--
+ALTER TABLE `pos_bayar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rekening`
+--
+ALTER TABLE `rekening`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `fk_student_class1_idx` (`kelas_id`),
+  ADD KEY `fk_student_majors1_idx` (`jurusan`);
+
+--
+-- Indexes for table `student_alumni`
+--
+ALTER TABLE `student_alumni`
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `fk_student_class1_idx` (`kelas_id`),
+  ADD KEY `fk_student_majors1_idx` (`jurusan`);
+
+--
+-- Indexes for table `uang_kategori`
+--
+ALTER TABLE `uang_kategori`
+  ADD PRIMARY KEY (`kategori_id`);
+
+--
+-- Indexes for table `uang_masuk_keluar`
+--
+ALTER TABLE `uang_masuk_keluar`
+  ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userna_me`),
+  ADD KEY `no` (`no`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bebasan`
+--
+ALTER TABLE `bebasan`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `bebasan_pay`
+--
+ALTER TABLE `bebasan_pay`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `bulanan`
+--
+ALTER TABLE `bulanan`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=433;
+
+--
+-- AUTO_INCREMENT for table `class`
+--
+ALTER TABLE `class`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `event_colors`
+--
+ALTER TABLE `event_colors`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `graduation`
+--
+ALTER TABLE `graduation`
+  MODIFY `grad_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `info`
+--
+ALTER TABLE `info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `jabatan`
+--
+ALTER TABLE `jabatan`
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `jenis_bayar`
+--
+ALTER TABLE `jenis_bayar`
+  MODIFY `jenis_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `months`
+--
+ALTER TABLE `months`
+  MODIFY `month_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `periode`
+--
+ALTER TABLE `periode`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pos_bayar`
+--
+ALTER TABLE `pos_bayar`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `rekening`
+--
+ALTER TABLE `rekening`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+
+--
+-- AUTO_INCREMENT for table `student_alumni`
+--
+ALTER TABLE `student_alumni`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `uang_kategori`
+--
+ALTER TABLE `uang_kategori`
+  MODIFY `kategori_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `uang_masuk_keluar`
+--
+ALTER TABLE `uang_masuk_keluar`
+  MODIFY `no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

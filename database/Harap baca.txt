@@ -1,0 +1,7 @@
+
+Pastikan file yang diimport berupa file .sql
+
+silahkan buat database dulu di phpmyadmin, baru anda import file sql nya
+
+pastikan username, password dan nama database sama dengan yang ada pada file:
+configuration/config_connect.php
