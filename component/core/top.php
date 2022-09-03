@@ -5,10 +5,6 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nama, avatar FROM data whe
 <!-- Topbar Start -->
 <div class="navbar-custom">
     <ul class="list-unstyled topnav-menu float-right mb-0">
-
-
-
-
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="<?php echo $_SESSION['avatar']; ?>" alt="user-image" class="rounded-circle">

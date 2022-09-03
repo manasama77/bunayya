@@ -1,5 +1,3 @@
-
-    <body>
-
-        <!-- Begin page -->
-        <div id="wrapper">
+<body>
+    <!-- Begin page -->
+    <div id="wrapper">
