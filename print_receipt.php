@@ -57,8 +57,8 @@ if ($jenis == 25) {
         </label>
         <p style="text-align:center;">
             <strong>
-                <?= $sql['alamat']; ?><br />
-                <?= $sql['notelp']; ?><br />
+                <?= $sql['alamat']; ?><br /><br />
+                <?= $sql['notelp']; ?><br /><br />
                 <?= $sql['email']; ?><br />
             </strong>
         </p>
@@ -66,9 +66,9 @@ if ($jenis == 25) {
         <table style="width:100%">
             <tbody>
                 <tr>
-                    <td style="width: 10%; vertical-align:top; word-wrap: break-word;">Nama</td>
-                    <td style="width: 5%; vertical-align:top;">:</td>
-                    <td style="width: 85%; vertical-align:top;"><?= $b['nama']; ?></td>
+                    <td style="width: 5%; vertical-align:top; word-wrap: break-word;">Nama</td>
+                    <td style="width: 1%; vertical-align:top;">:</td>
+                    <td style="width: 90%; vertical-align:top;"><?= $b['nama']; ?></td>
                 </tr>
                 <tr>
                     <td>Kelas</td>
@@ -84,9 +84,9 @@ if ($jenis == 25) {
                 </tr>
                 <?php if ($tipe == 1) { ?>
                     <tr>
-                        <td style="vertical-align: top;"><b>Pembayaran</b></td>
-                        <td style="vertical-align: top;">:</td>
-                        <td style="vertical-align: top;">
+                        <td style="vertical-align: top; width: 5%;"><b>Pembayaran</b></td>
+                        <td style="vertical-align: top; width: 1%;">:</td>
+                        <td style="vertical-align: top; width: 90%;">
                             <b><?= $c['nama'] . " T.A " . $c['tahunajar']; ?> (<?= $e['month_name']; ?>)</b><br />
                             <?php
                             if ($keterangan != null) {
@@ -132,9 +132,9 @@ if ($jenis == 25) {
                     </tr>
                 <?php } else { ?>
                     <tr>
-                        <td style="vertical-align: top;"><b>Pembayaran</b></td>
-                        <td style="vertical-align: top;">:</td>
-                        <td style="vertical-align: top;">
+                        <td style="vertical-align: top; width: 5%;"><b>Pembayaran</b></td>
+                        <td style="vertical-align: top; width: 1%;">:</td>
+                        <td style="vertical-align: top; width: 90%;">
                             <b><?= $c['nama'] . " T.A " . $c['tahunajar']; ?></b>
                         </td>
                     </tr>
@@ -174,6 +174,9 @@ if ($jenis == 25) {
                     <u><?= $a['kasir']; ?></u><br />
                     (Petugas)
                 </td>
+            </tr>
+            <tr>
+                <td style="height: 20px;">&nbsp;</td>
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold; height: 5px;">
