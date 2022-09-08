@@ -38,17 +38,21 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 	/* Create a first sheet, representing sales data*/
 	$objPHPExcel->createSheet();
 	$objPHPExcel->setActiveSheetIndex($actsheet);
-	foreach (range('A', 'R') as $columnID) {
+	foreach (range('B', 'R') as $columnID) {
 		$objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
 			->setAutoSize(true);
 	}
-
 	$actsheet++;
 
-	$objPHPExcel->getActiveSheet()->setCellValue('A1', 'NO');
-	$objPHPExcel->getActiveSheet()->setCellValue('B1', 'Kelas');
-	$objPHPExcel->getActiveSheet()->setCellValue('C1', 'NIS');
-	$objPHPExcel->getActiveSheet()->setCellValue('D1', 'NAMA');
+	$objPHPExcel->getActiveSheet()->mergeCells('A1:R1');
+	$objPHPExcel->getActiveSheet()->getStyle("A1:R1")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+	$objPHPExcel->getActiveSheet()->setCellValue('A1', "Laporan Bulanan");
+
+	$objPHPExcel->getActiveSheet()->setCellValue('A3', 'NO');
+	$objPHPExcel->getActiveSheet()->setCellValue('B3', 'Kelas');
+	$objPHPExcel->getActiveSheet()->setCellValue('C3', 'NIS');
+	$objPHPExcel->getActiveSheet()->setCellValue('D3', 'NAMA');
 
 	$rownya = "E";
 	$sqlnya = mysqli_query($conn, "SELECT * FROM months");
@@ -60,7 +64,7 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '1', "Terbayarkan");
 	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '1', "Belum Terbayarkan");
 
-	$i    = 2;
+	$i    = 4;
 	$nom  = 1;
 	$sql2 = mysqli_query($conn, "SELECT * FROM student WHERE kelas_id = '" . $c . "'");
 
