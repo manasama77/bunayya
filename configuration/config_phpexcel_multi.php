@@ -123,7 +123,7 @@ $objPHPExcel->removeSheetByIndex($sheetIndex);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 // header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment; filename="test.xlsx"'); // Set nama file excel nya
+header('Content-Disposition: attachment; filename="Laporan Bulanan.xlsx"'); // Set nama file excel nya
 header('Cache-Control: max-age=0');
 
 $write = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
