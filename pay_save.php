@@ -303,7 +303,14 @@ include "configuration/config_all_stat.php";
                                         <div class="form-group">
                                             <label for="paid">Sudah Dibayarkan</label>
                                             <input type="text" class="form-control rupiah" id="paid" value="<?php echo $sql['sudahbayar']; ?>" name="sudah" readonly>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <?php
+                                            $sisa_pembayaran = $sql['bill'] + $biaya_admin -  $sql['sudahbayar'];
+                                            ?>
+                                            <label for="sisa">Sisa Pembayaran</label>
+                                            <input type="text" class="form-control rupiah" id="sisa" value="<?= $sisa_pembayaran; ?>" readonly>
                                         </div>
 
 
@@ -536,6 +543,7 @@ include "configuration/config_all_stat.php";
     let biayaAdminNumeric = new AutoNumeric('#biaya_admin_bebas', autoNumericOptions);
     let paidNumeric = new AutoNumeric('#paid', autoNumericOptions);
     let dibayarNumeric = new AutoNumeric('#dibayar', autoNumericOptions);
+    let sisaNumeric = new AutoNumeric('#sisa', autoNumericOptions);
 
     $('#dibayar').on('keyup', e => {
         let tagihan = parseInt(tagihanNumeric.get())
