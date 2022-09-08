@@ -290,12 +290,6 @@ include "configuration/config_all_stat.php";
     <script src="assets/js/app.min.js"></script>
 
     <!-- END Lib & Plugins-->
-
-
-
-
-
-
     </body>
 
 </html>
