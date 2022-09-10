@@ -34,47 +34,38 @@ include "configuration/config_all_stat.php";
     ?>
 
     <?php
-    body();
-    theader();
-    etc();
-
-
     //Setting Halaman
 
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     include "configuration/config_chmod.php";
 
-    $halaman = "kosong"; // halaman
-    $dataapa = "Bukti Pembayaran"; // data
-    $tabeldatabase = "kosong"; // tabel database
-    $chmod = $chmenu1; // Hak akses Menu
-    $forward = mysqli_real_escape_string($conn, $tabeldatabase); // tabel database
-    $forwardpage = mysqli_real_escape_string($conn, $halaman); // halaman
+    $halaman       = "kosong";                                          // halaman
+    $dataapa       = "Bukti Pembayaran";                                // data
+    $tabeldatabase = "kosong";                                          // tabel database
+    $chmod         = $chmenu1;                                          // Hak akses Menu
+    $forward       = mysqli_real_escape_string($conn, $tabeldatabase);  // tabel database
+    $forwardpage   = mysqli_real_escape_string($conn, $halaman);        // halaman
 
-    $no = $_GET['no'];
+    $no   = $_GET['no'];
     $tipe = $_GET['tipe'];
-
 
     $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM data"));
 
 
     if ($tipe == '1') {
         $tabel = "bulanan";
-        $a = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
+        $a     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
         $month = $a['month_id'];
-        $e = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months WHERE month_id='$month'"));
+        $e     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months WHERE month_id='$month'"));
     } else {
         $tabel = "bebasan";
-        $a = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
+        $a     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
     }
 
-
-
-    $siswa = $a['student_id'];
-
-    $jenis = $a['jenis_id'];
-    $t = $a['period_id'];
-
+    $siswa            = $a['student_id'];
+    $jenis            = $a['jenis_id'];
+    $t                = $a['period_id'];
+    $jenis_pembayaran = ($a['status'] == "belum") ? "Cicil" : "Lunas";
 
     $b = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM student WHERE student_id='$siswa'"));
     $kelas = $b['kelas_id'];
@@ -82,41 +73,20 @@ include "configuration/config_all_stat.php";
     $d = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM class WHERE no='$kelas'"));
 
     $keterangan = null;
+
     if ($jenis == 25) {
         $exec_pos_bayar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM pos_bayar WHERE id = 16"));
         $keterangan = $exec_pos_bayar['keterangan'];
     }
 
-
-    //End Setting Halaman
-
-    ?>
-
-    <?php
-
+    body();
+    theader();
+    etc();
     menu();
-
     ?>
-
-
-
-
-    <!-- Letak Kode PHP atas -->
-
-
-
-
-    <!-- END Letak Kode PHP atas -->
-
-
-
-
-
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
-
-
     <div class="content-page">
         <div class="content">
 
@@ -129,7 +99,7 @@ include "configuration/config_all_stat.php";
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="index">DashBoard</a></li>
+                                    <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="pay_add">Pembayaran</a></li>
                                     <li class="breadcrumb-item active"><?php echo $dataapa; ?></li>
                                 </ol>
@@ -149,19 +119,13 @@ include "configuration/config_all_stat.php";
                         <div class="card-box">
                             <div class="clearfix">
                                 <div class="float-left mb-2">
-
                                 </div>
                                 <div class="float-right">
-
-                                    <h3 class="m-0 d-print-none"><?php if ($tipe == '2') { ?>
-                                            Bukti Pelunasan <?php } else { ?>
-                                            Bukti Pembayaran
-                                        <?php } ?>
-
+                                    <h3 class="m-0 d-print-none">
+                                        <?php echo ($tipe == '2') ? "Bukti Pelunasan" : "Bukti Pembayaran"; ?>
                                     </h3>
                                 </div>
                             </div>
-
 
                             <div class="row">
                                 <div class="col-md-7 border-right">
@@ -172,38 +136,30 @@ include "configuration/config_all_stat.php";
                                         ?>
                                     </div>
 
-                                </div><!-- end col -->
+                                </div>
                                 <div class="col-md-5">
                                     <table class="table mb-0 table-borderless">
-
-
                                         <tr>
                                             <th style="width:10%"><b>Siswa</b></th>
                                             <td>: <?php echo $b['nis'] . " / " . $b['nama']; ?></td>
-
                                         </tr>
                                         <tr>
                                             <th style="width:10%"><b>Kelas</b></th>
                                             <td>: <?php echo $d['kelas']; ?></td>
                                         </tr>
-
                                         <tr>
                                             <th style="width:10%"><b>T.A </b></th>
                                             <td>: <?Php echo $c['tahunajar']; ?></td>
                                         </tr>
-
                                     </table>
                                 </div><!-- end col -->
                             </div>
                             <!-- end row -->
 
-
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <?php if ($tipe == '1') { ?>
-
                                             <table class="table mt-4 table-centered">
                                                 <thead>
                                                     <tr>
@@ -235,7 +191,6 @@ include "configuration/config_all_stat.php";
                                                 </tbody>
                                             </table>
                                         <?php } else { ?>
-
                                             <table class="table mt-4 table-centered">
                                                 <thead>
                                                     <tr>
@@ -252,16 +207,12 @@ include "configuration/config_all_stat.php";
                                                             <b><?php echo $c['nama'] . " T.A " . $c['tahunajar']; ?></b> <br />
                                                             diterima pada <?Php echo date('d/m/y', strtotime($a['tgl_input'])); ?>
                                                         </td>
-                                                        <td><?Php echo number_format($a['bill'] + $a['biaya_admin']); ?></td>
-
-                                                        <td class="text-right"><?Php echo number_format($a['sudahbayar']); ?></td>
+                                                        <td><?php echo number_format($a['bill'] + $a['biaya_admin']); ?></td>
+                                                        <td class="text-right"><?php echo number_format($a['sudahbayar']); ?></td>
                                                     </tr>
-
                                                 </tbody>
                                             </table>
-
                                         <?php } ?>
-
                                     </div>
                                 </div>
                             </div>
@@ -270,8 +221,6 @@ include "configuration/config_all_stat.php";
                                 </div>
                                 <div class="col-md-5">
                                     <div class="clearfix pt-4">
-
-
                                         <small>
                                             <br>
                                             <br>
@@ -279,18 +228,14 @@ include "configuration/config_all_stat.php";
                                             (Petugas)
                                         </small>
                                     </div>
-
                                 </div>
                                 <div class="col-md-6">
                                     <div class="text-md-right">
-                                        <h3>LUNAS</h3>
+                                        <h3 class="text-uppercase"><?= $jenis_pembayaran; ?></h3>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
-
-
-
                             <div class="hidden-print mt-4">
                                 <div class="text-right d-print-none">
                                     <a href="print_receipt.php?no=<?= $_GET['no']; ?>&tipe=<?= $_GET['tipe']; ?>" target="_blank" class="btn btn-blue waves-effect waves-light"><i class="fa fa-print mr-1"></i> Print</a>

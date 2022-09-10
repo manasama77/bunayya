@@ -44,30 +44,15 @@ include "configuration/config_all_stat.php";
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     include "configuration/config_chmod.php";
 
-    $halaman = "kosong"; // halaman
-    $dataapa = "pembayaran"; // data
-    $tabeldatabase = "kosong"; // tabel database
-    $chmod = $chmenu1; // Hak akses Menu
-    $forward = mysqli_real_escape_string($conn, $tabeldatabase); // tabel database
-    $forwardpage = mysqli_real_escape_string($conn, $halaman); // halaman
-    $no = $_GET['no'];
-
-    //End Setting Halaman
-
-    ?>
-
-    <?php
+    $halaman       = "kosong";                                          // halaman
+    $dataapa       = "Pembayaran";                                      // data
+    $tabeldatabase = "kosong";                                          // tabel database
+    $chmod         = $chmenu1;                                          // Hak akses Menu
+    $forward       = mysqli_real_escape_string($conn, $tabeldatabase);  // tabel database
+    $forwardpage   = mysqli_real_escape_string($conn, $halaman);        // halaman
+    $no            = $_GET['no'];
 
     menu();
-
-    ?>
-
-
-
-
-    <!-- Letak Kode PHP atas -->
-
-    <?php
 
     if (isset($_POST['simpan'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -99,18 +84,9 @@ include "configuration/config_all_stat.php";
             }
         }
     } ?>
-
-    <!-- END Letak Kode PHP atas -->
-
-
-
-
-
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
-
-
     <div class="content-page">
         <div class="content">
 
@@ -123,7 +99,7 @@ include "configuration/config_all_stat.php";
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="index">DashBoard</a></li>
+                                    <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="pay_add">Pembayaran</a></li>
                                     <li class="breadcrumb-item active"><?php echo $dataapa; ?></li>
                                 </ol>
@@ -327,21 +303,16 @@ include "configuration/config_all_stat.php";
                                 </div>
                             </div>
 
-
-
-
-
                             <div class="col-lg-6">
                                 <div class="card-box">
                                     <h4 class="header-title">Riwayat Pembayaran</h4>
-
                                     <div class="table-responsive">
-
-
-
                                         <table class="table table-bordered mb-0">
                                             <thead>
                                                 <tr>
+                                                    <th class="text-center">
+                                                        <i class="fas fa-cog"></i>
+                                                    </th>
                                                     <th>#</th>
                                                     <th>Tanggal</th>
                                                     <th>Diterima</th>
@@ -349,56 +320,50 @@ include "configuration/config_all_stat.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $nom = 0;
+                                                <?php
+                                                $nom = 0;
                                                 $sqli = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) as jml FROM bebasan_pay WHERE bebasan_id='$no'"));
                                                 $sqlq = mysqli_query($conn, "SELECT * FROM bebasan_pay WHERE bebasan_id='$no'");
                                                 while ($row = mysqli_fetch_assoc($sqlq)) {
-                                                    echo            '    <tr>
-                                            <th scope="row">' . ++$nom . '</th>
-                                            <td>' . date('d-m-y', strtotime($row['tanggal'])) . '</td>
-                                            <td>' . $row['kasir'] . '</td>
-                                            <td>' . number_format($row['jumlah'], 0) . '</td>
-                                        </tr>';
-                                                } ?>
-                                                <?php if ($sqli['jml'] > 0) {
-                                                    echo      '           <tr>
-                                            <th scope="row">#</th>
-                                            <td colspan="2"><b>Total</b></td>
-                                            <td><b>' . number_format($sqli['jml']) . '</b></td>
-                                        </tr>';
+                                                ?>
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            <a href="pay_receipt?no=<?= $no; ?>&tipe=2" target="_blank" class="btn btn-info btn-sm">
+                                                                <i class="fas fa-print"></i>
+                                                            </a>
+                                                        </th>
+                                                        <th scope="row"><?= ++$nom; ?></th>
+                                                        <td><?= date('d-m-y', strtotime($row['tanggal'])); ?></td>
+                                                        <td><?= $row['kasir']; ?></td>
+                                                        <td><?= number_format($row['jumlah'], 0); ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <?php if ($sqli['jml'] > 0) { ?>
+                                                    <tr>
+                                                        <th scope="row"></th>
+                                                        <th scope="row">#</th>
+                                                        <td colspan="2"><b>Total</b></td>
+                                                        <td><b><?= number_format($sqli['jml']); ?></b></td>
+                                                    </tr>
+                                                <?php
                                                 } else {
-
-                                                    echo '<tr><td colspan="4" style="text-align:center"> Belum Ada Pembayaran Tercatat</td></tr>';
+                                                    echo '<tr><td colspan="5" style="text-align:center"> Belum Ada Pembayaran Tercatat</td></tr>';
                                                 }
                                                 ?>
                                             </tbody>
                                         </table>
-
-
                                     </div>
                                     <br>
-
-
                                 </div>
-
-
                             </div>
-
-
-
                         </div>
                     </form>
 
                 <?php } ?>
                 <!-- END ISI HALAMAN -->
-
-
-
             </div> <!-- end container-fluid -->
-
         </div> <!-- end content -->
         <!--FOOTER-->
-
         <?php footer(); ?>
 
         <!-- END FOOTER-->

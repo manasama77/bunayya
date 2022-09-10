@@ -29,7 +29,9 @@ if ($tipe == '1') {
     $judul_pembayaran_table = "Dibayarkan";
 }
 
-$siswa = $a['student_id'];
+$siswa            = $a['student_id'];
+$jenis_pembayaran = ($a['status'] == "belum") ? "Cicil" : "Lunas";
+
 $b     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM student WHERE student_id='$siswa'"));
 $kelas = $b['kelas_id'];
 
@@ -44,7 +46,6 @@ if ($jenis == 25) {
     $keterangan     = $exec_pos_bayar['keterangan'];
 }
 ?>
-
 
 <body onload="window.print();">
 
@@ -155,8 +156,8 @@ if ($jenis == 25) {
                     <tr>
                         <td style="vertical-align: top;"><b>Status</b></td>
                         <td style="vertical-align: top;">:</td>
-                        <td style="vertical-align: top;">
-                            <b>LUNAS</b>
+                        <td style="vertical-align: top; text-transform: uppercase;">
+                            <b><?= $jenis_pembayaran; ?></b>
                         </td>
                     </tr>
                 <?php } ?>
