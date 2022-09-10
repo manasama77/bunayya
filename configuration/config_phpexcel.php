@@ -4,34 +4,38 @@ include "config_connect.php";
 
 // Load plugin PHPExcel nya
 require_once '../assets/PHPExcel/PHPExcel.php';
-
+require_once '../assets/PHPExcel/PHPExcel/IOFactory.php';
 
 $forward = $_GET['forward'];
-
 
 // Panggil class PHPExcel nya
 $excel = new PHPExcel();
 
 // Settingan awal fil excel
-$excel->getProperties()->setCreator('SPP PINTAR')
-	->setLastModifiedBy('SPP PINTAR')
-	->setTitle("Data Laporan")
-	->setSubject("SPP PINTAr")
-	->setDescription("Laporan SPP Pintar")
-	->setKeywords("Data SPP PINTAR");
+$sqlnya       = "SELECT * FROM `data`";
+$data_sekolah = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
+$nama_sekolah = $data_sekolah['nama'];
+$namanya      = ($forward == "report_bebas") ? "Laporan Transaksi" : "Laporan Pembayaran";
+
+$excel->getProperties()->setCreator($nama_sekolah)
+	->setLastModifiedBy($nama_sekolah)
+	->setTitle($namanya)
+	->setSubject($nama_sekolah . " " . $namanya)
+	->setDescription($nama_sekolah . " " . $namanya)
+	->setKeywords($nama_sekolah . " " . $namanya);
 
 // Buat sebuah variabel untuk menampung pengaturan style dari header tabel
 $style_col = array(
 	'font' => array('bold' => true), // Set font nya jadi bold
 	'alignment' => array(
-		'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-		'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+		'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,   // Set text jadi ditengah secara horizontal (center)
+		'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER      // Set text jadi di tengah secara vertical (middle)
 	),
 	'borders' => array(
-		'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-		'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-		'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-		'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+		'top'    => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border top dengan garis tipis
+		'right'  => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border right dengan garis tipis
+		'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border bottom dengan garis tipis
+		'left'   => array('style'  => PHPExcel_Style_Border::BORDER_THIN)    // Set border left dengan garis tipis
 	)
 );
 
@@ -41,43 +45,36 @@ $style_row = array(
 		'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
 	),
 	'borders' => array(
-		'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-		'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-		'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-		'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+		'top'    => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border top dengan garis tipis
+		'right'  => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border right dengan garis tipis
+		'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),   // Set border bottom dengan garis tipis
+		'left'   => array('style'  => PHPExcel_Style_Border::BORDER_THIN)    // Set border left dengan garis tipis
 	)
 );
 
 
 
-$excel->getActiveSheet()->mergeCells('A1:F1'); // Set Merge Cell pada kolom A1 sampai F1
+$excel->getActiveSheet()->mergeCells('A1:G1'); // Set Merge Cell pada kolom A1 sampai F1
 $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
 $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
 $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
 
 
-
-
 if ($forward == 'report_trx') {
 
 	$start = $_GET['start'];
-	$end = $_GET['end'];
-	$tipe = $_GET['tipe'];
-
-
+	$end   = $_GET['end'];
+	$tipe  = $_GET['tipe'];
 
 	$excel->setActiveSheetIndex(0)->setCellValue('A1', "LAPORAN TRANSAKSI "); // Set kolom A1 dengan tulisan "DATA SISWA"
 
 	// Buat header tabel nya pada baris ke 3
-
-
 	$excel->setActiveSheetIndex(0)->setCellValue('A3', "NO"); // Set kolom A3 dengan tulisan "NO"
 	$excel->setActiveSheetIndex(0)->setCellValue('B3', "TANGGAl"); // Set kolom B3 dengan tulisan "NIS"
 	$excel->setActiveSheetIndex(0)->setCellValue('C3', "NAMA"); // Set kolom C3 dengan tulisan "NAMA"
 	$excel->setActiveSheetIndex(0)->setCellValue('D3', "TIPE"); // Set kolom D3 dengan tulisan "JENIS KELAMIN"
 	$excel->setActiveSheetIndex(0)->setCellValue('E3', "JUMLAH"); // Set kolom E3 dengan tulisan "TELEPON"
 	$excel->setActiveSheetIndex(0)->setCellValue('F3', "OLEH"); // Set kolom F3 dengan tulisan "ALAMAT"
-
 
 
 	// Apply style header yang telah kita buat tadi ke masing-masing kolom header
@@ -102,9 +99,8 @@ if ($forward == 'report_trx') {
 		$sql = mysqli_query($conn, "SELECT * FROM uang_masuk_keluar WHERE tipe='out' AND tgl_input BETWEEN '" . $start . "' AND  '" . $end . "'");
 	}
 
-	$in = "PEMASUKAN";
-	$out = "PENGELUARAN";
-	$namanya = "Laporan Transaksi";
+	$in      = "PEMASUKAN";
+	$out     = "PENGELUARAN";
 
 	$no = 1; // Untuk penomoran tabel, di awal set dengan 1
 	$numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
@@ -158,14 +154,9 @@ if ($forward == 'report_trx') {
 	// Set judul file excel nya
 	$excel->getActiveSheet(0)->setTitle("data");
 	$excel->setActiveSheetIndex(0);
-}
-
-
-if ($forward == 'report_bebas') {
+} elseif ($forward == 'report_bebas') {
 	$t = $_GET['t'];
 	$j = $_GET['j'];
-	$namanya = "Laporan Pembayaran";
-
 
 	$excel->setActiveSheetIndex(0)->setCellValue('A1', "LAPORAN PEMBAYARAN NON BULANAN "); // Set kolom A1 dengan tulisan "DATA SISWA"
 
@@ -201,8 +192,6 @@ if ($forward == 'report_bebas') {
 
 	$sql = mysqli_query($conn, "SELECT * from student order by kelas_id");
 
-
-
 	while ($data = mysqli_fetch_array($sql)) { // Ambil semua data dari hasil eksekusi $sql
 		$excel->setActiveSheetIndex(0)->setCellValue('A' . $numrow, $no);
 
@@ -213,22 +202,33 @@ if ($forward == 'report_bebas') {
 		$excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $data['nis']);
 		$excel->setActiveSheetIndex(0)->setCellValue('D' . $numrow, $data['nama']);
 
-		$s = $data['student_id'];
-		$sql2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bebasan WHERE period_id='$t' AND jenis_id='$j' AND student_id='$s'"));
-		$sudah = $sql2['sudahbayar'];
-		$belum = $sql2['bill'];
-		$selisih = $belum - $sudah;
+		$s            = $data['student_id'];
+		$sqlnya       = "SELECT * FROM bebasan WHERE period_id='$t' AND jenis_id='$j' AND student_id='$s'";
+		$exec_bebasan = mysqli_query($conn, $sqlnya);
+		$nr_bebasan = mysqli_num_rows($exec_bebasan);
 
-		if ($belum == 0) {
-			$status = "";
-		} else if ($selisih == $belum) {
-			$status = "BELUM DIBAYAR";
-		} else if ($selisih <= 0) {
-			$status = "LUNAS";
-			$selisih = 0;
-		} else if (($selisih > 0) && ($selisih < $belum)) {
-			$status = "DICICIL";
+		$sudah   = 0;
+		$belum   = 0;
+		$selisih = 0;
+		$status  = "";
+		if ($nr_bebasan == 1) {
+			$sql2         = mysqli_fetch_assoc($exec_bebasan);
+			$sudah        = $sql2['sudahbayar'];
+			$belum        = $sql2['bill'];
+			$selisih      = $belum - $sudah;
+
+			if ($belum == 0) {
+				$status = "";
+			} else if ($selisih == $belum) {
+				$status = "BELUM DIBAYAR";
+			} else if ($selisih <= 0) {
+				$status = "LUNAS";
+				$selisih = 0;
+			} else if (($selisih > 0) && ($selisih < $belum)) {
+				$status = "DICICIL";
+			}
 		}
+
 		$excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $sudah);
 		$excel->setActiveSheetIndex(0)->setCellValue('F' . $numrow, $selisih);
 		$excel->setActiveSheetIndex(0)->setCellValue('G' . $numrow, $status);
@@ -253,10 +253,10 @@ if ($forward == 'report_bebas') {
 		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(5); // Set width kolom A
 		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(15); // Set width kolom B
 		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(30); // Set width kolom C
-		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(20); // Set width kolom D
+		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(40); // Set width kolom D
 		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(20); // Set width kolom E
 		$excel->getActiveSheet()->getColumnDimension('F')->setWidth(30); // Set width kolom F
-
+		$excel->getActiveSheet()->getColumnDimension('G')->setWidth(15); // Set width kolom G
 	}
 
 
