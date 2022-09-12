@@ -7,7 +7,7 @@ Author:      php easy code, www.phpeasycode.com
 Web Site:    http://www.phpeasycode.com
 Contact:     webmaster@phpeasycode.com
  *************************************************************************/
-function paginate_one($reload, $page, $tpages)
+function paginate_one($reload, $page, $tpages = 0)
 {
 
 	$firstlabel = "&laquo;&nbsp;";

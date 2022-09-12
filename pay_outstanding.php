@@ -32,10 +32,6 @@ include "configuration/config_all_stat.php";
     ?>
 
     <?php
-    body();
-    theader();
-    etc();
-
     //Setting Halaman
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     include "configuration/config_chmod.php";
@@ -48,15 +44,21 @@ include "configuration/config_all_stat.php";
     $forwardpage   = mysqli_real_escape_string($conn, $halaman);        // halaman
 
 
-    $b1        = mysqli_fetch_assoc(mysqli_query($conn, "SELECT month_id,month_name FROM months WHERE status='active'"));
+    $sqlnya = "SELECT month_id,month_name FROM months WHERE status='active'";
+    $b1        = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
     $cons      = $b1['month_id'];
     $namabulan = $b1['month_name'];
-    $b2        = mysqli_fetch_assoc(mysqli_query($conn, "SELECT no FROM periode WHERE status='active'"));
-    $t         = $b2['no'];
+
+    $sqlnya = "SELECT no FROM periode WHERE status='active'";
+    $b2     = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
+    $t      = $b2['no'];
     //End Setting Halaman
     ?>
 
     <?php
+    body();
+    theader();
+    etc();
     menu();
     ?>
     <!-- Letak Kode PHP atas -->
@@ -77,12 +79,12 @@ include "configuration/config_all_stat.php";
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="index">DashBoard</a></li>
+                                    <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="pay_add">Pembayaran</a></li>
                                     <li class="breadcrumb-item active"><?php echo $dataapa; ?></li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Tunggakan</h4>
+                            <h4 class="page-title">Tunggakan Bulanan</h4>
                         </div>
                     </div>
                 </div>
@@ -114,20 +116,21 @@ include "configuration/config_all_stat.php";
                             <?php
                             error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-                            $sqlnya    = "SELECT DISTINCT(student_id) FROM bulanan WHERE period_id='$t' AND month_id<='$cons' AND bulanan_status LIKE '%belum%'";
+                            $sqlnya = "SELECT DISTINCT(student_id) FROM bulanan WHERE period_id='$t' AND month_id<='$cons' AND bulanan_status LIKE '%belum%'";
                             $result = mysqli_query($conn, $sqlnya);
                             $rpp    = 15;
                             $reload = "$halaman" . "?pagination=true";
                             $page   = intval(isset($_GET["page"]) ? $_GET["page"] : 0);
+                            $count  = 0;
+                            $tcount  = mysqli_num_rows($result);
+                            $tpages  = ($tcount) ? ceil($tcount / $rpp) : 1;
 
                             if ($page <= 0) {
-                                $page    = 1;
-                                $tcount  = mysqli_num_rows($result);
-                                $tpages  = ($tcount) ? ceil($tcount / $rpp) : 1;
-                                $count   = 0;
-                                $i       = ($page - 1) * $rpp;
-                                $no_urut = ($page - 1) * $rpp;
+                                $page = 1;
                             }
+
+                            $i       = ($page - 1) * $rpp;
+                            $no_urut = ($page - 1) * $rpp;
                             ?>
                             <div class="table-responsive">
                                 <table class="table table-hover m-0 tickets-list table-actions-bar dt-responsive nowrap">
@@ -145,32 +148,36 @@ include "configuration/config_all_stat.php";
                                     <tbody>
                                         <?php
                                         while (($count < $rpp) && ($i < $tcount)) {
-                                            mysqli_data_seek($result, $i);
+                                            // mysqli_data_seek($result, $i);
                                             $row = mysqli_fetch_array($result);
+
+                                            $id     = $row['student_id'];
+                                            $sqlnya = "SELECT * FROM student WHERE student_id = '$id'";
+                                            $b3     = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
+                                            $nrb3   = mysqli_num_rows(mysqli_query($conn, $sqlnya));
+
+                                            $nis    = $id;
+                                            $nama   = "";
+                                            $avatar = "student/image/placeholder.png";
+                                            if ($nrb3 > 0) {
+                                                $nis    = $b3['nis'];
+                                                $nama   = $b3['nama'];
+                                                $avatar = "student/" . $b3['avatar'];
+                                            }
                                         ?>
                                             <tr>
                                                 <td><?php echo ++$no_urut; ?></td>
                                                 <td>
-                                                    <?php
-                                                    $id     = $row['student_id'];
-                                                    $sqlnya = "SELECT * FROM student WHERE student_id = '$id'";
-                                                    $b3     = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
-                                                    $nrb3   = mysqli_num_rows(mysqli_query($conn, $sqlnya));
-
-                                                    $subject = $b3['avatar'];
-                                                    $search  = 'student/';
-                                                    $trimmed = str_replace($search, '', $subject);
-                                                    if ($nrb3 == 0) {
-                                                        $trimmed = "image/placeholder.png";
-                                                        break;
-                                                    }
-                                                    ?>
-                                                    <b><?php echo $b3['nis']; ?></b>
+                                                    <b><?= $nis; ?></b>
                                                 </td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="text-body">
-                                                        <img src="student/<?php echo $trimmed; ?>" alt="foto-siswa" title="contact-img" class="rounded-circle avatar-sm" />
-                                                        <span class="ml-1"><b><?php echo $b3['nama']; ?></b></span>
+                                                        <img src="<?= $avatar; ?>" alt="foto-siswa" title="contact-img" class="rounded-circle avatar-sm" />
+                                                        <span class="ml-1">
+                                                            <b>
+                                                                <?= $nama; ?>
+                                                            </b>
+                                                        </span>
                                                     </a>
                                                 </td>
                                                 <td>
