@@ -172,8 +172,8 @@ if ($jenis == 25) {
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold; height: 5px;">
-                    <u><?= $a['kasir']; ?></u><br />
-                    (Petugas)
+                    <u><?= $a['kasir']; ?></u><br /><br />
+                    (Tata Usaha)
                 </td>
             </tr>
             <tr>
