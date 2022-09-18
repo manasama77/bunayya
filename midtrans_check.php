@@ -7,8 +7,8 @@ use Midtrans\Transaction;
 
 Config::$serverKey = "SB-Mid-server-pIjcTHoz8CGfbFJuZK7d6iZi";
 
-// $sql = "select * from pembayaran_midtrans where transaction_status = 'pending'";
-$sql = "select * from pembayaran_midtrans";
+$sql = "select * from pembayaran_midtrans where transaction_status = 'pending'";
+// $sql = "select * from pembayaran_midtrans";
 $query = mysqli_query($conn, $sql);
 $nr = mysqli_num_rows($query);
 
