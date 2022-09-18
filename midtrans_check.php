@@ -1,6 +1,6 @@
 <?php
 include 'configuration/config_connect.php';
-require __DIR__ . './vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Midtrans\Config;
 use Midtrans\Transaction;
