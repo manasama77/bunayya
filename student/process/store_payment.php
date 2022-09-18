@@ -25,7 +25,7 @@ $nama_siswa  = $arr_student['nama'];
 $waortu      = $arr_student['waortu'];
 
 $uuid = Uuid::uuid4();
-$sql     = "INSERT INTO pembayaran_midtrans (id, bulanan_no, token, transaction_time, transaction_status, transaction_id, payment_type) VALUES ('" . $uuid->toString() . "', '$no', '$token', null, 'pending', null, null)";
+$sql     = "INSERT INTO pembayaran_midtrans (id, bulanan_no, token, transaction_time, transaction_status, transaction_id, payment_type) VALUES ('" . $uuid->toString() . "', '$no', null, null, 'pending', null, null)";
 $exec    = mysqli_query($conn, $sql);
 
 $params = [
@@ -74,7 +74,7 @@ if (!$exec) {
     exit;
 }
 
-$sql = "UPDATE pembayaran_midtrans SET token = '" . $token . "' id = '" . $last_id . "'";
+$sql = "UPDATE pembayaran_midtrans SET token = '" . $token . "' WHERE id = '" . $uuid->toString() . "'";
 mysqli_query($conn, $sql);
 
 $_SESSION['snap_token'] = $token;

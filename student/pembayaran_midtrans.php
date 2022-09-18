@@ -35,7 +35,7 @@ $snap_token = $_SESSION['snap_token'];
         },
         onPending: function(result) {
             /* You may add your own implementation here */
-            alert("Pembayaran belum selesai");
+            window.location.replace('summary?status=unfinish')
             console.log(result);
         },
         onError: function(result) {

@@ -1,0 +1,5 @@
+https://smabunaya.trijayasolution.com/student/summary?status=finish
+
+https://smabunaya.trijayasolution.com/student/summary?status=unfinish
+
+https://smabunaya.trijayasolution.com/student/summary?status=error

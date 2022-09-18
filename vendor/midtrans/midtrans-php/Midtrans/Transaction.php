@@ -3,6 +3,7 @@
 namespace Midtrans;
 
 use Exception;
+
 /**
  * API methods to get transaction status, approve and cancel transactions
  */
@@ -14,7 +15,7 @@ class Transaction
      *
      * @param string $id Order ID or transaction ID
      *
-     * @return mixed[]
+     * @return object
      * @throws Exception
      */
     public static function status($id)

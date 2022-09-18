@@ -174,7 +174,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                     } else {
                                                         $title_bayar = $qr['nama'] . "-T.A" . $qr['tahunajar'];
                                                         $total       = $qs['bulanan_bill'] + $biaya_admin;
-                                                        echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '" data-bulan="' . $nama_bulan . '"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
+                                                        echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '" data-bulan="' . $nama_bulan . '" data-payment_table="Bulanan"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
                                                     }
                                                 }
                                                 ?>
@@ -189,9 +189,6 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                         </div>
                     </div>
                 </div>
-
-
-
 
                 <?php
                 $b = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM bebasan WHERE student_id='$id'"));
@@ -241,12 +238,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                         <td><?php echo $rowa['status']; ?></td>
                                                     <?php } ?>
                                                     <td>
-
-
                                                         <a href="summary_detail?no=<?php echo $rowa['no']; ?>&j=<?php echo $j; ?>" class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-eye"></i></a>
-
-
-
                                                     </td>
                                                 </tr>
                                             <?php } ?>
@@ -276,7 +268,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
     </div>
 
     <!-- Modal -->
-    <form id="form_bayar" method="post" action="process/store_payment.php">
+    <form id="form_bayar">
         <div class="modal fade" id="modal_bayar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -287,6 +279,10 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="payment_table">Jenis Pembayaran</label>
+                            <input type="text" class="form-control" id="payment_table" name="payment_table" readonly />
+                        </div>
                         <div class="form-group">
                             <label for="nama_tagihan">Nama Tagihan</label>
                             <input type="text" class="form-control" id="nama_tagihan" name="nama_tagihan" readonly required />
@@ -355,7 +351,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
     <script src="../assets/libs/switchery/switchery.min.js"></script>
     <script src="../assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script src="../assets/libs/select2/select2.min.js"></script>
-    <script src="../assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+    <!-- <script src="../assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script> -->
     <script src="../assets/libs/autocomplete/jquery.autocomplete.min.js"></script>
     <script src="../assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
@@ -383,7 +379,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
     <script src="../assets/js/pages/form-pickers.init.js"></script>
 
     <!-- Init js-->
-    <script src="../assets/js/pages/form-advanced.init.js"></script>
+    <!-- <script src="../assets/js/pages/form-advanced.init.js"></script> -->
 
     <!-- App js -->
     <script src="../assets/js/app.min.js"></script>
@@ -408,35 +404,36 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
             let admin = $(this).data('admin')
             let total = $(this).data('total')
             let bulan = $(this).data('bulan')
+            let payment_table = $(this).data('payment_table')
             let email = $('#email').val('')
-            showModalBayar(no, title, bill, admin, total, bulan)
+            cekToken(no, title, bill, admin, total, bulan, payment_table)
+        })
+
+        $('#form_bayar').on('submit', e => {
+            e.preventDefault()
+            getSnapToken()
         })
     })
 
-    function showModalBayar(no, title, bill, admin, total, bulan) {
-        noTagihan = no
-        namaTagihan = title
-        $('#modal_bayar_title').text("Pembayaran")
-        $('#nama_tagihan').val(`${title} ${bulan}`)
-        $('#tagihan').val(bill)
-        $('#biaya_admin').val(admin)
-        $('#jumlah_tagihan').val(total)
-        $('#no').val(no)
-        $('#modal_bayar').modal('show')
-    }
-
-    function getSnapToken() {
-        postSnapToken().then((data) => {
-            if (e.code == 200) {
-                $('#modal_bayar').modal('hide')
-                snapToken = e.token
-                showSnapMidtrans()
-            } else {
-                alert("Tidak Terhubung dengan Midtrans, gagal mendapatkan token")
+    function cekToken(no, title, bill, admin, total, bulan, payment_table) {
+        $.ajax({
+            url: `cek_token.php`,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                no: no
             }
-        }).catch((error) => {
-            console.error('Error:', error);
-        });
+        }).fail(e => {
+            console.log(e)
+        }).done(e => {
+            console.log(e)
+            if (e.code == 404) {
+                showModalBayar(no, title, bill, admin, total, bulan, payment_table)
+            } else if (e.code == 200) {
+                snapToken = e.message
+                showSnapMidtrans()
+            }
+        })
     }
 
     function showSnapMidtrans() {
@@ -458,10 +455,37 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                 console.log(result);
             },
             onClose: function() {
-                /* You may add your own implementation here */
-                alert('Kamu belum menyelesaikan pembayaran');
+                window.location.reload()
             }
         })
+    }
+
+    function showModalBayar(no, title, bill, admin, total, bulan, payment_table) {
+        noTagihan = no
+        namaTagihan = `${title} ${bulan}`
+        $('#modal_bayar_title').text("Pembayaran")
+        $('#payment_table').val(`${payment_table}`)
+        $('#nama_tagihan').val(`${title} ${bulan}`)
+        $('#tagihan').val(bill)
+        $('#biaya_admin').val(admin)
+        $('#jumlah_tagihan').val(total)
+        $('#no').val(no)
+        $('#modal_bayar').modal('show')
+    }
+
+    function getSnapToken() {
+        postSnapToken().then((data) => {
+            if (data.code == 200) {
+                $('#modal_bayar').modal('hide')
+                snapToken = data.token
+                showSnapMidtrans()
+            } else {
+                throw "Tidak Terhubung dengan Midtrans, gagal mendapatkan token"
+            }
+        }).catch((error) => {
+            console.error('Error:', error);
+            alert(`Error ${error}`)
+        });
     }
 
     async function postSnapToken() {
@@ -472,6 +496,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
         formData.append('tagihan', $('#tagihan').val())
         formData.append('biaya_admin', $('#tagihan').val())
         formData.append('jumlah_tagihan', $('#jumlah_tagihan').val())
+        formData.append('payment_table', $('#payment_table').val())
         formData.append('email', $('#email').val())
 
         const response = await fetch(url, {
