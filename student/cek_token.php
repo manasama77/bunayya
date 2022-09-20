@@ -4,7 +4,7 @@ include '../configuration/config_connect.php';
 header('Content-Type: application/json; charset=utf-8');
 $no = $_POST['no'];
 
-$sql   = "select * from pembayaran_midtrans where payment_no = '" . $no . "' and payment_status = 'pending'";
+$sql   = "select * from pembayaran_midtrans where payment_no = '" . $no . "' and transaction_status = 'pending'";
 $query = mysqli_query($conn, $sql);
 $nr    = mysqli_num_rows($query);
 
