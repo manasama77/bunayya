@@ -9,6 +9,8 @@ $biaya = $decoded['biaya'];
 
 $sql = "UPDATE biaya_admin SET biaya = " . $biaya . " WHERE id = 1";
 if (mysqli_query($conn, $sql)) {
+    $sql = "UPDATE bulanan set biaya_admin = '$biaya' WHERE bulanan_status = 'belum'";
+    mysqli_query($conn, $sql);
     echo json_encode(['code' => 200]);
 } else {
     echo json_encode(['code' => 500]);

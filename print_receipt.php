@@ -22,15 +22,17 @@ if ($tipe == '1') {
     $e                      = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months WHERE month_id='$month'"));
     $judul_pembayaran       = "Bukti Pembayaran";
     $judul_pembayaran_table = "Pembayaran";
+    $jenis_pembayaran       = ($a['bulanan_status'] == "belum") ? "Cicil" : "Lunas";
 } else {
     $tabel                  = "bebasan";
     $a                      = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
     $judul_pembayaran       = "Bukti Pelunasan";
     $judul_pembayaran_table = "Dibayarkan";
+    $jenis_pembayaran       = ($a['status'] == "belum") ? "Cicil" : "Lunas";
 }
 
 $siswa            = $a['student_id'];
-$jenis_pembayaran = ($a['status'] == "belum") ? "Cicil" : "Lunas";
+
 
 $b     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM student WHERE student_id='$siswa'"));
 $kelas = $b['kelas_id'];
@@ -64,7 +66,7 @@ if ($jenis == 25) {
             </strong>
         </p>
         <p style="text-align: center;"><?= $a['tgl_input']; ?> <?= date('H:i:s'); ?></p>
-        <table style="width:100%">
+        <table style="width:100%; font-size: 8px;">
             <tbody>
                 <tr>
                     <td style="width: 5%; vertical-align:top; word-wrap: break-word;">Nama</td>
@@ -78,7 +80,7 @@ if ($jenis == 25) {
                 </tr>
             </tbody>
         </table>
-        <table cellpadding="0" style="width:100%;">
+        <table cellpadding="0" style="width:100%; font-size: 8px;">
             <tbody>
                 <tr>
                     <td colspan="3" style="border:1px solid;"></td>
@@ -166,7 +168,7 @@ if ($jenis == 25) {
                 </tr>
             </tbody>
         </table>
-        <table style="width:100%">
+        <table style="width:100%; font-size: 8px;">
             <tr>
                 <td style="text-align: center; height: 30px;">&nbsp;</td>
             </tr>

@@ -53,19 +53,20 @@ include "configuration/config_all_stat.php";
 
 
     if ($tipe == '1') {
-        $tabel = "bulanan";
-        $a     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
-        $month = $a['month_id'];
-        $e     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months WHERE month_id='$month'"));
+        $tabel            = "bulanan";
+        $a                = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
+        $month            = $a['month_id'];
+        $e                = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months WHERE month_id='$month'"));
+        $jenis_pembayaran = ($a['bulanan_status'] == "belum") ? "Cicil" : "Lunas";
     } else {
-        $tabel = "bebasan";
-        $a     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
+        $tabel            = "bebasan";
+        $a                = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $tabel WHERE no='$no'"));
+        $jenis_pembayaran = ($a['status'] == "belum") ? "Cicil" : "Lunas";
     }
 
     $siswa            = $a['student_id'];
     $jenis            = $a['jenis_id'];
     $t                = $a['period_id'];
-    $jenis_pembayaran = ($a['status'] == "belum") ? "Cicil" : "Lunas";
 
     $b = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM student WHERE student_id='$siswa'"));
     $kelas = $b['kelas_id'];
