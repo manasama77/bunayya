@@ -117,9 +117,9 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 	//---------------------------------------------------------------------------------------//
 }
 
-$objPHPExcel->setActiveSheetIndexByName('Worksheet');
-$sheetIndex = $objPHPExcel->getActiveSheetIndex();
-$objPHPExcel->removeSheetByIndex($sheetIndex);
+// $objPHPExcel->setActiveSheetIndexByName('Worksheet');
+// $sheetIndex = $objPHPExcel->getActiveSheetIndex();
+// $objPHPExcel->removeSheetByIndex($sheetIndex);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 // header('Content-Type: application/vnd.ms-excel');

@@ -292,7 +292,7 @@ include "configuration/config_all_stat.php";
                                                             foreach ($value_lunas_ga_lunas['data'] as $key_value_lunas_ga_lunas) {
                                                                 if ($key_value_lunas_ga_lunas['jenis_id'] == $rowan['jenis_id'] && $rowan['jenis_id'] != 29) {
                                                                     $terbayarkan       = "<th><small><strong>Rp." . number_format($key_value_lunas_ga_lunas['terbayarkan'], 0) . "</strong></small></th>";
-                                                                    $belum_terbayarkan = "<th><small><strong>Rp." . number_format($key_value_lunas_ga_lunas['belum_terbayarkan'], 0) . " - " . number_format($key_value_lunas_ga_lunas['belum_terbayarkan'], 0) . "</strong></small></th>";
+                                                                    $belum_terbayarkan = "<th><small><strong>Rp." . number_format($key_value_lunas_ga_lunas['belum_terbayarkan'], 0) . "</strong></small></th>";
 
                                                                     if ($key_value_lunas_ga_lunas['jenis_id'] == 25) {
                                                                         $total_terbayarkan_25 += $key_value_lunas_ga_lunas['terbayarkan'];
@@ -316,7 +316,8 @@ include "configuration/config_all_stat.php";
                                                         $b = $data['month_id'];
                                                         $s = $key['student_id'];
 
-                                                        $sql4 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bulanan WHERE period_id='$t' AND student_id='$s' AND jenis_id='$j' AND month_id='$b'"));
+                                                        $sqlnya = "SELECT * FROM bulanan WHERE period_id='$t' AND student_id='$s' AND jenis_id='$j' AND month_id='$b'";
+                                                        $sql4 = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
                                                         if ($sql4['bulanan_status'] == 'belum') {
                                                             echo '<th class="table-danger">' . $sql4['bulanan_status'] . '<br/>Rp.' . number_format($sql4['bulanan_bill'], 0) . '</th>';
                                                         } else if ($sql4['bulanan_status'] == 'sudah') {
@@ -330,7 +331,7 @@ include "configuration/config_all_stat.php";
 
                                             </tr>
                                         <?php } ?>
-                                        <tfoot>
+                                        <!-- <tfoot>
                                             <tr>
                                                 <?php
                                                 for ($i = 0; $i < mysqli_num_rows($query_c); $i++) {
@@ -350,7 +351,7 @@ include "configuration/config_all_stat.php";
                                                 }
                                                 ?>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot> -->
 
                                     </table>
 
