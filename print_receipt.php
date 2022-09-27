@@ -58,7 +58,7 @@ if ($jenis == 25) {
                 <?= $sql['nama']; ?>
             </strong>
         </label>
-        <p style="text-align:center;">
+        <p style="text-align:center; font-size: 8px;">
             <strong>
                 <?= $sql['alamat']; ?><br /><br />
                 <?= $sql['notelp']; ?><br /><br />
