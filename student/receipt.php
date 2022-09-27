@@ -256,12 +256,12 @@ include "configuration/config_all_stat.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <u style="margin-left: 10px;"><b> <?php echo $a['kasir']; ?></b></u>
+                                    <u style="margin-left: 113px;"><b> <?php echo $a['kasir']; ?></b></u>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="text-md-right">
-                                        <h3>LUNAS</h3>
-                                    </div>
+                                <div class="col-md-7" style="text-align: right;">
+                                    <h3 style="text-align: right;">LUNAS</h3>
+                                    <!-- <div class="text-md-right">
+                                    </div> -->
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
