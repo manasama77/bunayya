@@ -256,7 +256,7 @@ include "configuration/config_all_stat.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <u style="text-align: center"><b> <?php echo $a['kasir']; ?></b></u>
+                                    <u style="margin-left: 10px;"><b> <?php echo $a['kasir']; ?></b></u>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="text-md-right">
