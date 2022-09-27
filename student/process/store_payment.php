@@ -7,7 +7,7 @@ use Midtrans\Config;
 use Midtrans\Snap;
 use Ramsey\Uuid\Uuid;
 
-Config::$serverKey    = "SB-Mid-server-pIjcTHoz8CGfbFJuZK7d6iZi";
+Config::$serverKey    = "SB-Mid-server-B68UlkxCiQcNxTHltyysL5ke";
 Config::$isProduction = false;
 Config::$isSanitized  = true;
 Config::$is3ds        = true;

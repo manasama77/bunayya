@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 use Midtrans\Config;
 use Midtrans\Transaction;
 
-Config::$serverKey = "SB-Mid-server-pIjcTHoz8CGfbFJuZK7d6iZi";
+Config::$serverKey = "SB-Mid-server-B68UlkxCiQcNxTHltyysL5ke";
 
 $sql = "select * from pembayaran_midtrans where transaction_status = 'pending'";
 // $sql = "select * from pembayaran_midtrans";
