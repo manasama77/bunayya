@@ -65,7 +65,7 @@ if ($jenis == 25) {
                 <?= $sql['email']; ?><br />
             </strong>
         </p>
-        <p style="text-align: center;"><?= $a['tgl_input']; ?> <?= date('H:i:s'); ?></p>
+        <p style="text-align: center; font-size: 8px;"><?= $a['tgl_input']; ?> <?= date('H:i:s'); ?></p>
         <table style="width:100%; font-size: 8px;">
             <tbody>
                 <tr>
