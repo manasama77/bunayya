@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 use Midtrans\Config;
 use Midtrans\Transaction;
 
-Config::$serverKey = "SB-Mid-server-pIjcTHoz8CGfbFJuZK7d6iZi";
+Config::$serverKey = "SB-Mid-server-B68UlkxCiQcNxTHltyysL5ke";
 
 $sql = "select * from pembayaran_midtrans where transaction_status = 'pending'";
 // $sql = "select * from pembayaran_midtrans";
@@ -45,12 +45,21 @@ while ($row = mysqli_fetch_assoc($query)) {
 
     if ($transaction_status == "settlement") {
         if ($payment_table == "bulanan") {
+            $sql_md     = "select student_id from pembayaran_midtrans where id = '$id'";
+            $query_md   = mysqli_query($conn, $sql_md);
+            $row_md     = mysqli_fetch_assoc($query_md);
+            $student_id = $row_md['student_id'];
+
+            $sql_siswa   = "select nama from student where student_id = '$student_id'";
+            $query_siswa = mysqli_query($conn, $sql_siswa);
+            $row_siswa   = mysqli_fetch_assoc($query_siswa);
+
             $sql_pembayaran = "
                 UPDATE bulanan 
                 SET 
                     bulanan_status = 'sudah',
                     bulanan_bayar  = '" . $gross_amount . "',
-                    kasir          = 'siswa',
+                    kasir          = '" . $row_siswa['nama'] . "',
                     tgl_input      = '" . date('Y-m-d') . "'
                 WHERE no= '" . $payment_no . "'
             ";

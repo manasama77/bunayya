@@ -383,7 +383,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
 
     <!-- App js -->
     <script src="../assets/js/app.min.js"></script>
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-Q8fsKFh_-jm0ltah"></script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3v_Zj6qsRZR6NVYW"></script>
 
     <!-- END Lib & Plugins-->
     </body>

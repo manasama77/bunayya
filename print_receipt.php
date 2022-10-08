@@ -58,14 +58,14 @@ if ($jenis == 25) {
                 <?= $sql['nama']; ?>
             </strong>
         </label>
-        <p style="text-align:center;">
+        <p style="text-align:center; font-size: 8px;">
             <strong>
                 <?= $sql['alamat']; ?><br /><br />
                 <?= $sql['notelp']; ?><br /><br />
                 <?= $sql['email']; ?><br />
             </strong>
         </p>
-        <p style="text-align: center;"><?= $a['tgl_input']; ?> <?= date('H:i:s'); ?></p>
+        <p style="text-align: center; font-size: 8px;"><?= $a['tgl_input']; ?> <?= date('H:i:s'); ?></p>
         <table style="width:100%; font-size: 8px;">
             <tbody>
                 <tr>
@@ -174,8 +174,7 @@ if ($jenis == 25) {
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold; height: 5px;">
-                    <u><?= $a['kasir']; ?></u><br /><br />
-                    (Tata Usaha)
+                    <u><?= $a['kasir']; ?></u>
                 </td>
             </tr>
             <tr>
