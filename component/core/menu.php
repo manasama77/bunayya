@@ -89,12 +89,12 @@ include "configuration/config_chmod.php";
                             <li><a href="u_kategori">Kategori</a></li>
                         </ul>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a href="tabungan">
                             <i class="far fa-money-bill-alt"></i>
                             <span>Tabungan</span>
                         </a>
-                    </li> -->
+                    </li>
 
 
                 <?php } else {

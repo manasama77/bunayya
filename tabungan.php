@@ -88,7 +88,7 @@ include "configuration/config_all_stat.php";
                 <div class="row">
                     <div class="col-12">
                         <?php if ($chmod >= 3 || $_SESSION['jabatan'] == 'admin') { ?>
-                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="showModalTambah()">Tambah Tabungan</button>
+                            <a href="tabungan_add.php" class="btn btn-success waves-effect waves-light">Tambah Tabungan</a>
                         <?php } ?>
                     </div>
                 </div>
@@ -254,4 +254,11 @@ include "configuration/config_all_stat.php";
             $('#modal_tambah').modal('show')
         })
     })
+
+    function deleteLog(id) {
+        var result = confirm("Delete Data?");
+        if (result) {
+            window.location.href = `tabungan_delete.php?id=${id}`
+        }
+    }
 </script>
