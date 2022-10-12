@@ -148,7 +148,7 @@ include "configuration/config_all_stat.php";
                                     <tbody>
                                         <?php
                                         while (($count < $rpp) && ($i < $tcount)) {
-                                            // mysqli_data_seek($result, $i);
+                                            mysqli_data_seek($result, $i);
                                             $row = mysqli_fetch_array($result);
 
                                             $id     = $row['student_id'];
