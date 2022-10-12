@@ -97,7 +97,7 @@ include "configuration/config_all_stat.php";
                                 <form id="form">
                                     <div class="form-group">
                                         <label for="id_kelas">Kelas</label>
-                                        <select class="form-control" id="id_kelas" name="id_kelas" required>
+                                        <select class="form-control" id="id_kelas" name="id_kelas" data-placeholder="Pilih Kelas" required>
                                             <option value=""></option>
                                             <?php
                                             $sql   = "select * from class where status = 'active'";
@@ -194,6 +194,14 @@ include "configuration/config_all_stat.php";
 
 <script>
     $(document).ready(() => {
+        $('#id_kelas').select2({
+            allowClear: true,
+        });
+
+        $('#id_siswa').select2({
+            allowClear: true,
+        });
+
         $('#form').on('submit', e => {
             e.preventDefault()
             storeTabungan()
