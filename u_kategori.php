@@ -233,7 +233,7 @@ include "configuration/config_all_stat.php";
                                                     <?php if (($chmod >= 4 || $_SESSION['jabatan'] == 'admin') && ($row['kategori_id'] != 1)) { ?>
 
                                                         <?php
-                                                        if (!in_array($row['kategori_id'], [17, 18])) {
+                                                        if (!in_array($row['kategori_id'], [9998, 9999])) {
                                                         ?>
                                                             <a class="demo-delete-row btn btn-success btn-sm btn-icon" href="u_kategori?no=<?php echo $row['kategori_id']; ?>"><i class="fa fa-edit"></i></a>
 

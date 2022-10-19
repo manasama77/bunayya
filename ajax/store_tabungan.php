@@ -68,7 +68,7 @@ if ($nr_tabungan == 0) {
     $nama_transaksi       = "Tabungan";
     $keterangan_transaksi = "Tabungan $nis_siswa $nama_siswa";
     $kasir                = $_SESSION['nama'];
-    $kategori_id          = 17;                                 // id dari table uang_kategori;
+    $kategori_id          = 9998;                                 // id dari table uang_kategori;
 
     $sql_periode   = "select * from periode where status = 'active'";
     $query_periode = mysqli_query($conn, $sql_periode);
@@ -162,7 +162,7 @@ if ($nr_tabungan == 0) {
         $nama_transaksi       = "Tabungan";
         $keterangan_transaksi = "Tabungan $nis_siswa $nama_siswa";
         $kasir                = $_SESSION['nama'];
-        $kategori_id          = 17;                                 // id dari table uang_kategori;
+        $kategori_id          = 9998;                                 // id dari table uang_kategori;
 
         $sql_periode   = "select * from periode where status = 'active'";
         $query_periode = mysqli_query($conn, $sql_periode);
@@ -261,7 +261,7 @@ if ($nr_tabungan == 0) {
         $nama_transaksi       = "Tabungan";
         $keterangan_transaksi = "Tabungan $nis_siswa $nama_siswa";
         $kasir                = $_SESSION['nama'];
-        $kategori_id          = 18;                                 // id dari table uang_kategori;
+        $kategori_id          = 9999;                                 // id dari table uang_kategori;
 
         $sql_periode   = "select * from periode where status = 'active'";
         $query_periode = mysqli_query($conn, $sql_periode);
