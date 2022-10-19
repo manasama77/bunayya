@@ -110,7 +110,7 @@ include "configuration/config_all_stat.php";
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="id_siswa">Kelas</label>
+                                        <label for="id_siswa">Siswa</label>
                                         <select class="form-control" id="id_siswa" name="id_siswa" data-placeholder="Pilih Siswa" required readonly>
                                             <option value=""></option>
                                         </select>

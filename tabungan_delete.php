@@ -37,5 +37,8 @@ if ($tipe == "masuk") {
 $sql_d  = "delete from log_tabungan where id = '" . $id . "'";
 $exec_d = mysqli_query($conn, $sql_d);
 
+$sql_e  = "delete from uang_masuk_keluar where tabungan_id = '" . $id . "'";
+$exec_e = mysqli_query($conn, $sql_d);
+
 echo "<script type='text/javascript'>alert('DELETE BERHASIL');</script>";
 header("location:tabungan.php");
