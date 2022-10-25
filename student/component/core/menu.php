@@ -1,4 +1,3 @@
-
 <?php
 include "configuration/config_connect.php";
 include "configuration/config_chmod.php";
@@ -22,12 +21,9 @@ include "configuration/config_chmod.php";
                         <span class="badge badge-success badge-pill float-right"></span>
                         <span> Beranda </span>
                     </a>
-                   
                 </li>
 
-
-              
-                       <li>
+                <li>
                     <a href="javascript: void(0);">
                         <i class="fas fa-user-friends"></i>
                         <span> Pembayaran </span>
@@ -35,17 +31,18 @@ include "configuration/config_chmod.php";
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="summary">Ringkasan </a></li>
-                       <li><a href="history">Riwayat</a></li>
+                        <li><a href="history">Riwayat</a></li>
+                        <li><a href="tabungan">Tabungan</a></li>
 
-             <!--            <li><a href="pay_data">Pembayaran Siswa</a></li>  -->
-                       
+                        <!--            <li><a href="pay_data">Pembayaran Siswa</a></li>  -->
+
                     </ul>
                 </li>
 
 
-                 
 
-                       <li>
+
+                <li>
                     <a href="javascript: void(0);">
                         <i class="fas fa-user-friends"></i>
                         <span> Pengaturan </span>
@@ -53,10 +50,10 @@ include "configuration/config_chmod.php";
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="profil">Edit Profil</a></li>
-                       <li><a href="password">Ganti Password</a></li>
+                        <li><a href="password">Ganti Password</a></li>
 
-             <!--            <li><a href="pay_data">Pembayaran Siswa</a></li>  -->
-                       
+                        <!--            <li><a href="pay_data">Pembayaran Siswa</a></li>  -->
+
                     </ul>
                 </li>
 
