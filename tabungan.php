@@ -97,7 +97,7 @@ include "configuration/config_all_stat.php";
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="tables">
                                         <thead class="bg-dark text-white">
                                             <tr>
                                                 <th class="text-center">
@@ -125,7 +125,7 @@ include "configuration/config_all_stat.php";
                                             from master_tabungan 
                                             left join student on student.student_id = master_tabungan.id_siswa
                                             left join class on class.no = student.kelas_id
-                                            left join log_tabungan on log_tabungan.id_master_tabungan = master_tabungan.id
+                                            right join log_tabungan on log_tabungan.id_master_tabungan = master_tabungan.id
                                             order by class.no asc
                                             ";
                                             $query = mysqli_query($conn, $sql);
@@ -137,7 +137,11 @@ include "configuration/config_all_stat.php";
                                             $saldo_akhir = 0;
                                             while ($row = mysqli_fetch_assoc($query)) {
                                                 $tgl_obj = new DateTime($row['tanggal_transaksi']);
-                                                $saldo_akhir += $row['nilai'];
+                                                if ($row['tipe'] == "keluar") {
+                                                    $saldo_akhir -= $row['nilai'];
+                                                } else {
+                                                    $saldo_akhir += $row['nilai'];
+                                                }
                                             ?>
                                                 <tr>
                                                     <td class="text-center">
@@ -240,6 +244,10 @@ include "configuration/config_all_stat.php";
     <script src="assets/js/pages/form-pickers.init.js"></script>
     <!-- App js -->
     <script src="assets/js/app.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
     <!-- END Lib & Plugins-->
     <script>
     </script>
@@ -249,6 +257,16 @@ include "configuration/config_all_stat.php";
 
 <script>
     $(document).ready(() => {
+        $('#tables').DataTable({
+            order: [
+                [1, 'asc']
+            ],
+            columnDefs: [{
+                targets: [0],
+                orderable: false,
+            }]
+        })
+
         $('#modal_tambah').on('click', e => {
             e.preventDefault()
             $('#modal_tambah').modal('show')
