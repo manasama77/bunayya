@@ -26,13 +26,9 @@ $tipe               = $row['tipe'];
 
 if ($tipe == "masuk") {
     $sql_x  = "update master_tabungan set tabungan = tabungan - $nilai where id = '$id_master_tabungan'";
-    echo '<pre>' . print_r($sql_x, 1) . '</pre>';
-    exit;
     $exec_x = mysqli_query($conn, $sql_x);
 } else {
     $sql_x  = "update master_tabungan set tabungan = tabungan + $nilai where id = '$id_master_tabungan'";
-    echo '<pre>' . print_r($sql_x, 1) . '</pre>';
-    exit;
     $exec_x = mysqli_query($conn, $sql_x);
 }
 
