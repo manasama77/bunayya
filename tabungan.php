@@ -107,57 +107,51 @@ include "configuration/config_all_stat.php";
                                                 <th>Kelas</th>
                                                 <th>NIS</th>
                                                 <th>Siswa</th>
-                                                <th>Tipe</th>
-                                                <th>Nominal</th>
-                                                <th>Saldo Akhir</th>
+                                                <th>Saldo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $sql = "select 
-                                                log_tabungan.id,
-                                                log_tabungan.tanggal_transaksi,
-                                                class.kelas,
+                                                master_tabungan.id,
+                                                master_tabungan.tabungan as saldo,
                                                 student.nis,
                                                 student.nama,
-                                                log_tabungan.tipe,
-                                                log_tabungan.nilai
+                                                class.kelas
                                             from master_tabungan 
                                             left join student on student.student_id = master_tabungan.id_siswa
                                             left join class on class.no = student.kelas_id
-                                            right join log_tabungan on log_tabungan.id_master_tabungan = master_tabungan.id
-                                            order by class.no asc
+                                            order by student.nama asc
                                             ";
                                             $query = mysqli_query($conn, $sql);
                                             $nr = mysqli_num_rows($query);
 
                                             if ($nr == 0) {
-                                                echo '<tr><td colspan="8" class="text-center">-Tidak ada data-</td></tr>';
-                                            }
-                                            $saldo_akhir = 0;
-                                            while ($row = mysqli_fetch_assoc($query)) {
-                                                $tgl_obj = new DateTime($row['tanggal_transaksi']);
-                                                if ($row['tipe'] == "keluar") {
-                                                    $saldo_akhir -= $row['nilai'];
-                                                } else {
-                                                    $saldo_akhir += $row['nilai'];
-                                                }
+                                                echo '<tr><td colspan="6" class="text-center">-Tidak ada data-</td></tr>';
+                                            } else {
+                                                $saldo_akhir = 0;
+                                                while ($row = mysqli_fetch_assoc($query)) {
+                                                    $tgl_obj = new DateTime($row['tanggal_transaksi']);
                                             ?>
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteLog('<?= $row['id']; ?>')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                    <td><?= $tgl_obj->format('d-m-Y H:i'); ?></td>
-                                                    <td><?= $row['kelas'] ?></td>
-                                                    <td><?= $row['nis'] ?></td>
-                                                    <td><?= $row['nama'] ?></td>
-                                                    <td><?= strtoupper($row['tipe']) ?></td>
-                                                    <td class="text-right"><?= number_format($row['nilai'], 0) ?></td>
-                                                    <td class="text-right"><?= number_format($saldo_akhir, 0) ?></td>
-                                                </tr>
-                                            <?php } ?>
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <button type="button" class="btn btn-info btn-sm" onclick="detailLog('<?= $row['id']; ?>', '<?= $tgl_obj->format('d-m-Y H:i'); ?>', '<?= $row['kelas'] ?>', '<?= $row['nis'] ?>', '<?= $row['nama'] ?>', '<?= number_format($row['saldo'], 0) ?>')">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td><?= $tgl_obj->format('d-m-Y H:i'); ?></td>
+                                                        <td><?= $row['kelas'] ?></td>
+                                                        <td><?= $row['nis'] ?></td>
+                                                        <td><?= $row['nama'] ?></td>
+                                                        <td class="text-right"><?= number_format($row['saldo'], 0) ?></td>
+                                                    </tr>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -173,39 +167,65 @@ include "configuration/config_all_stat.php";
         <!-- END FOOTER-->
     </div>
 
-    <form id="form_add">
-        <div class="modal fade" id="modal_tambah" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Tambah Data Tabungan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Detail Data Tabungan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Kelas</th>
+                                    <th>NIS</th>
+                                    <th>Siswa</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tanggal"></td>
+                                    <td class="kelas"></td>
+                                    <td class="nis"></td>
+                                    <td class="siswa"></td>
+                                    <td class="saldo"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="id_class">Kelas</label>
-                            <select class="form-control" id="id_periode" name="id_periode">
-                                <option value=""></option>
-                                <?php
-                                $sql = "select * from class where status = 'active' order by kelas asc";
-                                $query = mysqli_query($conn, $sql);
-                                while ($row = mysqli_fetch_assoc($query)) {
-                                    echo '<option value="' . $row['no'] . '">' . $row['kelas'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        <i class="fas fa-cog"></i>
+                                    </th>
+                                    <th>Tanggal Transaksi</th>
+                                    <th>Tipe</th>
+                                    <th class="text-right">Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_list">
+                                <tr>
+                                    <td colspan="4" class="text-center">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
     <!-- ============================================================== -->
     <!-- End Page content -->
@@ -266,11 +286,6 @@ include "configuration/config_all_stat.php";
                 orderable: false,
             }]
         })
-
-        $('#modal_tambah').on('click', e => {
-            e.preventDefault()
-            $('#modal_tambah').modal('show')
-        })
     })
 
     function deleteLog(id) {
@@ -278,5 +293,60 @@ include "configuration/config_all_stat.php";
         if (result) {
             window.location.href = `tabungan_delete.php?id=${id}`
         }
+    }
+
+    function detailLog(id, tanggal, kelas, nis, siswa, saldo) {
+        ajaxDetail(id).fail(e => {
+            console.log(e)
+        }).done(e => {
+            console.log(e)
+            $('.tanggal').text(tanggal)
+            $('.kelas').text(kelas)
+            $('.nis').text(nis)
+            $('.siswa').text(siswa)
+            $('.saldo').text(saldo)
+
+            let htmlnya = ''
+            if (e.code == 200) {
+                let data = e.data
+
+                data.forEach(el => {
+                    let id_log = el.id
+                    let nilai_log = el.nilai
+                    let tanggal_transaksi_log = el.tanggal_transaksi
+                    let tipe_log = el.tipe
+
+                    htmlnya += `
+                    <tr>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteLog('${id_log}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>${tanggal_transaksi_log}</td>
+                        <td>${tipe_log}</td>
+                        <td class="text-right">${nilai_log}</td>
+                    </tr>
+                    `
+                });
+            }
+
+            $('#table_list').html(htmlnya)
+            $('#modal_detail').modal('show')
+        })
+    }
+
+    function ajaxDetail(id) {
+        return $.ajax({
+            url: './ajax/get_detail_tabungan.php',
+            method: 'get',
+            dataType: 'json',
+            data: {
+                id
+            },
+            beforeSend: function() {
+
+            }
+        })
     }
 </script>
