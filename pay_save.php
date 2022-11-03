@@ -58,6 +58,8 @@ include "configuration/config_all_stat.php";
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $no               = mysqli_real_escape_string($conn, $_POST["no"]);
+            // echo '<div class="row" style="margin-top: 200px;"><div class="col-sm-12 text-right">' . $no . '</div></div>';
+            // exit;
             $t                = mysqli_real_escape_string($conn, $_POST["t"]);
             $s                = mysqli_real_escape_string($conn, $_POST["s"]);
             $dibayar          = mysqli_real_escape_string($conn, $_POST["dibayar"]);
@@ -74,7 +76,10 @@ include "configuration/config_all_stat.php";
             if ($dibayar >= $tagih + $biaya_admin) {
                 $sql = mysqli_query($conn, "UPDATE bulanan SET bulanan_status='sudah', bulanan_bayar='$dibayar', biaya_admin='$biaya_admin', kasir='$user',tgl_input='$now' WHERE no='$no'");
 
-                $sql1 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar VALUES('','pay','$nama','pembayaran bulanan','$dibayar','$user','1','$stu','$t','0','$no','$now','$now', '" . $jenis_pembayaran . "')");
+
+                $sql_uang = "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran bulanan', '$dibayar', '$user', '1', '$stu', '$t','0', '$no', 0, '$now', '$now', '" . $jenis_pembayaran . "')";
+
+                $sql1 = mysqli_query($conn, $sql_uang);
 
                 echo "<script type='text/javascript'>  alert('Pembayaran telah disimpan');</script>";
                 echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
@@ -116,10 +121,11 @@ include "configuration/config_all_stat.php";
 
 
 
-                    $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bulanan WHERE no='$no'"));
+                    $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bulanan LEFT JOIN months on months.month_id = bulanan.month_id WHERE no='$no'"));
                     $j = $sql['jenis_id'];
                     $s = $sql['student_id'];
                     $t = $sql['period_id'];
+                    $nama_bulannya = $sql['month_name'];
 
                     $sqla = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM jenis_bayar WHERE jenis_id='$j'"));
                     $sqlb = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM student WHERE student_id='$s'"));
@@ -137,7 +143,7 @@ include "configuration/config_all_stat.php";
 
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Nama Pembayaran</label>
-                                            <input type="text" class="form-control" name="namapr" value="<?php echo $sqla['nama'] . " T.A " . $sqla['tahunajar']; ?>" readonly>
+                                            <input type="text" class="form-control" name="namapr" value="<?php echo $sqla['nama'] . " T.A " . $sqla['tahunajar'] . " " . $nama_bulannya; ?>" readonly>
                                         </div>
 
                                         <div class="form-group">
