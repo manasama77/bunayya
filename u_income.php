@@ -212,9 +212,9 @@ include "configuration/config_all_stat.php";
                             error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
                             $q = $_GET['q'];
                             if ($q != '' || $q != null) {
-                                $sql    = "select * from uang_masuk_keluar where tipe='in' AND nama like '%$q%' order by tgl_input desc";
+                                $sql    = "select * from uang_masuk_keluar where tipe='in' and kategori_id not in (1, 2, 9998, 9999) AND nama like '%$q%' order by tgl_input desc";
                             } else {
-                                $sql    = "select * from uang_masuk_keluar where tipe='in' order by tgl_input desc";
+                                $sql    = "select * from uang_masuk_keluar where tipe='in' and kategori_id not in (1, 2, 9998, 9999) order by tgl_input desc";
                             }
                             $result = mysqli_query($conn, $sql);
                             $rpp    = 15;
@@ -419,7 +419,7 @@ include "configuration/config_all_stat.php";
                                     <select class="form-control" data-toggle="select2" style="width: 100%;" name="kate" id="kate" required>
 
                                         <?php
-                                        $sql = mysqli_query($conn, "select * from uang_kategori where jenis='in'");
+                                        $sql = mysqli_query($conn, "select * from uang_kategori where jenis='in' and kategori_id not in (1, 2, 9998, 9999)");
                                         while ($row = mysqli_fetch_assoc($sql)) {
                                             if ($pelanggan == $row['akun'])
                                                 echo "<option value='" . $row['kategori_id'] . "' selected='selected'>" . $row['nama'] . "</option>";

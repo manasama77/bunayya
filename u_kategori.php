@@ -70,17 +70,11 @@ include "configuration/config_all_stat.php";
     <?php
 
     if (isset($_GET['no'])) {
-
         $no = mysqli_real_escape_string($conn, $_GET["no"]);
-
         $a = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM uang_kategori WHERE kategori_id='$no'"));
     }  ?>
 
     <!-- END Letak Kode PHP atas -->
-
-
-
-
 
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
@@ -109,8 +103,6 @@ include "configuration/config_all_stat.php";
                     </div>
                 </div>
                 <!-- end halaman dan breadcrumbs -->
-
-
 
                 <script>
                     window.setTimeout(function() {
@@ -147,13 +139,6 @@ include "configuration/config_all_stat.php";
                         <strong>Berhasil!</strong> Data telah diupdate
                     </div>
                 <?php } ?>
-
-
-
-
-
-
-
 
                 <!-- ISI HALAMAN -->
                 <?php if ($chmod >= 3 || $_SESSION['jabatan'] == 'admin') { ?>
@@ -214,26 +199,23 @@ include "configuration/config_all_stat.php";
                                             $sqla = mysqli_query($conn, "SELECT * FROM uang_kategori order by kategori_id desc");
                                             while ($row = mysqli_fetch_assoc($sqla)) {
 
-                                                echo '  <tr>
-                                    <td>' . ++$nom . '</td>
-                                    <td>' . $row['nama'] . '</td>';
+                                                echo '<tr>
+                                                    <td>' . ++$nom . '</td>
+                                                    <td>' . $row['nama'] . '</td>';
                                                 if ($row['jenis'] == 'out') {;
                                                     echo   ' <td>Pengeluaran</td>';
                                                 }
-
                                                 if ($row['jenis'] == 'in') {
                                                     echo       '<td>Pemasukan</td>';
                                                 }
-
-
                                                 echo    ' <td>' . $row['keterangan'] . '</td>';
                                             ?>
                                                 <td>
 
-                                                    <?php if (($chmod >= 4 || $_SESSION['jabatan'] == 'admin') && ($row['kategori_id'] != 1)) { ?>
+                                                    <?php if (($chmod >= 4 || $_SESSION['jabatan'] == 'admin')) { ?>
 
                                                         <?php
-                                                        if (!in_array($row['kategori_id'], [9998, 9999])) {
+                                                        if (!in_array($row['kategori_id'], [1, 2, 9998, 9999])) {
                                                         ?>
                                                             <a class="demo-delete-row btn btn-success btn-sm btn-icon" href="u_kategori?no=<?php echo $row['kategori_id']; ?>"><i class="fa fa-edit"></i></a>
 
