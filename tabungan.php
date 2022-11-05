@@ -138,9 +138,6 @@ include "configuration/config_all_stat.php";
                                                             <button type="button" class="btn btn-info btn-sm" onclick="detailLog('<?= $row['id']; ?>', '<?= $tgl_obj->format('d-m-Y H:i'); ?>', '<?= $row['kelas'] ?>', '<?= $row['nis'] ?>', '<?= $row['nama'] ?>', '<?= number_format($row['saldo'], 0) ?>')">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
-                                                            <button type="button" class="btn btn-danger btn-sm">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
                                                         </td>
                                                         <td><?= $tgl_obj->format('d-m-Y H:i'); ?></td>
                                                         <td><?= $row['kelas'] ?></td>
