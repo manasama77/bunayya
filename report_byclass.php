@@ -316,12 +316,14 @@ include "configuration/config_all_stat.php";
                                                         $b = $data['month_id'];
                                                         $s = $key['student_id'];
 
+
                                                         $sqlnya = "SELECT * FROM bulanan WHERE period_id='$t' AND student_id='$s' AND jenis_id='$j' AND month_id='$b'";
                                                         $sql4 = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
+                                                        $tgl_input_obj = new DateTime($sql4['tgl_input']);
                                                         if ($sql4['bulanan_status'] == 'belum') {
                                                             echo '<th class="table-danger">' . $sql4['bulanan_status'] . '<br/>Rp.' . number_format($sql4['bulanan_bill'], 0) . '</th>';
                                                         } else if ($sql4['bulanan_status'] == 'sudah') {
-                                                            echo '<th class="table-success">' . $sql4['bulanan_status'] . '</th>';
+                                                            echo '<th class="table-success">' . $sql4['bulanan_status'] . '<br/>' . $tgl_input_obj->format('d M Y') . '</th>';
                                                         }
                                                     }
                                                     mysqli_data_seek($sql, 0);
