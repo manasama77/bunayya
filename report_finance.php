@@ -144,29 +144,16 @@ include "configuration/config_all_stat.php";
                 <?php
 
                 if (isset($_GET['rentang'])) {
-
                     $dat = $_GET['rentang'];
-
                     list($start, $end) = explode(' - ', $dat);
-
-
-
-                ?>
-
-
-
-                    <?php
-
                     $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM data"));
-                    ?>
+                ?>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card-box">
                                 <div class="clearfix">
-                                    <div class="float-left mb-2">
-
-                                    </div>
+                                    <div class="float-left mb-2"></div>
                                     <div class="float-right">
                                         <h3 class="m-0 d-print-none">LAPORAN KEUANGAN</h3>
                                     </div>
@@ -177,19 +164,19 @@ include "configuration/config_all_stat.php";
                                     <div class="col-md-7 border-right">
                                         <div class="mt-3">
                                             <?Php
-                                            echo       '<p><b>' . $sql['nama'] . '</b></p>';
-                                            echo      '<p style="width:70%">' . $sql['alamat'] . '<br>P: ' . $sql['notelp'] . '<br>E: ' . $sql['email'] . ' </p>';
+                                            echo '<p><b>' . $sql['nama'] . '</b></p>';
+                                            echo '<p style="width:70%">' . $sql['alamat'] . '<br>P: ' . $sql['notelp'] . '<br>E: ' . $sql['email'] . ' </p>';
                                             ?>
                                         </div>
 
-                                    </div><!-- end col -->
+                                    </div>
                                     <div class="col-md-5">
                                         <div class="mt-3 text-md-right">
                                             <p><strong>LAPORAN KEUANGAN</strong></p>
 
                                             <p>Periode: <strong><?php echo '' . date('d/m/y', strtotime($start)) . ' - ' . date('d/m/y', strtotime($end)) . ''; ?></strong></p>
                                         </div>
-                                    </div><!-- end col -->
+                                    </div>
                                 </div>
                                 <!-- end row -->
 
@@ -232,14 +219,18 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.bulanan_id != 0
                                                         AND
                                                         uang_masuk_keluar.tipe != 'out'
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                        )
                                                     GROUP BY uang_masuk_keluar.bulanan_id
                                                     ";
                                                     $query_bulanan = mysqli_query($conn, $sql_bulanan);
                                                     $nr_bulanan = mysqli_num_rows($query_bulanan);
                                                     while ($row = mysqli_fetch_array($query_bulanan)) {
-                                                        $bulanan_id   = $row['bulanan_id'];
-                                                        $sub_total_masuk   += $row['jumlah'];
-                                                        $grand_total += $row['jumlah'];
+                                                        $bulanan_id       = $row['bulanan_id'];
+                                                        $sub_total_masuk += $row['jumlah'];
+                                                        $grand_total     += $row['jumlah'];
                                                     ?>
                                                         <tr>
                                                             <td>
@@ -267,6 +258,10 @@ include "configuration/config_all_stat.php";
                                                     WHERE
                                                         uang_masuk_keluar.bebas_id != 0 
                                                         AND uang_masuk_keluar.tipe != 'out' 
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                        )
                                                     GROUP BY
                                                         uang_masuk_keluar.bebas_id
                                                     ";
@@ -303,6 +298,10 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.kategori_id != 0 
                                                         AND uang_masuk_keluar.student_id = 0 
                                                         AND uang_masuk_keluar.tipe != 'out' 
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                        )
                                                     GROUP BY
                                                         uang_masuk_keluar.kategori_id
                                                     ";
@@ -337,6 +336,10 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.tabungan_id != 0
                                                         AND
                                                         uang_masuk_keluar.tipe != 'out'
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                        )
                                                     ";
                                                     $query_tabungan = mysqli_query($conn, $sql_tabungan);
                                                     $nr_tabungan = mysqli_num_rows($query_tabungan);
@@ -376,6 +379,10 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.kategori_id != 0 
                                                         AND uang_masuk_keluar.student_id = 0 
                                                         AND uang_masuk_keluar.tipe = 'out' 
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                        )
                                                     GROUP BY
                                                         uang_masuk_keluar.kategori_id
                                                     ";

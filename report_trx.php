@@ -268,7 +268,7 @@ include "configuration/config_all_stat.php";
                                                 $i++;
                                                 $count++;
                                             } ?> <tr>
-                                                <td colspan="4" style="text-align: center"><b>TOTAL</b></td>
+                                                <td colspan="5" style="text-align: center"><b>TOTAL</b></td>
 
                                                 <td><b><?php echo number_format($sql3['inc']); ?></b></td>
                                                 <td><b><?php echo number_format($sql2['exp']); ?></b></td>
