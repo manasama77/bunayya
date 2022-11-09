@@ -323,13 +323,23 @@ include "configuration/config_all_stat.php";
                                                         if ($sql4['bulanan_status'] == 'belum') {
                                                             echo '<th class="table-danger">' . $sql4['bulanan_status'] . '<br/>Rp.' . number_format($sql4['bulanan_bill'], 0) . '</th>';
                                                         } else if ($sql4['bulanan_status'] == 'sudah') {
-                                                            echo '<th class="table-success">' . $sql4['bulanan_status'] . '<br/>' . $tgl_input_obj->format('d M Y') . '</th>';
+                                                            $sql_uang   = "select * from uang_masuk_keluar where bulanan_id = '" . $sql4['no'] . "'";
+                                                            $query_uang = mysqli_query($conn, $sql_uang);
+                                                            $nr_uang    = mysqli_num_rows($query_uang);
+
+                                                            $status_uang = "Cash";
+                                                            if ($nr_uang > 0) {
+                                                                $r_uang = mysqli_fetch_assoc($query_uang);
+                                                                $status_uang = ucfirst($r_uang['jenis_pembayaran']);
+                                                            }
+
+                                                            echo '<th class="table-success">' . $sql4['bulanan_status'] . '<br/>' . $tgl_input_obj->format('d M Y') . '<br />' . $status_uang . '</th>';
                                                         }
                                                     }
                                                     mysqli_data_seek($sql, 0);
 
                                                     ?>
-                                                <?php       } ?>
+                                                <?php } ?>
 
                                             </tr>
                                         <?php } ?>
