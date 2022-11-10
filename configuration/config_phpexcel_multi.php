@@ -39,8 +39,7 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 	$objPHPExcel->createSheet();
 	$objPHPExcel->setActiveSheetIndex($actsheet);
 	foreach (range('B', 'R') as $columnID) {
-		$objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
-			->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
 	}
 	$actsheet++;
 
@@ -57,12 +56,13 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 	$rownya = "E";
 	$sqlnya = mysqli_query($conn, "SELECT * FROM months");
 	while ($bulan = mysqli_fetch_assoc($sqlnya)) {
-		$objPHPExcel->getActiveSheet()->setCellValue($rownya . '1', $bulan['month_name']);
+		$objPHPExcel->getActiveSheet()->setCellValue($rownya . '3', $bulan['month_name']);
 		$rownya++;
 	}
+	// exit;
 
-	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '1', "Terbayarkan");
-	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '1', "Belum Terbayarkan");
+	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '3', "Terbayarkan");
+	$objPHPExcel->getActiveSheet()->setCellValue($rownya++ . '3', "Belum Terbayarkan");
 
 	$i    = 4;
 	$nom  = 1;
@@ -97,8 +97,14 @@ while ($row = mysqli_fetch_assoc($sql1)) {
 				$objPHPExcel->getActiveSheet()->getStyle('' . $m . '' . $i . '')->getAlignment()->setWrapText(true);
 				$total_belum_terbayarkan += $sql5['bulanan_bill'];
 			} else {
-				$objPHPExcel->getActiveSheet()->setCellValue('' . $m . '' . $i, $sql5['bulanan_status'] . "\n" . $sql5['jenis_pembayaran']);
-				$objPHPExcel->getActiveSheet()->getStyle('' . $m . '' . $i . '')->getAlignment()->setWrapText(true);
+				$jenis_pembayaran = "cash";
+				if ($sql5['jenis_pembayaran']) {
+					$jenis_pembayaran = $sql5['jenis_pembayaran'];
+				}
+
+				$tgl_input_obj = new DateTime($sql5['tgl_input']);
+				$objPHPExcel->getActiveSheet()->setCellValue($m . $i, $sql5['bulanan_status'] . "\n" . $tgl_input_obj->format('d M Y') . "\n" . $jenis_pembayaran);
+				$objPHPExcel->getActiveSheet()->getStyle($m . $i)->getAlignment()->setWrapText(true);
 				$total_terbayarkan += $sql5['bulanan_bayar'];
 			}
 			$m++;
