@@ -180,7 +180,7 @@ include "configuration/config_all_stat.php";
 
               if (mysqli_num_rows($result) > 0) {
 
-                $sql = "UPDATE jenis_bayar SET period_id='$ta',pos_bayar_id='$pos',nama='$nama', jenis_pembayaran='$tipe', tahunajar='$tahun', update_time='$now' WHERE jenis_id='$no'";
+                $sql = "UPDATE jenis_bayar SET period_id='$ta', pos_bayar_id='$pos', nama='$nama', jenis_pembayaran='$tipe', tahunajar='$tahun', update_time='$now' WHERE jenis_id='$no'";
 
                 if (mysqli_query($conn, $sql)) {
                   echo "<script type='text/javascript'>window.location = 'pos_jenis?insert=update';</script>";
@@ -188,8 +188,6 @@ include "configuration/config_all_stat.php";
                   echo "<script type='text/javascript'>window.location = '$forwardpage?insert=false';</script>";
                 }
               } else {
-
-
                 $sql1 = "INSERT INTO jenis_bayar VALUES('','$ta','$pos','$tipe','$nama','$tahun','$now','$now')";
 
                 if (mysqli_query($conn, $sql1)) {

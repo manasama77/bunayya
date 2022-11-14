@@ -258,7 +258,9 @@ include "configuration/config_all_stat.php";
         while ($row = mysqli_fetch_assoc($query)) {
           $murid = $row['student_id'];
 
-          $sql = mysqli_query($conn, "SELECT * FROM bebasan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis'");
+          $sql_siswanya = "SELECT * FROM bebasan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis'";
+
+          $sql = mysqli_query($conn, $sql_siswanya);
           $sql_biaya_admin = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM biaya_admin WHERE id = 1"));
 
           if (mysqli_num_rows($sql) > 0) {

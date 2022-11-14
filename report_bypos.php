@@ -155,7 +155,7 @@ include "configuration/config_all_stat.php";
 
                             $result = mysqli_query($conn, $sql);
                             $rpp    = 15;
-                            $reload = "$halaman" . "?pagination=true";
+                            $reload = "$halaman" . "?pagination=true&t=" . $_GET['t'] . "&j=" . $_GET['j'];
                             $page   = intval(isset($_GET["page"]) ? $_GET["page"] : 0);
 
                             if ($page <= 0)
