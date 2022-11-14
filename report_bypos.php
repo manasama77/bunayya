@@ -203,7 +203,7 @@ include "configuration/config_all_stat.php";
                                                 <?php $s = $fill['student_id'];
                                                 $sql2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bebasan WHERE period_id='$t' AND jenis_id='$j' AND student_id='$s'"));
                                                 ?>
-                                                <td><?php echo $sql2['sudahbayar']; ?></td>
+                                                <td><?php echo number_format($sql2['sudahbayar'], 0); ?></td>
                                                 <td><?php $selisih = $sql2['bill'] - $sql2['sudahbayar'];
 
                                                     if (($sql2['bill'] == 0)) {
@@ -218,7 +218,7 @@ include "configuration/config_all_stat.php";
                                                         $status = "DICICIL";
                                                     }
 
-                                                    echo number_format($selisih); ?></td>
+                                                    echo number_format($selisih, 0); ?></td>
 
                                                 <?php if ($status == 'LUNAS') { ?>
                                                     <td class="table-success"><?php echo $status; ?></td>
