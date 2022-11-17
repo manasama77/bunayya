@@ -428,7 +428,7 @@ include "configuration/config_all_stat.php";
                 $sql = mysqli_query($conn, "UPDATE bebasan SET biaya_admin = CASE WHEN biaya_admin = 0 THEN $biaya_admin ELSE biaya_admin END, `status`='sudah', sudahbayar='$bayar', kasir='$user',tgl_input='$now' WHERE no='$no'");
 
                 $sql1 = mysqli_query($conn, "INSERT INTO bebasan_pay VALUES('','$no','$t','$stu','$now','$user','$dibayar')");
-                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar VALUES('','pay','$nama','pembayaran cicilan','$dibayar','$user','1','$stu','$t','$no','0','$now','$now')");
+                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pelunasan $nama', '$dibayar', '$user', '1', '$stu', '$t', '$no', '0', '0', '$now', '$now', 'cash')");
 
                 echo "<script type='text/javascript'>  alert('Pembayaran berhasil dilunasi');</script>";
                 echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
@@ -436,7 +436,7 @@ include "configuration/config_all_stat.php";
                 $sql = mysqli_query($conn, "UPDATE bebasan SET biaya_admin = CASE WHEN biaya_admin = 0 THEN $biaya_admin ELSE biaya_admin END, sudahbayar='$bayar',kasir='$user',tgl_input='$now' WHERE no='$no'");
                 $sql1 = mysqli_query($conn, "INSERT INTO bebasan_pay VALUES('','$no','$t','$stu','$now','$user','$dibayar')");
 
-                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar VALUES('','pay','$nama','pembayaran cicilan','$dibayar','$user','1','$stu','$t','$no','0','$now','$now')");
+                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran cicilan $nama', '$dibayar', '$user', '1', '$stu', '$t', '$no', '0', '0', '$now','$now', 'cash')");
                 echo "<script type='text/javascript'>  alert('Berhasil, Cicilan pembayaran telah disimpan');</script>";
                 echo "<script type='text/javascript'>window.location = 'pay_save?no=$no&bebas=yes';</script>";
             }
