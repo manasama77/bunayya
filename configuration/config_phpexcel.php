@@ -158,7 +158,12 @@ if ($forward == 'report_trx') {
 	$t = $_GET['t'];
 	$j = $_GET['j'];
 
-	$excel->setActiveSheetIndex(0)->setCellValue('A1', "LAPORAN PEMBAYARAN NON BULANAN "); // Set kolom A1 dengan tulisan "DATA SISWA"
+	$sql_title = "select nama from jenis_bayar where jenis_id = '$j'";
+	$query     = mysqli_query($conn, $sql_title);
+	$row       = mysqli_fetch_assoc($query);
+	$title     = $row['nama'];
+
+	$excel->setActiveSheetIndex(0)->setCellValue('A1', "LAPORAN PEMBAYARAN NON BULANAN - $title"); // Set kolom A1 dengan tulisan "DATA SISWA"
 
 	// Buat header tabel nya pada baris ke 3
 
