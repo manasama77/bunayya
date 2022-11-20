@@ -221,7 +221,14 @@ include "configuration/config_all_stat.php";
                                                     echo number_format($selisih, 0); ?></td>
 
                                                 <?php if ($status == 'LUNAS') { ?>
-                                                    <td class="table-success"><?php echo $status; ?></td>
+                                                    <td class="table-success">
+                                                        <?php echo $status; ?>
+                                                        <br />
+                                                        <?php
+                                                        $tgl_input_obj = new DateTime($sql2['tgl_input']);
+                                                        echo $tgl_input_obj->format('d-M-Y');
+                                                        ?>
+                                                    </td>
                                                 <?php } else { ?>
                                                     <td><?php echo $status; ?></td>
                                                 <?php   }  ?>
