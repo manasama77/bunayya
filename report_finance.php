@@ -180,8 +180,6 @@ include "configuration/config_all_stat.php";
                                 </div>
                                 <!-- end row -->
 
-
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
@@ -221,9 +219,9 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.tipe != 'out'
                                                         AND
                                                         (
-                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
                                                         )
-                                                    GROUP BY uang_masuk_keluar.bulanan_id
+                                                    GROUP BY jenis_bayar.jenis_id
                                                     ";
                                                     $query_bulanan = mysqli_query($conn, $sql_bulanan);
                                                     $nr_bulanan = mysqli_num_rows($query_bulanan);
@@ -260,10 +258,10 @@ include "configuration/config_all_stat.php";
                                                         AND uang_masuk_keluar.tipe != 'out' 
                                                         AND
                                                         (
-                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
                                                         )
                                                     GROUP BY
-                                                        uang_masuk_keluar.bebas_id
+                                                        jenis_bayar.jenis_id
                                                     ";
                                                     $query_bebas = mysqli_query($conn, $sql_bebas);
                                                     $nr_bebas = mysqli_num_rows($query_bebas);
@@ -300,7 +298,7 @@ include "configuration/config_all_stat.php";
                                                         AND uang_masuk_keluar.tipe != 'out' 
                                                         AND
                                                         (
-                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
                                                         )
                                                     GROUP BY
                                                         uang_masuk_keluar.kategori_id
@@ -338,7 +336,7 @@ include "configuration/config_all_stat.php";
                                                         uang_masuk_keluar.tipe != 'out'
                                                         AND
                                                         (
-                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
                                                         )
                                                     ";
                                                     $query_tabungan = mysqli_query($conn, $sql_tabungan);
@@ -381,7 +379,7 @@ include "configuration/config_all_stat.php";
                                                         AND uang_masuk_keluar.tipe = 'out' 
                                                         AND
                                                         (
-                                                            uang_masuk_keluar.tgl_update between $start and $end
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
                                                         )
                                                     GROUP BY
                                                         uang_masuk_keluar.kategori_id
