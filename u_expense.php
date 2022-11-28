@@ -21,6 +21,7 @@ include "configuration/config_all_stat.php";
     head();
     timing();
     session();
+    pagination();
     ?>
 
     <?php
@@ -266,10 +267,13 @@ include "configuration/config_all_stat.php";
                                         } ?>
                                     </tbody>
                                 </table>
-                                <div align="right"><?php if ($tcount >= $rpp) {
-                                                        echo paginate_one($reload, $page, $tpages);
-                                                    } else {
-                                                    } ?></div>
+                                <div align="right">
+                                    <?php
+                                    if ($tcount >= $rpp) {
+                                        echo paginate_one($reload, $page, $tpages);
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
