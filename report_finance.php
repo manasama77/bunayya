@@ -142,7 +142,11 @@ include "configuration/config_all_stat.php";
 
 
                 <?php
+                $start_obj = new DateTime('first day of this month');
+                $end_obj = new DateTime('last day of this month');
 
+                $start = $start_obj->format('Y-m-d');
+                $end = $end_obj->format('Y-m-d');
                 if (isset($_GET['rentang'])) {
                     $dat = $_GET['rentang'];
                     list($start, $end) = explode(' - ', $dat);
