@@ -124,7 +124,7 @@ include "configuration/config_all_stat.php";
                                 <form class="form-inline" method="get">
                                     <div class="form-group mr-2">
                                         <label for="exampleInputName2" class="mr-2">Pilih Rentang Tanggal</label>
-                                        <input type="text" name="rentang" id="reportrange" class="form-control" />
+                                        <input type="text" name="rentang" id="reportranges" class="form-control" />
                                     </div>
 
 
@@ -543,6 +543,24 @@ include "configuration/config_all_stat.php";
     <script src="assets/js/app.min.js"></script>
 
     <!-- END Lib & Plugins-->
+
+    <script>
+        let start = '<?= $start; ?>'
+        let end = '<?= $end; ?>'
+        $('#reportranges').val(`${start} - ${end}`);
+        $('#reportranges').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        });
+    </script>
 
 
 
