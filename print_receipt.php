@@ -44,7 +44,8 @@ $c     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM jenis_bayar WHERE
 
 $keterangan = null;
 if ($jenis == 25) {
-    $exec_pos_bayar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM pos_bayar WHERE id = 16"));
+    $pos_bayar_id = $c['pos_bayar_id'];
+    $exec_pos_bayar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM pos_bayar WHERE id = $pos_bayar_id"));
     $keterangan     = $exec_pos_bayar['keterangan'];
 }
 ?>
@@ -153,6 +154,13 @@ if ($jenis == 25) {
                         <td style="vertical-align: top;">:</td>
                         <td style="vertical-align: top;">
                             <b><?= number_format($a['sudahbayar'], 0); ?></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><b>Sisa</b></td>
+                        <td style="vertical-align: top;">:</td>
+                        <td style="vertical-align: top;">
+                            <b><?= number_format($a['bill'] + $a['biaya_admin'] - $a['sudahbayar'], 0); ?></b>
                         </td>
                     </tr>
                     <tr>
