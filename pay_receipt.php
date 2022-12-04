@@ -198,6 +198,7 @@ include "configuration/config_all_stat.php";
                                                         <th>No.</th>
                                                         <th>Pembayaran</th>
                                                         <th>Tagihan</th>
+                                                        <th>Sisa Pembayaran</th>
                                                         <th class="text-right">Telah Dibayarkan</th>
                                                     </tr>
                                                 </thead>
@@ -209,6 +210,7 @@ include "configuration/config_all_stat.php";
                                                             diterima pada <?Php echo date('d/m/y', strtotime($a['tgl_input'])); ?>
                                                         </td>
                                                         <td><?php echo number_format($a['bill'] + $a['biaya_admin']); ?></td>
+                                                        <td><?php echo number_format($a['bill'] + $a['biaya_admin'] - $a['sudahbayar']); ?></td>
                                                         <td class="text-right"><?php echo number_format($a['sudahbayar']); ?></td>
                                                     </tr>
                                                 </tbody>
