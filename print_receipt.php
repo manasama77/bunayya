@@ -178,15 +178,12 @@ if ($jenis == 25) {
         </table>
         <table style="width:100%; font-size: 8px;">
             <tr>
-                <td style="text-align: center; height: 30px;">&nbsp;</td>
+                <td style="text-align: center; height: 80px;">&nbsp;</td>
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold; height: 5px;">
                     <u><?= $a['kasir']; ?></u>
                 </td>
-            </tr>
-            <tr>
-                <td style="height: 20px;">&nbsp;</td>
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold; height: 5px;">
