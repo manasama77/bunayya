@@ -25,6 +25,10 @@ class ComposerStaticInit4d9e7263d265c0edf106f1534e3a97ed
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'M' => 
         array (
             'Midtrans\\' => 9,
@@ -55,6 +59,10 @@ class ComposerStaticInit4d9e7263d265c0edf106f1534e3a97ed
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Midtrans\\' => 
         array (

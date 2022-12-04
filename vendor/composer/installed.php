@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '75c56ceef9e3537e2bda8b76e7846669a9e868a8',
+        'reference' => '86b024debf099a4c934fccd5e1315c06d63e2fac',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '75c56ceef9e3537e2bda8b76e7846669a9e868a8',
+            'reference' => '86b024debf099a4c934fccd5e1315c06d63e2fac',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -35,6 +35,15 @@
             'install_path' => __DIR__ . '/../midtrans/midtrans-php',
             'aliases' => array(),
             'reference' => 'a1ad0c824449ca8c68c4cf11b3417ad518311d2b',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.6.5',
+            'version' => '6.6.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => '8b6386d7417526d1ea4da9edb70b8352f7543627',
             'dev_requirement' => false,
         ),
         'ramsey/collection' => array(
