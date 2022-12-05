@@ -114,7 +114,7 @@ include "configuration/config_all_stat.php";
                             <h4 class="header-title">Petunjuk Singkat</h4>
                             <p class="sub-header">
                                 Data siswa bisa diimport melalui Excel memakai format CSV. Silahkan klik tombol download untuk memperoleh file CSV.
-                                <button onclick="window.location.href='tmp/format_upload_siswa.csv'" class="btn btn-primary waves-effect">
+                                <button onclick="window.location.href='tmp/format_upload_siswa_2022-12-05.csv'" class="btn btn-primary waves-effect">
                                     <span class="fas fa-download"></span>
 
                                 </button>
