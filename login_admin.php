@@ -47,7 +47,7 @@ $msg = $_GET['msg'];
                                 <div class="account-logo-box">
                                     <div class="text-center">
                                         <a href="index.html">
-                                            <img src="<?php echo $sql['avatar']; ?>" alt="" height="100">
+                                            <img src="./assets/images/Login admin.jpg" alt="Icon Login Admin" style="width: 100px;">
                                         </a>
                                     </div>
 
