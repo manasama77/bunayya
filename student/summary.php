@@ -193,6 +193,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                 <th>Pembayaran</th>
                                                 <th>Tagihan</th>
                                                 <th>Dibayar</th>
+                                                <th>Sisa</th>
                                                 <th>Status</th>
                                                 <th>Lihat</th>
                                             </tr>
@@ -212,6 +213,7 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                     </td>
                                                     <td><?php echo number_format($rowa['bill']); ?></td>
                                                     <td><?php echo number_format($rowa['sudahbayar']); ?></td>
+                                                    <td><?php echo number_format($rowa['bill'] - $rowa['sudahbayar']); ?></td>
                                                     <?php if ($rowa['status'] != 'belum') { ?>
                                                         <td class="table-danger"><?php echo $rowa['status']; ?></td>
                                                     <?php } else { ?>
