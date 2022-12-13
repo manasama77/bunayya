@@ -623,6 +623,7 @@ require 'vendor/autoload.php';
 function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user)
 {
     try {
+        ob_start();
         $mail = new PHPMailer(true);
         //Server settings
         $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
@@ -643,8 +644,9 @@ function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row
         $mail->Subject = $subject;
         $tanggal_now = new DateTime();
         include('format_email_bebasan.php');
-        $mail->Body = ob_get_contents();
+        $page = ob_get_contents();
         ob_end_clean();
+        $mail->Body = $page;
 
         if ($mail->send()) {
             return true;
@@ -660,6 +662,7 @@ function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row
 function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bulanan, $dibayar, $kembalian, $status, $user)
 {
     try {
+        ob_start();
         $mail = new PHPMailer(true);
         //Server settings
         $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
@@ -680,8 +683,9 @@ function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row
         $mail->Subject = $subject;
         $tanggal_now = new DateTime();
         include('format_email_bulanan.php');
-        $mail->Body = ob_get_contents();
+        $page = ob_get_contents();
         ob_end_clean();
+        $mail->Body = $page;
 
         // $mail->send();
 

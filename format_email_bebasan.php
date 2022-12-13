@@ -1,4 +1,4 @@
-<p style="font-weight: 700; color: black;">Halo Abizhar Naufal Azhad,</p>
+<p style="font-weight: 700; color: black;">Halo <?= $row_student['nama']; ?>,</p>
 <p style="font-weight: 700; color: black;">Selamatyah.. Kamu Sudah Melakukan Pembayaran Berikut Detail Transaksinya :</p>
 
 <table>
@@ -54,7 +54,7 @@
         <td>:</td>
         <td>Rp
             <?php
-            $sisa_pembayaran = $row_bebasan['bulanan_bill'] + $row_bebasan['biaya_admin'] - $dibayar;
+            $sisa_pembayaran = $row_bebasan['bill'] + $row_bebasan['biaya_admin'] - $dibayar;
             if ($sisa_pembayaran <= 0) {
                 $sisa_pembayaran = 0;
             }
