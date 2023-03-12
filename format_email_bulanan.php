@@ -1,4 +1,4 @@
-<p style="font-weight: 700; color: black;">Halo Abizhar Naufal Azhad,</p>
+<p style="font-weight: 700; color: black;"><?= "Halo," . $row_student['nama']; ?>,</p>
 <p style="font-weight: 700; color: black;">Selamatyah.. Kamu Sudah Melakukan Pembayaran Berikut Detail Transaksinya :</p>
 
 <table>

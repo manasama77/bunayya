@@ -15,8 +15,7 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT avatar,nama FROM data wher
 
 <head>
     <meta charset="utf-8" />
-    <title>Login SISWA | Smart Payment YAYASAN PENDIDIKAN DAAR EL KHAER
-    </title>
+    <title>Login Siswa | <?php echo $sql['nama']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -48,7 +47,7 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT avatar,nama FROM data wher
                                 <div class="account-logo-box">
                                     <div class="text-center">
                                         <a href="index.html">
-                                            <img src="../<?php echo $sql['avatar']; ?>" alt="" height="100">
+                                            <img src="../assets/images/Login siswa.jpg" alt="Icon Login Siswa" style="width: 100px;">
                                         </a>
                                     </div>
 
