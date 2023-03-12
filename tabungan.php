@@ -132,10 +132,11 @@ include "configuration/config_all_stat.php";
                                                 $saldo_akhir = 0;
                                                 while ($row = mysqli_fetch_assoc($query)) {
                                                     $tgl_obj = new DateTime($row['tanggal_transaksi']);
+                                                    $namanya = addcslashes($row['nama'], "'");
                                             ?>
                                                     <tr>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-info btn-sm" onclick="detailLog('<?= $row['id']; ?>', '<?= $tgl_obj->format('d-m-Y H:i'); ?>', '<?= $row['kelas'] ?>', '<?= $row['nis'] ?>', '<?= $row['nama'] ?>', '<?= number_format($row['saldo'], 0) ?>')">
+                                                            <button type="button" class="btn btn-info btn-sm" onclick="detailLog('<?= $row['id']; ?>', '<?= $tgl_obj->format('d-m-Y H:i'); ?>', '<?= $row['kelas'] ?>', '<?= $row['nis'] ?>', '<?= $namanya  ?>', '<?= number_format($row['saldo'], 0) ?>')">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                         </td>
