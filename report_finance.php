@@ -337,7 +337,7 @@ include "configuration/config_all_stat.php";
                                                     WHERE
                                                         uang_masuk_keluar.tabungan_id != 0
                                                         AND
-                                                        uang_masuk_keluar.tipe != 'out'
+                                                        uang_masuk_keluar.tipe = 'in'
                                                         AND
                                                         (
                                                             uang_masuk_keluar.tgl_update between '$start' and '$end'
@@ -402,6 +402,43 @@ include "configuration/config_all_stat.php";
                                                             <td style="width:15%">
                                                             </td>
                                                             <td>
+                                                                <?= number_format($row['jumlah']); ?>
+                                                            </td>
+                                                            <td><?= number_format($sub_total_pengeluaran); ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+
+                                                    <?php
+                                                    // pemasukan tabungan
+                                                    $sql_tabungan = "
+                                                    SELECT
+                                                        uang_masuk_keluar.tabungan_id,
+                                                        sum( uang_masuk_keluar.jumlah ) AS jumlah
+                                                    FROM
+                                                        uang_masuk_keluar
+                                                    WHERE
+                                                        uang_masuk_keluar.tabungan_id != 0
+                                                        AND
+                                                        uang_masuk_keluar.tipe = 'out'
+                                                        AND
+                                                        (
+                                                            uang_masuk_keluar.tgl_update between '$start' and '$end'
+                                                        )
+                                                    ";
+                                                    $query_tabungan = mysqli_query($conn, $sql_tabungan);
+                                                    $nr_tabungan = mysqli_num_rows($query_tabungan);
+                                                    while ($row = mysqli_fetch_array($query_tabungan)) {
+                                                        $tabungan_id      = $row['tabungan_id'];
+                                                        $sub_total_pengeluaran += $row['jumlah'];
+                                                        $grand_total     += $row['jumlah'];
+                                                    ?>
+                                                        <tr>
+                                                            <td>
+                                                                Tabungan Keluar
+                                                            </td>
+                                                            <td>
+                                                            </td>
+                                                            <td style="width:15%">
                                                                 <?= number_format($row['jumlah']); ?>
                                                             </td>
                                                             <td><?= number_format($sub_total_pengeluaran); ?></td>
