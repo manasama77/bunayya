@@ -75,7 +75,7 @@ require 'vendor/autoload.php';
 
                 mysqli_autocommit($conn, true);
 
-                $email = "adam.pm77@gmail.com";
+                // $email = "adam.pm77@gmail.com";
 
                 if ($email) {
                     $subject = $nama;
