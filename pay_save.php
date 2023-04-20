@@ -4,6 +4,7 @@
 
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
+// include "configuration/config_constants.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -23,10 +24,95 @@ require 'vendor/autoload.php';
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <?php
+    session();
     connect();
     head();
     timing();
-    session();
+
+    if (isset($_POST['simpan'])) {
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $no               = mysqli_real_escape_string($conn, $_POST["no"]);
+            $t                = mysqli_real_escape_string($conn, $_POST["t"]); // tahun ajar
+            $s                = mysqli_real_escape_string($conn, $_POST["s"]); // student id
+            $dibayar          = mysqli_real_escape_string($conn, str_replace(array('.', ','), '', $_POST["dibayar"]));
+            $kembali          = mysqli_real_escape_string($conn, str_replace(array('.', ','), '', $_POST["kembali"]));
+            $tagih            = mysqli_real_escape_string($conn, str_replace(array('.', ','), '', $_POST["tagih"]));
+            $biaya_admin      = mysqli_real_escape_string($conn, str_replace(array('.', ','), '', $_POST["biaya_admin"]));
+            $jenis_pembayaran = mysqli_real_escape_string($conn, str_replace(array('.', ','), '', $_POST["jenis_pembayaran"]));
+            $now              = date("Y-m-d");
+            $user             = $_SESSION['nama'];
+
+            $sql_student = "select * from student where nis = '$s'";
+            $query_student = mysqli_query($conn, $sql_student);
+            $nr_student = mysqli_num_rows($query_student);
+
+            if ($nr_student == 0) {
+                echo "<script type='text/javascript'>  alert('Student Not Found');</script>";
+                echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
+            }
+
+            $row_student = mysqli_fetch_assoc($query_student);
+            $email = ($row_student['email'] == "") ? null : $row_student['email'];
+
+            $nama = mysqli_real_escape_string($conn, $_POST["namapr"]);
+            $stu = mysqli_real_escape_string($conn, $_POST["stu"]);
+
+            if ($dibayar >= $tagih + $biaya_admin) {
+                // start transaction
+                mysqli_autocommit($conn, FALSE);
+
+                $sql = mysqli_query($conn, "UPDATE bulanan SET bulanan_status = 'sudah', bulanan_bayar = '$dibayar', biaya_admin = '$biaya_admin', kasir = '$user', tgl_input = '$now' WHERE no = '$no'");
+
+                $sql_uang = "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran bulanan', '$dibayar', '$user', '1', '$stu', '$t', '0', '$no', 0, '$now', '$now', '" . $jenis_pembayaran . "')";
+                $sql1 = mysqli_query($conn, $sql_uang);
+
+                if (!mysqli_commit($conn)) {
+                    echo "<script type='text/javascript'>  alert('Proses simpan gagal, tidak terhubung dengan database');</script>";
+                    echo "<script type='text/javascript'>window.location = 'pay_save?no=$no';</script>";
+                    exit();
+                }
+
+                mysqli_autocommit($conn, true);
+
+                $email = "adam.pm77@gmail.com";
+
+                if ($email) {
+                    $subject = $nama;
+
+                    $sql_tahun_ajar   = "select * from periode where no = '$t'";
+                    $query_tahun_ajar = mysqli_query($conn, $sql_tahun_ajar);
+                    $row_tahun_ajar   = mysqli_fetch_assoc($query_tahun_ajar);
+
+                    $id_kelas    = $row_student['kelas_id'];
+                    $sql_kelas   = "select * from class where no = '$id_kelas'";
+                    $query_kelas = mysqli_query($conn, $sql_kelas);
+                    $row_kelas   = mysqli_fetch_assoc($query_kelas);
+
+                    $sql_bebasan   = "select * from bulanan where no = '$no'";
+                    $query_bebasan = mysqli_query($conn, $sql_bebasan);
+                    $row_bebasan   = mysqli_fetch_assoc($query_bebasan);
+
+                    $kembalian = $dibayar - ($tagih + $biaya_admin);
+                    $status = "Lunas";
+
+                    $sql_sekolah = "SELECT * FROM `data`";
+                    $query_sekolah = mysqli_query($conn, $sql_sekolah);
+                    $row_sekolah = mysqli_fetch_assoc($query_sekolah);
+
+                    kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user, $row_sekolah);
+
+                    // mysqli_rollback($conn);
+                }
+
+                echo "<script type='text/javascript'>  alert('Pembayaran telah disimpan');</script>";
+                echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
+            } else {
+                echo "<script type='text/javascript'>  alert('Gagal, Jumlah bayar tidak boleh kurang dari yang ditagih');</script>";
+                echo "<script type='text/javascript'>window.location = 'pay_save?no=$no';</script>";
+            }
+        }
+    }
     ?>
 
     <?php
@@ -155,70 +241,7 @@ require 'vendor/autoload.php';
     $no            = $_GET['no'];
 
     menu();
-
-    if (isset($_POST['simpan'])) {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $no               = mysqli_real_escape_string($conn, $_POST["no"]);
-            $t                = mysqli_real_escape_string($conn, $_POST["t"]);
-            $s                = mysqli_real_escape_string($conn, $_POST["s"]);
-            $dibayar          = mysqli_real_escape_string($conn, $_POST["dibayar"]);
-            $kembali          = mysqli_real_escape_string($conn, $_POST["kembali"]);
-            $tagih            = mysqli_real_escape_string($conn, $_POST["tagih"]);
-            $biaya_admin      = mysqli_real_escape_string($conn, $_POST["biaya_admin"]);
-            $jenis_pembayaran = mysqli_real_escape_string($conn, $_POST["jenis_pembayaran"]);
-            $now              = date("Y-m-d");
-            $user             = $_SESSION['nama'];
-
-            $sql_student = "select * from student where nis = '$s'";
-            $query_student = mysqli_query($conn, $sql_student);
-            $nr_student = mysqli_num_rows($query_student);
-
-            if ($nr_student == 0) {
-                echo "<script type='text/javascript'>  alert('Student Not Found');</script>";
-                echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
-            }
-
-            $row_student = mysqli_fetch_assoc($query_student);
-            $email = ($row_student['email'] == "") ? null : $row_student['email'];
-
-            $nama = mysqli_real_escape_string($conn, $_POST["namapr"]);
-            $stu = mysqli_real_escape_string($conn, $_POST["stu"]);
-
-            if ($dibayar >= $tagih + $biaya_admin) {
-                $sql = mysqli_query($conn, "UPDATE bulanan SET bulanan_status='sudah', bulanan_bayar='$dibayar', biaya_admin='$biaya_admin', kasir='$user',tgl_input='$now' WHERE no='$no'");
-                $sql_uang = "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran bulanan', '$dibayar', '$user', '1', '$stu', '$t','0', '$no', 0, '$now', '$now', '" . $jenis_pembayaran . "')";
-                $sql1 = mysqli_query($conn, $sql_uang);
-
-                if ($email) {
-                    $subject = $nama;
-
-                    $sql_tahun_ajar = "select * from periode where no = '$t'";
-                    $query_tahun_ajar = mysqli_query($conn, $sql_tahun_ajar);
-                    $row_tahun_ajar = mysqli_fetch_assoc($query_tahun_ajar);
-
-                    $id_kelas = $row_student['kelas_id'];
-                    $sql_kelas = "select * from class where no = '$id_kelas'";
-                    $query_kelas = mysqli_query($conn, $sql_kelas);
-                    $row_kelas = mysqli_fetch_assoc($query_kelas);
-
-                    $sql_bebasan   = "select * from bulanan where no = '$no'";
-                    $query_bebasan = mysqli_query($conn, $sql_bebasan);
-                    $row_bebasan   = mysqli_fetch_assoc($query_bebasan);
-
-                    $kembalian = $dibayar - $tagih + $biaya_admin;
-                    $status = "Lunas";
-
-                    kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user);
-                }
-
-                echo "<script type='text/javascript'>  alert('Pembayaran telah disimpan');</script>";
-                echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
-            } else {
-                echo "<script type='text/javascript'>  alert('Gagal, Jumlah bayar tidak boleh kurang dari yang ditagih');</script>";
-                echo "<script type='text/javascript'>window.location = 'pay_save?no=$no';</script>";
-            }
-        }
-    } ?>
+    ?>
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
@@ -266,70 +289,96 @@ require 'vendor/autoload.php';
                                 <div class="card-box">
                                     <h4 class="header-title">Form Pembayaran Bulanan</h4>
 
-                                    <div class="table-responsive">
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Nama Pembayaran</label>
-                                            <input type="text" class="form-control" name="namapr" value="<?php echo $sqla['nama'] . " T.A " . $sqla['tahunajar'] . " " . $nama_bulannya; ?>" readonly>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Nama Pembayaran</label>
+                                                <input type="text" class="form-control" name="namapr" value="<?php echo $sqla['nama'] . " T.A " . $sqla['tahunajar'] . " " . $nama_bulannya; ?>" readonly>
+                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Siswa</label>
-                                            <input type="text" class="form-control" value="<?php echo $sqlb['nama']; ?>" readonly>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="jenis_pembayaran">Jenis Pembayaran</label>
+                                                <select class="form-control" id="jenis_pembayaran" name="jenis_pembayaran" required>
+                                                    <option value="cash">Cash</option>
+                                                    <option value="transfer">Transfer</option>
+                                                </select>
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Jumlah Tagihan</label>
-                                            <input type="text" class="form-control" value="<?php echo $sql['bulanan_bill']; ?>" id="tagih" name="tagih" readonly>
-                                            <input type="hidden" class="form-control" name="no" value="<?php echo $no; ?>" readonly>
-                                            <input type="hidden" class="form-control" name="t" value="<?php echo $t; ?>" readonly>
-                                            <input type="hidden" class="form-control" name="s" value="<?php echo $sqlb['nis']; ?>" readonly>
-                                            <input type="hidden" class="form-control" name="stu" value="<?php echo $s; ?>" readonly>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Siswa</label>
+                                                <input type="text" class="form-control" value="<?php echo $sqlb['nama']; ?>" readonly>
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <?php
-                                            $sql_biaya_admin = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM biaya_admin WHERE id = 1"));
-                                            $biaya_admin = $sql_biaya_admin['biaya'];
-                                            ?>
-                                            <label for="biaya_admin">Biaya Admin</label>
-                                            <input type="text" class="form-control" id="biaya_admin" name="biaya_admin" value="<?= $biaya_admin; ?>" required readonly />
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="tagih">Jumlah Tagihan</label>
+                                                <input type="text" class="form-control" value="<?= $sql['bulanan_bill']; ?>" id="tagih" name="tagih" readonly>
+                                                <input type="hidden" class="form-control" name="no" value="<?php echo $no; ?>" readonly>
+                                                <input type="hidden" class="form-control" name="t" value="<?php echo $t; ?>" readonly>
+                                                <input type="hidden" class="form-control" name="s" value="<?php echo $sqlb['nis']; ?>" readonly>
+                                                <input type="hidden" class="form-control" name="stu" value="<?php echo $s; ?>" readonly>
+                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Jumlah Dibayarkan</label>
-                                            <input type="text" class="form-control" id="dibayarkan" name="dibayar" onkeyup="sum();" autocomplete="off">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <?php
+                                                $sql_biaya_admin = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM biaya_admin WHERE id = 1"));
+                                                $biaya_admin = $sql_biaya_admin['biaya'];
+                                                ?>
+                                                <label for="biaya_admin">Biaya Admin</label>
+                                                <input type="text" class="form-control" id="biaya_admin" name="biaya_admin" value="<?= $biaya_admin; ?>" required readonly />
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="jenis_pembayaran">Jenis Pembayaran</label>
-                                            <select class="form-control" id="jenis_pembayaran" name="jenis_pembayaran" required>
-                                                <option value="cash">Cash</option>
-                                                <option value="transfer">Transfer</option>
-                                            </select>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="total_tagihan">Total Tagihan</label>
+                                                <input type="text" class="form-control" id="total_tagihan" name="total_tagihan" value="<?= $sql['bulanan_bill'] + $biaya_admin; ?>" readonly>
+                                            </div>
                                         </div>
-
-
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="dibayarkan">Jumlah Dibayarkan</label>
+                                                <input type="text" class="form-control" id="dibayarkan" name="dibayar" autocomplete="off" min="0" placeholder="0">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <script>
-                                function sum() {
-                                    var txtFirstNumberValue = document.getElementById('dibayarkan').value
-                                    var txtSecondNumberValue = document.getElementById('tagih').value;
-                                    let biaya_admin = document.getElementById('biaya_admin').value
-                                    var result = parseFloat(txtFirstNumberValue) - parseFloat(txtSecondNumberValue) - biaya_admin;
-                                    if (!isNaN(result)) {
-                                        document.getElementById('kembalinye').value = result;
-                                    }
-                                    if (!$(jumlah).val()) {
-                                        document.getElementById('kembalinye').value = "0";
-                                    }
-                                    if (!$(hargajual).val()) {
-                                        document.getElementById('kembalinye').value = "0";
-                                    }
-                                }
+                                // function sum() {
+                                //     let regexDecimal = /[.,\s]/g;
+
+                                //     let txtFirstNumberValue = document.getElementById('dibayarkan').value
+                                //     let txtSecondNumberValue = document.getElementById('tagih').value;
+                                //     let biaya_admin = document.getElementById('biaya_admin').value
+
+                                //     txtSecondNumberValue = txtSecondNumberValue.replace(regexDecimal, '')
+                                //     console.log("txtSecondNumberValue", txtSecondNumberValue)
+
+
+                                //     let result = parseFloat(txtFirstNumberValue) - parseFloat(txtSecondNumberValue) - biaya_admin;
+                                //     if (!isNaN(result)) {
+                                //         document.getElementById('kembalinye').value = result;
+                                //     }
+                                //     // if (!$(jumlah).val()) {
+                                //     //     document.getElementById('kembalinye').value = "0";
+                                //     // }
+                                //     if (!$(hargajual).val()) {
+                                //         document.getElementById('kembalinye').value = "0";
+                                //     }
+                                // }
                             </script>
 
                             <?php if ($chmod >= 3 || $_SESSION['jabatan'] == 'admin') { ?>
@@ -345,7 +394,7 @@ require 'vendor/autoload.php';
                                             </div>
 
 
-                                            <button type="submit" name="simpan" class="btn btn-block btn-success waves-effect width-md waves-light">SIMPAN</button>
+                                            <button type="submit" name="simpan" class="btn btn-block btn-success waves-effect width-md waves-light" disabled>SIMPAN</button>
 
                                             <a href="pay_add?t=<?php echo $t; ?>&s=<?php echo $sqlb['nis']; ?>" class="btn btn-block btn-danger waves-effect width-md waves-light">KEMBALI</a>
 
@@ -574,50 +623,82 @@ require 'vendor/autoload.php';
 
     <!-- App js -->
     <script src="assets/js/app.min.js"></script>
-
     <!-- END Lib & Plugins-->
 
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const bebas = urlParams.get('bebas')
 
+        const autoNumericOptions = {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            allowDecimalPadding: false,
+            decimalPlaces: 0,
+            modifyValueOnWheel: false
+        }
 
+        let tagihanNumeric;
+        let biayaAdminNumeric;
+        let paidNumeric;
+        let dibayarNumeric;
+        let sisaNumeric;
+        let totalTagihanNumeric;
+        let kembalianNumeric;
 
+        $(document).ready(function() {
+            if (bebas) {
+                tagihanNumeric = new AutoNumeric('#tagihan', autoNumericOptions);
+                biayaAdminNumeric = new AutoNumeric('#biaya_admin_bebas', autoNumericOptions);
+                paidNumeric = new AutoNumeric('#paid', autoNumericOptions);
+                dibayarNumeric = new AutoNumeric('#dibayar', autoNumericOptions);
+                sisaNumeric = new AutoNumeric('#sisa', autoNumericOptions);
+            } else {
+                tagihanNumeric = new AutoNumeric('#tagih', autoNumericOptions);
+                biayaAdminNumeric = new AutoNumeric('#biaya_admin', autoNumericOptions);
+                totalTagihanNumeric = new AutoNumeric('#total_tagihan', autoNumericOptions);
+                dibayarNumeric = new AutoNumeric('#dibayarkan', autoNumericOptions);
+                kembalianNumeric = new AutoNumeric('#kembalinye', autoNumericOptions);
+            }
 
+            $('#dibayar').on('keyup', e => {
+                let tagihan = parseInt(tagihanNumeric.get())
+                let biaya_admin = parseInt(biayaAdminNumeric.get())
+                let paid = parseInt(paidNumeric.get())
+                let dibayar = parseInt(dibayarNumeric.get())
 
+                console.log(tagihan + biaya_admin)
+
+                if (dibayar + paid > tagihan + biaya_admin) {
+                    alert("Jumlah pembayaran melebihi Tagihan + Biaya admin")
+                    $('button[name="save"]').prop('disabled', true)
+                } else {
+                    $('button[name="save"]').prop('disabled', false)
+                }
+            })
+
+            $('#dibayarkan').on('keyup', e => {
+                let tagihan = parseInt(tagihanNumeric.get())
+                let biaya_admin = parseInt(biayaAdminNumeric.get())
+                let total_tagihan = tagihan + biaya_admin;
+                let dibayar = parseInt(dibayarNumeric.get())
+                let kembalian = dibayar - total_tagihan;
+
+                // $('#kembalinye').val(kembalian)
+                kembalianNumeric.set(kembalian)
+
+                if (dibayar < tagihan + biaya_admin) {
+                    $('button[name="simpan"]').prop('disabled', true)
+                } else {
+                    $('button[name="simpan"]').prop('disabled', false)
+                }
+            })
+        })
+    </script>
     </body>
 
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
-<script>
-    const autoNumericOptions = {
-        digitGroupSeparator: '.',
-        decimalCharacter: ',',
-        allowDecimalPadding: false,
-        decimalPlaces: 0,
-        minimumValue: 0,
-        modifyValueOnWheel: false
-    }
-    let tagihanNumeric = new AutoNumeric('#tagihan', autoNumericOptions);
-    let biayaAdminNumeric = new AutoNumeric('#biaya_admin_bebas', autoNumericOptions);
-    let paidNumeric = new AutoNumeric('#paid', autoNumericOptions);
-    let dibayarNumeric = new AutoNumeric('#dibayar', autoNumericOptions);
-    let sisaNumeric = new AutoNumeric('#sisa', autoNumericOptions);
-
-    $('#dibayar').on('keyup', e => {
-        let tagihan = parseInt(tagihanNumeric.get())
-        let biaya_admin = parseInt(biayaAdminNumeric.get())
-        let paid = parseInt(paidNumeric.get())
-        let dibayar = parseInt(dibayarNumeric.get())
-
-        console.log(tagihan + biaya_admin)
-
-        if (dibayar + paid > tagihan + biaya_admin) {
-            alert("Jumlah pembayaran melebihi Tagihan + Biaya admin")
-            $('button[name="save"]').prop('disabled', true)
-        } else {
-            $('button[name="save"]').prop('disabled', false)
-        }
-    })
-</script>
 
 <?php
 function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user)
@@ -659,20 +740,24 @@ function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row
     }
 }
 
-function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bulanan, $dibayar, $kembalian, $status, $user)
+function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bulanan, $dibayar, $kembalian, $status, $user, $row_sekolah)
 {
     try {
         ob_start();
         $mail = new PHPMailer(true);
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'mail.trijayasolution.com';                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'noreply@trijayasolution.com';                     //SMTP username
-        $mail->Password   = 'noreply@212';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->isSMTP();
+        $mail->SMTPDebug  = SMTP::DEBUG_OFF;
+        $mail->Host       = 'mail.trijayasolution.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'noreply@trijayasolution.com';
+        $mail->Password   = 'noreply@212';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
+        // $mail->Host       = 'sandbox.smtp.mailtrap.io';
+        // $mail->Username   = '1fbb19b40b41dc';
+        // $mail->Password   = '83ea0541531542';
+        // $mail->Port       = 2525;
 
         //Recipients
         $mail->setFrom('noreply@trijayasolution.com', 'No Reply');

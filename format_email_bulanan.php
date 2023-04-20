@@ -1,5 +1,5 @@
-<p style="font-weight: 700; color: black;"><?= "Halo," . $row_student['nama']; ?>,</p>
-<p style="font-weight: 700; color: black;">Selamatyah.. Kamu Sudah Melakukan Pembayaran Berikut Detail Transaksinya :</p>
+<p style="font-weight: 700; color: black;"><?= "Halo, " . $row_student['nama']; ?>,</p>
+<p style="font-weight: 700; color: black;">Selamat yah.. Kamu Sudah Melakukan Pembayaran Berikut Detail Transaksinya :</p>
 
 <table>
     <tr>
@@ -79,7 +79,6 @@
     </tr>
 </table>
 
-<p>informasi Lebih Lanjut Silakan Hubungi Kami di layanan Email infosd@sekolahbunayya.sch.id Atau Melalui Tlp/WhatsApp 081288643498</p>
-
+<p>informasi Lebih Lanjut Silahkan Hubungi Kami di layanan Email <a href="mailto:<?= $row_sekolah['email']; ?>" target="_blank"><?= $row_sekolah['email']; ?></a>, Website <a href="<?= $row_sekolah['web']; ?>" target="_blank"><?= $row_sekolah['web']; ?></a> atau Tlp/WhatsApp <?= $row_sekolah['notelp']; ?></p>
 <p style="font-weight: 700; color: black;">-Salam Sukses-</p>
-<p style="font-weight: 700; color: black;">Admin SDIT Bunayya</p>
+<p style="font-weight: 700; color: black;">Admin <?= $row_sekolah['nama']; ?></p>
