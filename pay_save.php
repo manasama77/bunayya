@@ -707,7 +707,7 @@ function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row
         ob_start();
         $mail = new PHPMailer(true);
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'mail.trijayasolution.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -736,7 +736,7 @@ function kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row
         }
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        exit;
+        return true;
     }
 }
 
@@ -751,7 +751,7 @@ function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row
         $mail->Host       = 'mail.trijayasolution.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'noreply@trijayasolution.com';
-        $mail->Password   = 'noreply@212';
+        $mail->Password   = 'trijaya@212#';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
         // $mail->Host       = 'sandbox.smtp.mailtrap.io';
@@ -781,7 +781,7 @@ function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row
         }
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        exit;
+        return true;
     }
 }
 ?>
