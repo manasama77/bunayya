@@ -260,20 +260,17 @@ include "configuration/config_all_stat.php";
                             </div>
                         </div>
 
+                        <!-- Foto Siswa -->
                         <div class="col-3">
                             <div class="card-box">
-
                                 <img src="student/<?php echo $trimmed; ?>" alt="image" class="img-fluid rounded" width="250" />
                             </div>
                         </div>
-
 
                     </div>
 
 
                     <div class="row">
-
-
                         <div class="col-6">
                             <div class="card-box">
                                 <h4 class="header-title mb-4">Transaksi Bulanan Terakhir</h4>
@@ -383,7 +380,9 @@ include "configuration/config_all_stat.php";
                                                 </thead>
                                                 <tbody>
 
-                                                    <?php $sql = mysqli_query($conn, "SELECT DISTINCT jenis_id FROM bulanan WHERE student_id='$id' ORDER by no");
+                                                    <?php
+                                                    $sqlnya = "SELECT DISTINCT jenis_id FROM bulanan WHERE student_id='$id' and period_id = '$periode' ORDER by no";
+                                                    $sql = mysqli_query($conn, $sqlnya);
                                                     $no = 0;
                                                     while ($row = mysqli_fetch_assoc($sql)) {
 
