@@ -64,8 +64,17 @@ require 'vendor/autoload.php';
 
                 $sql = mysqli_query($conn, "UPDATE bulanan SET bulanan_status = 'sudah', bulanan_bayar = '$dibayar', biaya_admin = '$biaya_admin', kasir = '$user', tgl_input = '$now' WHERE no = '$no'");
 
-                $sql_uang = "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran bulanan', '$dibayar', '$user', '1', '$stu', '$t', '0', '$no', 0, '$now', '$now', '" . $jenis_pembayaran . "')";
-                $sql1 = mysqli_query($conn, $sql_uang);
+                $sqlnya   = "SELECT * FROM uang_masuk_keluar WHERE student_id = '$stu' AND period_id = '$t' AND bulanan_id = '$no'";
+                $querynya = mysqli_query($conn, $sqlnya);
+                $nr       = mysqli_num_rows($querynya);
+
+                // echo '<pre>' . print_r($nr, 1) . '</pre>';
+                // exit;
+
+                if ($nr == 0) {
+                    $sql_uang = "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran bulanan', '$dibayar', '$user', '1', '$stu', '$t', '0', '$no', 0, '$now', '$now', '" . $jenis_pembayaran . "')";
+                    $sql1 = mysqli_query($conn, $sql_uang);
+                }
 
                 if (!mysqli_commit($conn)) {
                     echo "<script type='text/javascript'>  alert('Proses simpan gagal, tidak terhubung dengan database');</script>";
@@ -283,7 +292,7 @@ require 'vendor/autoload.php';
 
                 ?>
 
-                    <form method="post">
+                    <form method="post" action="pay_save.php">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card-box">
@@ -694,6 +703,12 @@ require 'vendor/autoload.php';
                     $('button[name="simpan"]').prop('disabled', false)
                 }
             })
+
+            // $("input[type='submit']").click(function(e) {
+            //     e.preventDefault(); // Prevent the page from submitting on click.
+            //     $(this).attr('disabled', true); // Disable this input.
+            //     $(this).parent("form").submit(); // Submit the form it is in.
+            // });
         })
     </script>
     </body>
