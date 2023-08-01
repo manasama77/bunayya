@@ -1,10 +1,10 @@
  <?php
   error_reporting(E_ALL);
   include 'configuration/config_connect.php';
-  $queryback = "SELECT * FROM backset";
+  $queryback  = "SELECT * FROM backset";
   $resultback = mysqli_query($conn, $queryback);
-  $rowback = mysqli_fetch_assoc($resultback);
-  $themes = $rowback['themesback'];
+  $rowback    = mysqli_fetch_assoc($resultback);
+  $themes     = $rowback['themesback'];
   if ($themes == '2') { ?>
    <!--DARK-->
    <link href="assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
@@ -14,10 +14,7 @@
    <!-- App css -->
    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-
  <?php } ?>
-
-
  <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
  <link href="assets/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
  <link href="assets/libs/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet">
@@ -45,7 +42,4 @@
      padding: 0.1rem 0.9rem !important;
    }
  </style>
-
-
-
  </head>

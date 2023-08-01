@@ -370,7 +370,8 @@ include "configuration/config_all_stat.php";
                                                         <th>Nama Pembayaran</th>
                                                         <th>Belum Bayar</th>
 
-                                                        <?php $sql = mysqli_query($conn, "SELECT * FROM months ORDER by month_id");
+                                                        <?php
+                                                        $sql = mysqli_query($conn, "SELECT * FROM months ORDER by month_id");
 
                                                         while ($row = mysqli_fetch_assoc($sql)) {
                                                             echo '<th >' . $row['month_name'] . '</th>';
@@ -381,12 +382,10 @@ include "configuration/config_all_stat.php";
                                                 <tbody>
 
                                                     <?php
-                                                    $sqlnya = "SELECT DISTINCT jenis_id FROM bulanan WHERE student_id='$id' and period_id = '$periode' ORDER by no";
+                                                    $sqlnya = "SELECT DISTINCT jenis_id FROM bulanan WHERE student_id='$id' and period_id = '$periode' ORDER by `no`";
                                                     $sql = mysqli_query($conn, $sqlnya);
                                                     $no = 0;
                                                     while ($row = mysqli_fetch_assoc($sql)) {
-
-
                                                     ?>
                                                         <tr>
                                                             <th scope="row"><?php echo ++$no; ?></th>

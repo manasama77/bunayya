@@ -190,7 +190,8 @@ include "configuration/config_all_stat.php";
 
   if (isset($_POST['setting'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        echo "adam 2";
+      echo "adam 2";
+      exit;
 
       $kelas = mysqli_real_escape_string($conn, $_POST["kelas"]);
       $period = mysqli_real_escape_string($conn, $_POST["period"]);
@@ -198,7 +199,7 @@ include "configuration/config_all_stat.php";
 
       $user = $_SESSION['nama'];
       $now = date('Y-m-d');
-      
+
       $sqlnya = "SELECT * FROM student WHERE kelas_id='$kelas'";
       $query = mysqli_query($conn, $sqlnya);
 
@@ -211,7 +212,7 @@ include "configuration/config_all_stat.php";
         while ($i <= 11) {
           $i++;
           $bulan = mysqli_real_escape_string($conn, $_POST["bulan$i"]);
-          
+
           $sqlnya = "SELECT * FROM bulanan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis' AND month_id='$i'";
           $cek = mysqli_query($conn, $sqlnya);
 

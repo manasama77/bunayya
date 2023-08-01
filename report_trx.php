@@ -165,7 +165,11 @@ include "configuration/config_all_stat.php";
                     <div class="row">
                         <div class="col-12">
                             <div class="card-box">
-                                <h4 class="header-title"> <a onclick="window.location.href='configuration/config_phpexcel?forward=report_trx&start=<?php echo $start; ?>&end=<?php echo $end; ?>&tipe=all'" class="btn btn-xs btn-primary waves-effect waves-light btn-md"><i class="fas fa-download"> Excel</i> </a></h4>
+                                <h4 class="header-title">
+                                    <a onclick="window.location.href='configuration/config_phpexcel?forward=report_trx&start=<?= $start; ?>&end=<?= $end; ?>&tipe=all'" class="btn btn-xs btn-primary waves-effect waves-light btn-md">
+                                        <i class="fas fa-download"> Excel</i>
+                                    </a>
+                                </h4>
 
 
                                 <p class="sub-header">Laporan Transaksi

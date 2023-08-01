@@ -165,21 +165,18 @@ include "configuration/config_all_stat.php";
               }
               echo "</div>";
             } else {
-
-
-              $nama = mysqli_real_escape_string($conn, $_POST["namapos"]);
-              $pos = mysqli_real_escape_string($conn, $_POST["pos"]);
-              $ta = mysqli_real_escape_string($conn, $_POST["period"]);
+              $nama  = mysqli_real_escape_string($conn, $_POST["namapos"]);
+              $pos   = mysqli_real_escape_string($conn, $_POST["pos"]);
+              $ta    = mysqli_real_escape_string($conn, $_POST["period"]);
               $tahun = mysqli_real_escape_string($conn, $_POST["tahunajar"]);
-              $tipe = mysqli_real_escape_string($conn, $_POST["tipe"]);
-              $now = date('Y-m-d');
+              $tipe  = mysqli_real_escape_string($conn, $_POST["tipe"]);
+              $now   = date('Y-m-d');
 
               $sqla = "select * from jenis_bayar where jenis_id='$no'";
               $result = mysqli_query($conn, $sqla);
 
 
               if (mysqli_num_rows($result) > 0) {
-
                 $sql = "UPDATE jenis_bayar SET period_id='$ta', pos_bayar_id='$pos', nama='$nama', jenis_pembayaran='$tipe', tahunajar='$tahun', update_time='$now' WHERE jenis_id='$no'";
 
                 if (mysqli_query($conn, $sql)) {
@@ -188,7 +185,10 @@ include "configuration/config_all_stat.php";
                   echo "<script type='text/javascript'>window.location = '$forwardpage?insert=false';</script>";
                 }
               } else {
-                $sql1 = "INSERT INTO jenis_bayar VALUES('','$ta','$pos','$tipe','$nama','$tahun','$now','$now')";
+                $sql1 = "INSERT INTO jenis_bayar 
+                (period_id, pos_bayar_id, jenis_pembayaran, nama, tahunajar, update_time, create_time) 
+                VALUES 
+                ('$ta', '$pos', '$tipe', '$nama', '$tahun', '$now', '$now')";
 
                 if (mysqli_query($conn, $sql1)) {
                   echo "<script type='text/javascript'>window.location = 'pos_jenis?insert=true';</script>";

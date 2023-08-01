@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
 // include "configuration/config_constants.php";
@@ -11,7 +10,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
-
 ?>
 
 <head>
@@ -29,8 +27,8 @@ require 'vendor/autoload.php';
     head();
     timing();
 
+    // PROSES BAYAR BULANAN
     if (isset($_POST['simpan'])) {
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $no               = mysqli_real_escape_string($conn, $_POST["no"]);
             $t                = mysqli_real_escape_string($conn, $_POST["t"]); // tahun ajar
@@ -135,15 +133,19 @@ require 'vendor/autoload.php';
     ?>
 
     <?php
+    // PROSES BAYAR BEBASAN
     if (isset($_POST['save'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $no = mysqli_real_escape_string($conn, $_POST["no"]);
-            $t = mysqli_real_escape_string($conn, $_POST["t"]);
-            $s = mysqli_real_escape_string($conn, $_POST["s"]);
+            $now  = date("Y-m-d");
+            $user = $_SESSION['nama'];
 
-            $sql_student = "select * from student where nis = '$s'";
+            $no = mysqli_real_escape_string($conn, $_POST["no"]);
+            $t  = mysqli_real_escape_string($conn, $_POST["t"]);
+            $s  = mysqli_real_escape_string($conn, $_POST["s"]);
+
+            $sql_student   = "select * from student where nis = '$s'";
             $query_student = mysqli_query($conn, $sql_student);
-            $nr_student = mysqli_num_rows($query_student);
+            $nr_student    = mysqli_num_rows($query_student);
 
             if ($nr_student == 0) {
                 echo "<script type='text/javascript'>  alert('Student Not Found');</script>";
@@ -151,26 +153,36 @@ require 'vendor/autoload.php';
             }
 
             $row_student = mysqli_fetch_assoc($query_student);
-            $email = ($row_student['email'] == "") ? null : $row_student['email'];
+            $email       = ($row_student['email'] == "") ? null : $row_student['email'];
 
-            $dibayar = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["dibayar"]));
+            $dibayar     = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["dibayar"]));
             $biaya_admin = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["biaya_admin_bebas"]));
-            $bill = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["bill"]));
-            $sudah = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["sudah"]));
+            $bill        = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["bill"]));
+            $sudah       = mysqli_real_escape_string($conn, str_replace(".", "", $_POST["sudah"]));
+            $nama        = mysqli_real_escape_string($conn, $_POST["namapr"]) . " - " . $row_student['nama'];
+            $stu         = mysqli_real_escape_string($conn, $_POST["stu"]);
 
             $bayar = $sudah + $dibayar;
 
-            $now = date("Y-m-d");
-            $user = $_SESSION['nama'];
-
-
-            $nama = mysqli_real_escape_string($conn, $_POST["namapr"]);
-            $stu = mysqli_real_escape_string($conn, $_POST["stu"]);
-
             if ($bayar >= $bill + $biaya_admin) {
-                $sql = mysqli_query($conn, "UPDATE bebasan SET biaya_admin = CASE WHEN biaya_admin = 0 THEN $biaya_admin ELSE biaya_admin END, `status`='sudah', sudahbayar='$bayar', kasir='$user',tgl_input='$now' WHERE no='$no'");
-                $sql1 = mysqli_query($conn, "INSERT INTO bebasan_pay VALUES('','$no','$t','$stu','$now','$user','$dibayar')");
-                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pelunasan $nama', '$dibayar', '$user', '1', '$stu', '$t', '$no', '0', '0', '$now', '$now', 'cash')");
+                $sqlan = "UPDATE bebasan 
+                SET 
+                    biaya_admin = 
+                    CASE WHEN biaya_admin = 0 
+                        THEN $biaya_admin 
+                        ELSE biaya_admin 
+                    END,
+                    `status` = 'sudah', 
+                    sudahbayar = '$bayar', 
+                    kasir = '$user',
+                    tgl_input = '$now' 
+                WHERE 
+                    no = '$no'
+                ";
+                $sql = mysqli_query($conn, $sqlan);
+
+                $message = "Pembayaran berhasil dilunasi";
+                $target  = "pay_add?t=$t&s=$s";
 
                 if ($email) {
                     $subject = $nama;
@@ -193,13 +205,23 @@ require 'vendor/autoload.php';
 
                     kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user);
                 }
-
-                echo "<script type='text/javascript'>  alert('Pembayaran berhasil dilunasi');</script>";
-                echo "<script type='text/javascript'>window.location = 'pay_add?t=$t&s=$s';</script>";
             } else {
-                $sql = mysqli_query($conn, "UPDATE bebasan SET biaya_admin = CASE WHEN biaya_admin = 0 THEN $biaya_admin ELSE biaya_admin END, sudahbayar='$bayar',kasir='$user',tgl_input='$now' WHERE no='$no'");
-                $sql1 = mysqli_query($conn, "INSERT INTO bebasan_pay VALUES('','$no','$t','$stu','$now','$user','$dibayar')");
-                $sql2 = mysqli_query($conn, "INSERT INTO uang_masuk_keluar (tipe, nama, keterangan, jumlah, kasir, kategori_id, student_id, period_id, bebas_id, bulanan_id, tabungan_id, tgl_update, tgl_input, jenis_pembayaran) VALUES('pay', '$nama', 'pembayaran cicilan $nama', '$dibayar', '$user', '1', '$stu', '$t', '$no', '0', '0', '$now','$now', 'cash')");
+                $sqlan = "UPDATE bebasan 
+                SET 
+                    biaya_admin = 
+                        CASE WHEN biaya_admin = 0 
+                            THEN $biaya_admin 
+                            ELSE biaya_admin 
+                        END, 
+                    sudahbayar = '$bayar',
+                    kasir = '$user',
+                    tgl_input = '$now' 
+                WHERE no = '$no'
+                ";
+                $sql = mysqli_query($conn, $sqlan);
+
+                $message = 'Berhasil, Cicilan pembayaran telah disimpan';
+                $target  = "pay_save?no=$no&bebas=yes";
 
                 if ($email) {
                     $subject = $nama;
@@ -222,10 +244,67 @@ require 'vendor/autoload.php';
 
                     kirimEmailBebasan($email, $subject, $row_student, $row_tahun_ajar, $row_kelas, $row_bebasan, $dibayar, $kembalian, $status, $user);
                 }
-
-                echo "<script type='text/javascript'>  alert('Berhasil, Cicilan pembayaran telah disimpan');</script>";
-                echo "<script type='text/javascript'>window.location = 'pay_save?no=$no&bebas=yes';</script>";
             }
+
+            $sqlan = "INSERT INTO bebasan_pay 
+                (
+                    bebasan_id,
+                    period_id,
+                    student_id,
+                    tanggal,
+                    kasir,
+                    jumlah
+                )
+                VALUES
+                (
+                    '$no',
+                    '$t',
+                    '$stu',
+                    '$now',
+                    '$user',
+                    '$dibayar'
+                )";
+            $sql1 = mysqli_query($conn, $sqlan);
+
+            $sqlan = "INSERT INTO uang_masuk_keluar 
+                (
+                    tipe, 
+                    nama, 
+                    keterangan, 
+                    jumlah, 
+                    kasir, 
+                    kategori_id, 
+                    student_id, 
+                    period_id, 
+                    bebas_id, 
+                    bulanan_id, 
+                    tabungan_id, 
+                    tgl_update, 
+                    tgl_input, 
+                    jenis_pembayaran
+                )
+                VALUES
+                (
+                    'pay', 
+                    '$nama', 
+                    'pembayaran cicilan $nama', 
+                    '$dibayar', 
+                    '$user', 
+                    '1', 
+                    '$stu', 
+                    '$t', 
+                    '$no', 
+                    '0', 
+                    '0', 
+                    '$now',
+                    '$now', 
+                    'cash'
+                )
+                ";
+            $sql2 = mysqli_query($conn, $sqlan);
+
+            echo "<script type='text/javascript'>  alert($message);</script>";
+            echo "<script type='text/javascript'>window.location = '$target';</script>";
         }
     }
     ?>
@@ -779,9 +858,9 @@ function kirimEmailBulanan($email, $subject, $row_student, $row_tahun_ajar, $row
         $mail->addAddress($email);     //Add a recipient
 
         //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->isHTML(true);  //Set email format to HTML
         $mail->Subject = $subject;
-        $tanggal_now = new DateTime();
+        $tanggal_now   = new DateTime();
         include('format_email_bulanan.php');
         $page = ob_get_contents();
         ob_end_clean();

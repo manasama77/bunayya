@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
-
 ?>
 
 <head>
@@ -21,9 +19,6 @@ include "configuration/config_all_stat.php";
   head();
   timing();
   session();
-  ?>
-
-  <?php
 
   if (!login_check()) {
   ?>
@@ -32,6 +27,76 @@ include "configuration/config_all_stat.php";
     exit(0);
   }
   ?>
+
+  <?php
+  if (isset($_POST['setting'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $kelas = mysqli_real_escape_string($conn, $_POST["kelas"]);
+      $period = mysqli_real_escape_string($conn, $_POST["period"]);
+      $jenis = mysqli_real_escape_string($conn, $_POST["jenis"]);
+      $bayar = mysqli_real_escape_string($conn, $_POST["bebas"]);
+
+      $user = $_SESSION['nama'];
+      $now  = date('Y-m-d');
+
+      $query = mysqli_query($conn, "SELECT * FROM student WHERE kelas_id = '$kelas'");
+      while ($row = mysqli_fetch_assoc($query)) {
+        $murid = $row['student_id'];
+
+        $sql_biaya_admin = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM biaya_admin WHERE id = 1"));
+
+        $sql_siswanya = "SELECT * FROM bebasan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis'";
+        $sql = mysqli_query($conn, $sql_siswanya);
+        if (mysqli_num_rows($sql) > 0) {
+          $sqlan = "UPDATE bebasan 
+          SET 
+            bill='$bayar',
+            biaya_admin = " . $sql_biaya_admin['biaya'] . ", 
+            status = 'belum', 
+            sudahbayar = '0', 
+            kasir = '$user', 
+            tgl_input = '$now' 
+          WHERE 
+            period_id='$period' AND 
+            student_id='$murid' AND 
+            jenis_id='$jenis'
+          ";
+        } else {
+          $sqlan = "INSERT INTO bebasan
+          (
+            period_id,
+            student_id,
+            jenis_id,
+            bill,
+            biaya_admin,
+            status,
+            sudahbayar,
+            kasir,
+            tgl_input
+          )
+          VALUES
+          (
+            '$period',
+            '$murid',
+            '$jenis',
+            '$bayar', 
+            " . $sql_biaya_admin['biaya'] . ", 
+            'belum',
+            '0',
+            '$user',
+            '$now'
+          )";
+        }
+        $sql1 = mysqli_query($conn, $sqlan);
+
+        echo "<script type='text/javascript'>window.location = 'pos_setting?q=$jenis&insert=true';</script>";
+      }
+    } else {
+      echo "<script type='text/javascript'>window.location = 'pos_setting?q=$jenis&insert=false';</script>";
+    }
+  }
+  ?>
+
 
   <?php
   body();
@@ -44,46 +109,18 @@ include "configuration/config_all_stat.php";
   error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
   include "configuration/config_chmod.php";
 
-  $halaman = "pos_setting_byclass"; // halaman
-  $dataapa = "Per Kelas"; // data
-  $tabeldatabase = "bebasan"; // tabel database
-  $chmod = $chmenu2; // Hak akses Menu
-  $forward = mysqli_real_escape_string($conn, $tabeldatabase); // tabel database
-  $forwardpage = mysqli_real_escape_string($conn, $halaman); // halaman
-
-
+  $halaman       = "pos_setting_byclass";                             // halaman
+  $dataapa       = "Per Kelas";                                       // data
+  $tabeldatabase = "bebasan";                                         // tabel database
+  $chmod         = $chmenu2;                                          // Hak akses Menu
+  $forward       = mysqli_real_escape_string($conn, $tabeldatabase);  // tabel database
+  $forwardpage   = mysqli_real_escape_string($conn, $halaman);        // halaman
 
   $jenis_id = $_GET['q'];
   $a = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM jenis_bayar WHERE jenis_id='$jenis_id'"));
-
-
   //End Setting Halaman
-
-  ?>
-
-  <?php
-
   menu();
-
   ?>
-
-
-
-
-  <!-- Letak Kode PHP atas -->
-
-
-
-  <!-- END Letak Kode PHP atas -->
-
-
-
-
-
-  <!-- ============================================================== -->
-  <!-- Start Page Content here -->
-  <!-- ============================================================== -->
-
 
   <div class="content-page">
     <div class="content">
@@ -215,68 +252,13 @@ include "configuration/config_all_stat.php";
       <!-- END FOOTER-->
 
     </div>
-
-
-
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
-
-
-
-
-
-
     <!-- Sidebar Kanan -->
     <?php
-
     right();
-
     ?>
-
-    <!-- End Sidebar Kanan -->
-
-
-
-
-
-    <!-- Letak Kode PHP Bawah -->
-
-    <?php
-    if (isset($_POST['setting'])) {
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        $kelas = mysqli_real_escape_string($conn, $_POST["kelas"]);
-        $period = mysqli_real_escape_string($conn, $_POST["period"]);
-        $jenis = mysqli_real_escape_string($conn, $_POST["jenis"]);
-        $bayar = mysqli_real_escape_string($conn, $_POST["bebas"]);
-
-        $user = $_SESSION['nama'];
-        $now = date('Y-m-d');
-
-        $query = mysqli_query($conn, "SELECT * FROM student WHERE kelas_id='$kelas'");
-        while ($row = mysqli_fetch_assoc($query)) {
-          $murid = $row['student_id'];
-
-          $sql_siswanya = "SELECT * FROM bebasan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis'";
-
-          $sql = mysqli_query($conn, $sql_siswanya);
-          $sql_biaya_admin = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM biaya_admin WHERE id = 1"));
-
-          if (mysqli_num_rows($sql) > 0) {
-            $sql1 = mysqli_query($conn, "UPDATE bebasan SET biaya_admin = " . $sql_biaya_admin['biaya'] . ", bill='$bayar',status='belum', sudahbayar='0', kasir='$user', tgl_input='$now' WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis'");
-          } else {
-            $sql1 = mysqli_query($conn, "INSERT INTO bebasan VALUES('','$period','$murid','$jenis','$bayar', " . $sql_biaya_admin['biaya'] . ", 'belum','0','$user','$now')");
-          }
-
-          echo "<script type='text/javascript'>window.location = 'pos_setting?q=$jenis&insert=true';</script>";
-        }
-      }
-    } ?>
-
-
-
-    <!-- END Letak Kode PHP bawah -->
 
     <script src="assets/jQuery/jquery-2.2.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>

@@ -71,7 +71,7 @@ if ($forward == 'report_trx') {
 	// Buat header tabel nya pada baris ke 3
 	$excel->setActiveSheetIndex(0)->setCellValue('A3', "NO"); // Set kolom A3 dengan tulisan "NO"
 	$excel->setActiveSheetIndex(0)->setCellValue('B3', "TANGGAl"); // Set kolom B3 dengan tulisan "NIS"
-	$excel->setActiveSheetIndex(0)->setCellValue('C3', "NAMA"); // Set kolom C3 dengan tulisan "NAMA"
+	$excel->setActiveSheetIndex(0)->setCellValue('C3', "KETERANGAN"); // Set kolom C3 dengan tulisan "KETERANGAN"
 	$excel->setActiveSheetIndex(0)->setCellValue('D3', "TIPE"); // Set kolom D3 dengan tulisan "JENIS KELAMIN"
 	$excel->setActiveSheetIndex(0)->setCellValue('E3', "JUMLAH"); // Set kolom E3 dengan tulisan "TELEPON"
 	$excel->setActiveSheetIndex(0)->setCellValue('F3', "OLEH"); // Set kolom F3 dengan tulisan "ALAMAT"

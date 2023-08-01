@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
-
 ?>
 
 <head>
@@ -24,63 +22,27 @@ include "configuration/config_all_stat.php";
     ?>
 
     <?php
-
     if (!login_check()) {
     ?>
         <meta http-equiv="refresh" content="0; url=logout" />
     <?php
         exit(0);
     }
-    ?>
-
-    <?php
     body();
     theader();
     etc();
-
-
     //Setting Halaman
-
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     include "configuration/config_chmod.php";
-
     $halaman = "report_finance"; // halaman
     $dataapa = "Laporan Keuangan"; // data
     $tabeldatabase = "kosong"; // tabel database
     $chmod = $chmenu6; // Hak akses Menu
     $forward = mysqli_real_escape_string($conn, $tabeldatabase); // tabel database
     $forwardpage = mysqli_real_escape_string($conn, $halaman); // halaman
-
-
     //End Setting Halaman
-
-    ?>
-
-    <?php
-
     menu();
-
     ?>
-
-
-
-
-    <!-- Letak Kode PHP atas -->
-
-
-
-
-    <!-- END Letak Kode PHP atas -->
-
-
-
-
-
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
-
-
     <div class="content-page">
         <div class="content">
 
@@ -143,14 +105,14 @@ include "configuration/config_all_stat.php";
 
                 <?php
                 $start_obj = new DateTime('first day of this month');
-                $end_obj = new DateTime('last day of this month');
+                $end_obj   = new DateTime('last day of this month');
+                $start     = $start_obj->format('Y-m-d');
+                $end       = $end_obj->format('Y-m-d');
 
-                $start = $start_obj->format('Y-m-d');
-                $end = $end_obj->format('Y-m-d');
                 if (isset($_GET['rentang'])) {
-                    $dat = $_GET['rentang'];
+                    $dat               = $_GET['rentang'];
                     list($start, $end) = explode(' - ', $dat);
-                    $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM data"));
+                    $sql               = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM data"));
                 ?>
 
                     <div class="row">
@@ -167,7 +129,7 @@ include "configuration/config_all_stat.php";
                                 <div class="row">
                                     <div class="col-md-7 border-right">
                                         <div class="mt-3">
-                                            <?Php
+                                            <?php
                                             echo '<p><b>' . $sql['nama'] . '</b></p>';
                                             echo '<p style="width:70%">' . $sql['alamat'] . '<br>P: ' . $sql['notelp'] . '<br>E: ' . $sql['email'] . ' </p>';
                                             ?>
@@ -197,17 +159,17 @@ include "configuration/config_all_stat.php";
 
                                                     </tr>
                                                 </thead>
-
-
                                                 <tbody>
                                                     <tr class="table-secondary">
                                                         <td colspan="4"><b>PENERIMAAN</b></td>
                                                     </tr>
 
+                                                    <!-- START PENERIMAAN BULANAN -->
                                                     <?php
                                                     // pemasukan bulanan
                                                     $sub_total_masuk = 0;
-                                                    $grand_total = 0;
+                                                    $grand_total     = 0;
+
                                                     $sql_bulanan = "
                                                     SELECT
                                                         uang_masuk_keluar.bulanan_id,
@@ -230,7 +192,6 @@ include "configuration/config_all_stat.php";
                                                     $query_bulanan = mysqli_query($conn, $sql_bulanan);
                                                     $nr_bulanan = mysqli_num_rows($query_bulanan);
                                                     while ($row = mysqli_fetch_array($query_bulanan)) {
-                                                        $bulanan_id       = $row['bulanan_id'];
                                                         $sub_total_masuk += $row['jumlah'];
                                                         $grand_total     += $row['jumlah'];
                                                     ?>
@@ -241,11 +202,16 @@ include "configuration/config_all_stat.php";
                                                             <td>
                                                                 <?= number_format($row['jumlah']); ?>
                                                             </td>
-                                                            <td style="width:15%"></td>
+                                                            <td style="width:15%">
+                                                                0
+                                                                <!-- PENGELUARAN -->
+                                                            </td>
                                                             <td><?= number_format($sub_total_masuk); ?></td>
                                                         </tr>
                                                     <?php } ?>
+                                                    <!-- END PENERIMAAN BULANAN -->
 
+                                                    <!-- START PENERIMAAN BEBAS -->
                                                     <?php
                                                     // pemasukan bebas
                                                     $sql_bebas = "
@@ -281,7 +247,10 @@ include "configuration/config_all_stat.php";
                                                             <td>
                                                                 <?= number_format($row['jumlah']); ?>
                                                             </td>
-                                                            <td style="width:15%"></td>
+                                                            <td style="width:15%">
+                                                                0
+                                                                <!-- PEMASUKAN -->
+                                                            </td>
                                                             <td><?= number_format($sub_total_masuk); ?></td>
                                                         </tr>
                                                     <?php } ?>
@@ -321,7 +290,7 @@ include "configuration/config_all_stat.php";
                                                             <td>
                                                                 <?= number_format($row['jumlah']); ?>
                                                             </td>
-                                                            <td style="width:15%"></td>
+                                                            <td style="width:15%">0</td>
                                                             <td><?= number_format($sub_total_masuk); ?></td>
                                                         </tr>
                                                     <?php } ?>
@@ -344,7 +313,7 @@ include "configuration/config_all_stat.php";
                                                         )
                                                     ";
                                                     $query_tabungan = mysqli_query($conn, $sql_tabungan);
-                                                    $nr_tabungan = mysqli_num_rows($query_tabungan);
+                                                    $nr_tabungan    = mysqli_num_rows($query_tabungan);
                                                     while ($row = mysqli_fetch_array($query_tabungan)) {
                                                         $tabungan_id      = $row['tabungan_id'];
                                                         $sub_total_masuk += $row['jumlah'];
@@ -357,7 +326,7 @@ include "configuration/config_all_stat.php";
                                                             <td>
                                                                 <?= number_format($row['jumlah']); ?>
                                                             </td>
-                                                            <td style="width:15%"></td>
+                                                            <td style="width:15%">0</td>
                                                             <td><?= number_format($sub_total_masuk); ?></td>
                                                         </tr>
                                                     <?php } ?>
@@ -400,6 +369,7 @@ include "configuration/config_all_stat.php";
                                                                 <?= $row['jenis_pembayaran']; ?>
                                                             </td>
                                                             <td style="width:15%">
+                                                                0
                                                             </td>
                                                             <td>
                                                                 <?= number_format($row['jumlah']); ?>
@@ -428,15 +398,16 @@ include "configuration/config_all_stat.php";
                                                     $query_tabungan = mysqli_query($conn, $sql_tabungan);
                                                     $nr_tabungan = mysqli_num_rows($query_tabungan);
                                                     while ($row = mysqli_fetch_array($query_tabungan)) {
-                                                        $tabungan_id      = $row['tabungan_id'];
+                                                        $tabungan_id            = $row['tabungan_id'];
                                                         $sub_total_pengeluaran += $row['jumlah'];
-                                                        $grand_total     += $row['jumlah'];
+                                                        $grand_total           -= $row['jumlah'];
                                                     ?>
                                                         <tr>
                                                             <td>
                                                                 Tabungan Keluar
                                                             </td>
                                                             <td>
+                                                                0
                                                             </td>
                                                             <td style="width:15%">
                                                                 <?= number_format($row['jumlah']); ?>

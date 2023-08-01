@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
-
 ?>
 
 <head>
@@ -34,6 +32,81 @@ include "configuration/config_all_stat.php";
   ?>
 
   <?php
+  if (isset($_POST['setting'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+      $murid  = mysqli_real_escape_string($conn, $_POST["student"]);
+      $period = mysqli_real_escape_string($conn, $_POST["period"]);
+      $jenis  = mysqli_real_escape_string($conn, $_POST["jenis"]);
+
+      $user = $_SESSION['nama'];
+      $now  = date('Y-m-d');
+
+      $query_biaya_admin = mysqli_query($conn, "SELECT biaya FROM biaya_admin WHERE id = 1");
+      $row_biaya_admin   = mysqli_fetch_assoc($query_biaya_admin);
+
+      $i = 0;
+      while ($i < 12) {
+        $i++;
+        $bulan = mysqli_real_escape_string($conn, $_POST['bulan' . $i]);
+
+        $sqlan = "SELECT * FROM bulanan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis' AND month_id='$i'";
+        $cek = mysqli_query($conn, $sqlan);
+
+        if (mysqli_num_rows($cek) > 0) {
+          $sqlan = "UPDATE bulanan 
+          SET 
+            bulanan_bill = '" . $bulan . "', 
+            bulanan_status = 'belum',
+            bulanan_bayar = '0',
+            biaya_admin = '" . $row_biaya_admin['biaya'] . "', 
+            kasir = '" . $user . "',
+            tgl_input = '" . $now . "'
+          WHERE 
+              period_id = '" . $period . "' AND 
+              student_id = '" . $murid . "' AND 
+              jenis_id='" . $jenis . "' AND 
+              month_id = '" . $i . "'
+          ";
+        } else {
+          $sqlan = "INSERT 
+          INTO bulanan 
+          (
+            period_id,
+            student_id,
+            jenis_id,
+            month_id,
+            bulanan_bill,
+            bulanan_status,
+            bulanan_bayar,
+            biaya_admin,
+            kasir,
+            tgl_input
+          )
+          VALUES
+          (
+            '$period',
+            '$murid',
+            '$jenis',
+            '$i',
+            '$bulan',
+            'belum',
+            '0', 
+            '" . $row_biaya_admin['biaya'] . "', 
+            '$user',
+            '$now'
+          )";
+        }
+
+        $sql = mysqli_query($conn, $sqlan);
+      }
+
+      echo "<script type='text/javascript'>window.location = 'pos_setting?q=$jenis&insert=true';</script>";
+    }
+  }
+  ?>
+
+  <?php
   body();
   theader();
   etc();
@@ -44,48 +117,20 @@ include "configuration/config_all_stat.php";
   error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
   include "configuration/config_chmod.php";
 
-  $halaman = "pos_setting_student"; // halaman
-  $dataapa = "Per Kelas"; // data
-  $tabeldatabase = "bulanan"; // tabel database
-  $chmod = $chmenu2; // Hak akses Menu
-  $forward = mysqli_real_escape_string($conn, $tabeldatabase); // tabel database
-  $forwardpage = mysqli_real_escape_string($conn, $halaman); // halaman
-
-
+  $halaman       = "pos_setting_student";                             // halaman
+  $dataapa       = "Per Kelas";                                       // data
+  $tabeldatabase = "bulanan";                                         // tabel database
+  $chmod         = $chmenu2;                                          // Hak akses Menu
+  $forward       = mysqli_real_escape_string($conn, $tabeldatabase);  // tabel database
+  $forwardpage   = mysqli_real_escape_string($conn, $halaman);        // halaman
 
   $jenis_id = $_GET['q'];
-  $a = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM jenis_bayar WHERE jenis_id='$jenis_id'"));
-
-  $b = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months"));
-
+  $a        = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM jenis_bayar WHERE jenis_id = '$jenis_id'"));
+  $b        = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM months"));
   //End Setting Halaman
 
-  ?>
-
-  <?php
-
   menu();
-
   ?>
-
-
-
-
-  <!-- Letak Kode PHP atas -->
-
-
-
-  <!-- END Letak Kode PHP atas -->
-
-
-
-
-
-  <!-- ============================================================== -->
-  <!-- Start Page Content here -->
-  <!-- ============================================================== -->
-
-
   <div class="content-page">
     <div class="content">
 
@@ -234,10 +279,6 @@ include "configuration/config_all_stat.php";
 
               }
             </script>
-
-
-
-
           </div>
           <div class="col-md-6">
             <div class="card-box">
@@ -253,38 +294,42 @@ include "configuration/config_all_stat.php";
                 <?php
                 $sqla = mysqli_query($conn, "SELECT * FROM months ORDER BY month_id");
                 while ($fill = mysqli_fetch_assoc($sqla)) {
-                  echo   '<div class="form-group row">';
-                  echo     '    <label for="inputEmail3" class="col-3 col-form-label">' . $fill['month_name'] . '</label>';
-                  echo    ' <div class="col-9">';
+                ?>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">
+                      <?= $fill['month_name']; ?>
+                    </label>
+                    <div class="col-9">
+                      <?php
+                      if (isset($_GET['siswa'])) {
+                        $t      = $fill['month_id'];
+                        $p      = $a['period_id'];
+                        $j      = $jenis_id;
+                        $s      = $_GET['siswa'];
+                        $sqlnya = "SELECT * FROM bulanan WHERE period_id = '$p' AND student_id = '$s' AND jenis_id = '$j' AND month_id='$t'";
+                        $w      = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
+                        $bill   = $w['bulanan_bill'] ?? null;
+                      ?>
+                        <input type="text" class="form-control" id="bulan<?= $fill['month_id']; ?>" name="bulan<?= $fill['month_id']; ?>" placeholder="50000" value="<?= $bill; ?>">
+                    <?php
+                      } else {
 
-                  if (isset($_GET['siswa'])) {
-                    $t = $fill['month_id'];
-                    $p = $a['period_id'];
-                    $j = $jenis_id;
-                    $s = $_GET['siswa'];
-                    $sqlnya = "SELECT * FROM bulanan WHERE period_id='$p' AND student_id='$s' AND jenis_id='$j' AND month_id='$t'";
-                    $w = mysqli_fetch_assoc(mysqli_query($conn, $sqlnya));
-                    $bill = $w['bulanan_bill'];
-                    echo  '<input type="text" class="form-control" id="bulan' . $fill['month_id'] . '" name="bulan' . $fill['month_id'] . '" placeholder="50000" value="' . $bill . '">';
-                  } else {
+                        echo  '<input type="text" class="form-control" id="bulan' . $fill['month_id'] . '" name="bulan' . $fill['month_id'] . '" placeholder="50000">';
+                      }
 
-                    echo  '<input type="text" class="form-control" id="bulan' . $fill['month_id'] . '" name="bulan' . $fill['month_id'] . '" placeholder="50000">';
-                  }
+                      echo  '  </div>';
+                      echo   '</div>';
+                    }
+                    ?>
 
-                  echo  '  </div>';
-                  echo   '</div>';
-                } ?>
-
-
-
-
-
-                <div class="form-group mb-0 row">
-                  <div class="offset-3 col-9">
-                    <button type="submit" name="setting" class="btn btn-success waves-effect waves-light">Simpan</button>
-                    <a href="pos_setting?q=<?php echo $jenis_id; ?>" class="btn btn-secondary waves-effect waves-light">Batal</a>
-                  </div>
-                </div>
+                    <div class="form-group mb-0 row">
+                      <div class="offset-3 col-9">
+                        <button type="submit" name="setting" class="btn btn-success waves-effect waves-light">
+                          Simpan
+                        </button>
+                        <a href="pos_setting?q=<?php echo $jenis_id; ?>" class="btn btn-secondary waves-effect waves-light">Batal</a>
+                      </div>
+                    </div>
               </form>
             </div>
           </div>
@@ -315,17 +360,9 @@ include "configuration/config_all_stat.php";
   <!-- ============================================================== -->
   <!-- End Page content -->
   <!-- ============================================================== -->
-
-
-
-
-
-
   <!-- Sidebar Kanan -->
   <?php
-
   right();
-
   ?>
 
   <!-- End Sidebar Kanan -->
@@ -335,41 +372,6 @@ include "configuration/config_all_stat.php";
 
 
   <!-- Letak Kode PHP Bawah -->
-
-  <?php
-  if (isset($_POST['setting'])) {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-      $murid = mysqli_real_escape_string($conn, $_POST["student"]);
-      $period = mysqli_real_escape_string($conn, $_POST["period"]);
-      $jenis = mysqli_real_escape_string($conn, $_POST["jenis"]);
-
-      $user = $_SESSION['nama'];
-      $now = date('Y-m-d');
-
-      $query_biaya_admin = mysqli_query($conn, "SELECT biaya FROM biaya_admin WHERE id = 1");
-      $row_biaya_admin   = mysqli_fetch_assoc($query_biaya_admin);
-
-
-      $i = 0;
-      while ($i <= 11) {
-        $i++;
-        $bulan = mysqli_real_escape_string($conn, $_POST["bulan$i"]);
-
-        $cek = mysqli_query($conn, "SELECT * FROM bulanan WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis' AND month_id='$i'");
-
-        if (mysqli_num_rows($cek) > 0) {
-
-          $sql = mysqli_query($conn, "UPDATE bulanan SET biaya_admin = '" . $row_biaya_admin['biaya'] . "', bulanan_bill='$bulan', bulanan_status='belum',bulanan_bayar='0',kasir='$user',tgl_input='$now' WHERE period_id='$period' AND student_id='$murid' AND jenis_id='$jenis' AND month_id='$i' ");
-        } else {
-
-          $sql = mysqli_query($conn, "INSERT INTO bulanan VALUES('','$period','$murid','$jenis','$i','$bulan','belum','0', '" . $row_biaya_admin['biaya'] . "', '$user','$now')");
-        }
-      }
-
-      echo "<script type='text/javascript'>window.location = 'pos_setting?q=$jenis&insert=true';</script>";
-    }
-  } ?>
 
 
 

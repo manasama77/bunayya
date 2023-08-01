@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
-
 ?>
 
 <head>
@@ -88,7 +86,9 @@ include "configuration/config_all_stat.php";
                 <div class="row">
                     <div class="col-12">
                         <?php if ($chmod >= 3 || $_SESSION['jabatan'] == 'admin') { ?>
-                            <a href="tabungan_add.php" class="btn btn-success waves-effect waves-light">Tambah Tabungan</a>
+                            <a href="tabungan_add.php" class="btn btn-primary waves-effect waves-light">
+                                Manage Tabungan
+                            </a>
                         <?php } ?>
                     </div>
                 </div>

@@ -40,6 +40,24 @@ if ($tipe == "keluar") {
     }
 }
 
+$sql_periode   = "select * from periode where status = 'active'";
+$query_periode = mysqli_query($conn, $sql_periode);
+$nr_periode    = mysqli_num_rows($query_periode);
+if ($nr_periode == 0) {
+    echo json_encode([
+        'code'    => 500,
+        'message' => "Periode not found",
+        'saldo'   => 0,
+        'data'    => [],
+    ]);
+    exit;
+}
+$row_period  = mysqli_fetch_assoc($query_periode);
+$period_no   = $row_period['no'];
+$period_name = $row_period['period_name'];
+
+$now = date("Y-m-d");
+
 if ($nr_tabungan == 0) {
     // insert baru
     $sql                = "insert into master_tabungan (id_siswa, tabungan) values ('$id_siswa', '$nilai')";
@@ -65,27 +83,10 @@ if ($nr_tabungan == 0) {
     $row_siswa            = mysqli_fetch_assoc($query_siswa);
     $nis_siswa            = $row_siswa['nis'];
     $nama_siswa           = $row_siswa['nama'];
-    $nama_transaksi       = "Tabungan";
-    $keterangan_transaksi = "Tabungan $nis_siswa $nama_siswa";
+    $nama_transaksi       = "Tabungan Keluar";
+    $keterangan_transaksi = "Tabungan Keluar $nis_siswa $nama_siswa";
     $kasir                = $_SESSION['nama'];
     $kategori_id          = 9998;                                 // id dari table uang_kategori;
-
-    $sql_periode   = "select * from periode where status = 'active'";
-    $query_periode = mysqli_query($conn, $sql_periode);
-    $nr_periode    = mysqli_num_rows($query_periode);
-    if ($nr_periode == 0) {
-        echo json_encode([
-            'code'    => 500,
-            'message' => "Periode not found",
-            'saldo'   => 0,
-            'data'    => [],
-        ]);
-        exit;
-    }
-    $row_period  = mysqli_fetch_assoc($query_periode);
-    $period_name = $row_period['period_name'];
-
-    $now = date("Y-m-d");
 
     $sql_uang = "insert into uang_masuk_keluar 
     (
@@ -122,6 +123,8 @@ if ($nr_tabungan == 0) {
         'cash'
     )
     ";
+    echo '<pre>' . print_r($sql_uang, 1) . '</pre>';
+    exit;
     $query_uang = mysqli_query($conn, $sql_uang);
 
     echo json_encode([
@@ -159,27 +162,10 @@ if ($nr_tabungan == 0) {
         $row_siswa            = mysqli_fetch_assoc($query_siswa);
         $nis_siswa            = $row_siswa['nis'];
         $nama_siswa           = $row_siswa['nama'];
-        $nama_transaksi       = "Tabungan";
-        $keterangan_transaksi = "Tabungan $nis_siswa $nama_siswa";
+        $nama_transaksi       = "Tabungan Masuk";
+        $keterangan_transaksi = "Tabungan Masuk $nis_siswa $nama_siswa";
         $kasir                = $_SESSION['nama'];
         $kategori_id          = 9998;                                 // id dari table uang_kategori;
-
-        $sql_periode   = "select * from periode where status = 'active'";
-        $query_periode = mysqli_query($conn, $sql_periode);
-        $nr_periode    = mysqli_num_rows($query_periode);
-        if ($nr_periode == 0) {
-            echo json_encode([
-                'code'    => 500,
-                'message' => "Periode not found",
-                'saldo'   => 0,
-                'data'    => [],
-            ]);
-            exit;
-        }
-        $row_period  = mysqli_fetch_assoc($query_periode);
-        $period_name = $row_period['period_name'];
-
-        $now = date("Y-m-d");
 
         $sql_uang = "insert into uang_masuk_keluar 
         (
@@ -203,11 +189,11 @@ if ($nr_tabungan == 0) {
             'in',
             '$keterangan_transaksi',
             '$keterangan_transaksi',
-            '$nilai',
+            $nilai,
             '$kasir',
-            '$kategori_id',
+            $kategori_id,
             '$id_siswa',
-            '$period_name',
+            $period_no,
             '0',
             '0',
             '$last_id',
@@ -216,8 +202,6 @@ if ($nr_tabungan == 0) {
             'cash'
         )
         ";
-        // echo $sql_uang;
-        // exit;
         $query_uang = mysqli_query($conn, $sql_uang);
 
         echo json_encode([
@@ -263,23 +247,6 @@ if ($nr_tabungan == 0) {
         $kasir                = $_SESSION['nama'];
         $kategori_id          = 9999;                                 // id dari table uang_kategori;
 
-        $sql_periode   = "select * from periode where status = 'active'";
-        $query_periode = mysqli_query($conn, $sql_periode);
-        $nr_periode    = mysqli_num_rows($query_periode);
-        if ($nr_periode == 0) {
-            echo json_encode([
-                'code'    => 500,
-                'message' => "Periode not found",
-                'saldo'   => 0,
-                'data'    => [],
-            ]);
-            exit;
-        }
-        $row_period  = mysqli_fetch_assoc($query_periode);
-        $period_name = $row_period['period_name'];
-
-        $now = date("Y-m-d");
-
         $sql_uang = "insert into uang_masuk_keluar 
         (
             tipe, 
@@ -306,7 +273,7 @@ if ($nr_tabungan == 0) {
             '$kasir',
             '$kategori_id',
             '$id_siswa',
-            '$period_name',
+            '$period_no',
             '0',
             '0',
             '$last_id',

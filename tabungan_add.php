@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <?php
-
 include "configuration/config_include.php";
 include "configuration/config_all_stat.php";
-
 ?>
 
 <head>
@@ -204,7 +202,11 @@ include "configuration/config_all_stat.php";
 
         $('#form').on('submit', e => {
             e.preventDefault()
-            storeTabungan()
+            if (!$('#nilai').val() || $('#nilai').val() == 0) {
+                alert("Nominal tidak boleh kosong");
+            } else {
+                storeTabungan()
+            }
         })
         $('#id_kelas').on('change', e => {
             e.preventDefault()
