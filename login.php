@@ -78,7 +78,7 @@ $msg = $_GET['msg'];
                     </a>
                 </div>
             </div>
-            <h4 class="text-uppercase mb-1 mt-4 text-center">Aplikasi Manajemen Siswa Yayasan Bunayya
+            <h4 class="text-uppercase mb-1 mt-4 text-center">Aplikasi Manajemen Siswa
             </h4>
 
             <h5 class="text mb-1 mt-4 text-center">Developer by Trijaya Solution</h5>
