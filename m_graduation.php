@@ -95,9 +95,10 @@ if (isset($_POST['convert'])) {
         ";
         $exec_alumni = mysqli_query($conn, $sqlnya);
 
-
-        $sql_delete = "DELETE FROM student WHERE student_id = '$student_id' AND status = 'lulus'";
-        mysqli_query($conn, $sql_delete);
+        if ($exec_alumni) {
+          $sql_delete = "DELETE FROM student WHERE student_id = '$student_id' AND status = 'lulus'";
+          mysqli_query($conn, $sql_delete);
+        }
       }
     }
     header("location:$forwardpage?pr=$kelas&insert=graduate");
