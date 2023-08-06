@@ -7,6 +7,15 @@ include "configuration/config_connect.php";
 $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT avatar,nama FROM data where no='0'"));
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 $msg = $_GET['msg'];
+
+$sql_logo = "SELECT avatar FROM `data`";
+$exec = mysqli_query($conn, $sql_logo);
+$logo = mysqli_fetch_assoc($exec)['avatar'];
+$exist = file_exists($logo);
+
+if (!$exist) {
+    $logo = "upload/image/login_default.jpg";
+}
 ?>
 
 
@@ -44,8 +53,10 @@ $msg = $_GET['msg'];
                             <div class="account-box">
                                 <div class="account-logo-box">
                                     <div class="text-center">
-                                        <a href="index.html">
-                                            <img src="./assets/images/Login admin.jpg" alt="Icon Login Admin" style="width: 100px;">
+                                        <a href="#">
+                                            <?php
+                                            ?>
+                                            <img src="<?= $logo; ?>" alt="Logo SPP" style="width: 100px;">
                                         </a>
                                     </div>
 
