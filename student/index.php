@@ -20,7 +20,7 @@ include "configuration/config_all_stat.php";
     <?php
 
     head();
-
+    timing();
     session();
     connect();
 

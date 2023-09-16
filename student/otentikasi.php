@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $hasil = mysqli_query($conn, $sql);
   if (mysqli_num_rows($hasil) > 0) {
     $data = mysqli_fetch_assoc($hasil);
+    $_SESSION['username'] = $data['nis'];
     $_SESSION['nis'] = $data['nis'];
     $_SESSION['nisn'] = $data['nisn'];
     $_SESSION['nama'] = $data['nama'];
@@ -43,10 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['baseurl'] = $baseurl;
 
     login_validate();
-    header("Location: index");
+    header("Location: index.php");
   } else {
-
-
     header("Location: login?msg=0");
   }
 }

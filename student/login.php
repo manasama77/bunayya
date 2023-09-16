@@ -6,12 +6,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 $msg = $_GET['msg'];
 include "../configuration/config_connect.php";
 $sql = mysqli_fetch_assoc(mysqli_query($conn, "SELECT avatar,nama FROM data where no='0'"));
-
-
-
 ?>
-
-
 
 <head>
     <meta charset="utf-8" />
