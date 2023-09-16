@@ -54,8 +54,6 @@ if (!$exist) {
                                 <div class="account-logo-box">
                                     <div class="text-center">
                                         <a href="#">
-                                            <?php
-                                            ?>
                                             <img src="<?= $logo; ?>" alt="Logo SPP" style="width: 100px;">
                                         </a>
                                     </div>

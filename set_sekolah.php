@@ -264,20 +264,21 @@ if (isset($_POST['setting'])) {
         $signature = $_POST['signature'];
 
         $email = $_POST['email'];
-        $web = $_POST['web'];
-        $npwp = $_POST['npwp'];
+        $web   = $_POST['web'];
+        $npwp  = $_POST['npwp'];
 
-        $namaavatar = $_FILES['avatar']['name'];
+        $namaavatar   = $_FILES['avatar']['name'];
         $ukuranavatar = $_FILES['avatar']['size'];
-        $tipeavatar = $_FILES['avatar']['type'];
-        $tmp = $_FILES['avatar']['tmp_name'];
-        $avatar = "upload/image/" . $namaavatar;
-        $sql = "select * from data";
-        $result = mysqli_query($conn, $sql);
+        $tipeavatar   = $_FILES['avatar']['type'];
+        $tmp          = $_FILES['avatar']['tmp_name'];
+        $avatar       = "upload/image/" . $namaavatar;
+        $sql          = "select * from data";
+        $result       = mysqli_query($conn, $sql);
+
         if (mysqli_num_rows($result) > 0) {
 
             if (mysqli_num_rows($result) > 0) {
-                if ((($tipeavatar == "image/jpeg" || $tipeavatar == "image/png") && ($ukuranavatar <= 10000000)) && ($chmod >= 3 || $_SESSION['jabatan'] == 'admin')) {
+                if ((($tipeavatar == "image/jpeg" || $tipeavatar == "image/png") && ($ukuranavatar > 0 && $ukuranavatar <= 10000000)) && ($chmod >= 3 || $_SESSION['jabatan'] == 'admin')) {
                     move_uploaded_file($tmp, $avatar);
                     $sql1 = "update data set nama='$nama', alamat='$alamat', notelp='$notelp', tagline='$tagline', signature='$signature', email='$email', web='$web', npwp='$npwp', avatar='$avatar'";
                     $updatean = mysqli_query($conn, $sql1);

@@ -148,13 +148,22 @@ $biaya_admin     = $arr_biaya_admin['biaya'];
                                                 $i = 0;
                                                 while ($i <= 11) {
                                                     $i++;
-                                                    $qs = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM bulanan WHERE jenis_id='$j' AND period_id='$periode' AND student_id='$id' AND month_id='$i'"));
-                                                    if ($qs['bulanan_status'] == 'sudah') {
-                                                        echo '<td class="table-success"><a href="receipt?no=' . $qs['no'] . '&tipe=1">' . date('d/m/y', strtotime($qs['tgl_input'])) . '</a><br>LUNAS </td>';
+                                                    $sqlnya = "SELECT * FROM bulanan WHERE jenis_id='$j' AND period_id='$periode' AND student_id='$id' AND month_id='$i'";
+                                                    $mq = mysqli_query($conn, $sqlnya);
+                                                    $qs = mysqli_fetch_assoc($mq);
+                                                    $nr = mysqli_num_rows($mq);
+
+                                                    if ($nr == 0) {
+                                                        echo '<td class="table-dark text-center">-</td>';
                                                     } else {
-                                                        $title_bayar = $qr['nama'] . "-T.A" . $qr['tahunajar'];
-                                                        $total       = $qs['bulanan_bill'] + $biaya_admin;
-                                                        echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '" data-bulan="' . $nama_bulan . '" data-payment_table="Bulanan"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
+
+                                                        if ($qs['bulanan_status'] == 'sudah') {
+                                                            echo '<td class="table-success"><a href="receipt?no=' . $qs['no'] . '&tipe=1">' . date('d/m/y', strtotime($qs['tgl_input'])) . '</a><br>LUNAS </td>';
+                                                        } else {
+                                                            $title_bayar = $qr['nama'] . "-T.A" . $qr['tahunajar'];
+                                                            $total       = $qs['bulanan_bill'] + $biaya_admin;
+                                                            echo '<td><a href="#" class="btn_bayar" data-no="' . $qs['no'] . '" data-title="' . $title_bayar . '" data-bill="' . $qs['bulanan_bill'] . '" data-admin="' . $biaya_admin . '" data-total="' . $total . '" data-bulan="' . $nama_bulan . '" data-payment_table="Bulanan"><b>' . number_format($qs['bulanan_bill']) . '</b></a></td>';
+                                                        }
                                                     }
                                                 }
                                                 ?>
